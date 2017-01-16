@@ -1,0 +1,48 @@
+<app-header></app-header>
+
+<section class=" about-container-cover">
+  <div class=" about-container" >
+    <div class="about-text container">
+      <h1>Welcome</h1>
+      <p>Welcome to London City Roast. We roast over 100 wonderful coffees from around the world, including rare and exclusive varieties such as Kopi Luwak and Blue Mountain Jamaica, and deliver them directly to your door. We roast to order, so your coffee will always arrive in the freshest condition possible, and offer a range of grind options as well as whole beans. We also offer a sumptuous range of teas, as well as our ever-popular coffee gift hampers.</p>
+    </div>
+    <div class=" row about-images">
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+        <a target="_blank" href="{{image[0]}}">
+          <img class="rounded" src="{{image[0]}}"  alt="">
+        </a>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+        <a target="_blank" href="{{image[2]}}">
+          <img class="rounded" src="{{image[2]}}"  alt="">
+        </a>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+        <a target="_blank" href="{{image[1]}}">
+          <img class="rounded" src="{{image[1]}}"  alt="">
+        </a>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+        <a target="_blank" href="{{image[3]}}">
+          <img class="rounded" src="{{image[3]}}"  alt="">
+        </a>
+      </div>
+    </div>
+  </div>
+  <br><br><br>
+</section>
+<section class="front-shop clearfix">
+  <img class="img-bg" src="assets/cityroast.png" alt="">
+  <div class="items">
+    <div  class="shop-item rounded-top" *ngFor="let item of products">
+      <div class="item-img">
+        <img (click)="viewProduct(item)" class="rounded-top" [src]="item.imageUrl" style="width: 150px" alt="">
+      </div>
+      <h2>{{item.name}}</h2>
+      <h6>{{item.price | currency: 'GBP' :true}}</h6>
+      <p>
+        <a href="#">add to cart</a>
+      </p>
+    </div>
+  </div>
+</section>

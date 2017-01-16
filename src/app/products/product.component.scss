@@ -1,0 +1,117 @@
+@import '../../assets/stylesheets/variables';
+//---Product Form Section---//
+
+.fp-page-head{
+    background-color: $primary-color;
+    width: 100%;
+    height: 150px;
+    display: flex;
+    overflow: hidden;
+    // border-radius: 0px 0px 0px 200px;
+    img{
+        opacity: 0.2;
+        position: relative;
+        margin-bottom: -100px;
+        width: 100%;
+    }
+    .fp-page-title{
+        position: absolute;
+        top: 100px;
+        right: 50px;
+        h1{
+            color:#fff;
+            font-size: 2rem;
+        }
+    }
+}
+.fp-page-content{
+    max-width: 700px;
+    padding: 50px 0px;
+    p{
+        text-align: center;
+        padding: 20px 0px;
+    }
+    h4{
+        padding-top: 20px;
+        
+    }
+}
+.myinput input {
+    height: 100px;
+}
+.hidden{
+    opacity: 0;
+    width: 50px;
+}
+.display-image{
+    background-color: red;
+    position: absolute;
+    opacity: .8;
+}
+.file-input{
+    position: absolute;
+    top: 10%;
+    width: 50px;
+    opacity: .2;
+    overflow: hidden;
+    background-color: gray;
+  
+}
+span.add{
+    position: relative;
+    padding: 0px 5px;
+    text-align: center;
+    color: black;
+    z-index: -1000;
+    font-size: 14px;
+    margin: 0 auto;
+
+}
+
+//===Product View section===//
+.content-container{
+    // height: 500px;
+
+    .product-disply{
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 50px 0px;
+        display: flex;
+        align-content: space-between;
+
+        .product-img{
+            flex: 1;
+        }
+        .product-details{
+            padding-left: 20px;
+            flex: 2;
+        }
+    }
+}
+.other-product{
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    .other-item{
+        height: 200px;
+        flex: 1;
+        .other-item-details{
+            width: 100px;
+            text-align: center;
+            h6{
+                font-size: 12px;
+                padding: 0px;
+                margin: 0px;
+            }
+            p{
+                @extend h6;
+                font-size: 10px;
+                
+            }
+        }
+    }
+}
+
+.Shopping-container{
+    height: 400px;
+}

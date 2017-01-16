@@ -1,0 +1,41 @@
+<section >
+    <div class="fp-page-head">
+        <img src="assets/about-us.jpg"  alt="">
+        <div class="fp-page-title">
+        <h1>{{dproduct.name}}</h1>
+        </div>
+  </div>
+</section>
+<section class="container content-container">
+    <div *ngIf="dproduct.id" class="product-disply">
+        <div class="product-img">
+            <img [src]="dproduct.imageUrl" style="width: 250px" alt="">
+            <button (click)="back()" class="btn btn-secondary" type="button"> <<back </button>
+        </div>
+        <div class="product-details">
+            <h3>{{dproduct.name}}</h3>
+            <br>
+            <h5><span>Price: </span>{{dproduct.price | currency: 'GBP' :true}}</h5>
+            <div class="cart-select">
+                <span>Select: </span>
+                <input type="number" name="count" value="1">
+            </div>
+            <br>
+            <h6>Product Descriptions:</h6>
+            <p>{{dproduct.description}}</p>
+            <div class="add-to">
+                <h6> <button class="btn btn-success" type="button">Add to cart</button></h6>
+            </div>
+        </div>
+        
+    </div>
+    <!--<div class="other-product">
+        <div *ngFor="let product of products" class="other-item">
+            <img (click)="viewOthers(product)" [src]="product.imageUrl" style="width: 100px" alt="product image">
+            <div class="other-item-details">
+                <h6>{{product.name}}</h6>
+                <p>{{product.price | currency: 'GBP' :true}}</p>
+            </div>
+        </div>
+    </div>-->
+</section>

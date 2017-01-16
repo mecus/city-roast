@@ -1,0 +1,68 @@
+<div class="navbar">
+    <div class="brand-logo clearfix">
+        <ul class="brand-list">
+            <li class="brand-item-image">
+                 <div class="brand">
+                    <a *ngIf="!isRedlogo" routerLink="/"><img src="assets/logo-lcr-05.png" style="width: 100px" alt="lcr"></a>
+                    <a *ngIf="isRedlogo" routerLink="/"><img src="assets/LCRartwork-05.png" style="width: 100px" alt="lcr"></a>
+                 </div>
+            </li>
+            <li class="brand-item-text">
+                <div>
+                    <span class="logo-text">London City Roast</span>
+                    <h6>freshly made coffee</h6>
+                </div>
+            </li>
+        </ul>
+    </div>
+ 
+  <div class="right-nav">
+     <ul class="nav navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/" routerLinkActive="activated"><i class="fa fa-home" aria-hidden="true"></i></a>
+        </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/about" routerLinkActive="activated">About </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/coffee" routerLinkActive="activated">Our Coffee</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/brewing" routerLinkActive="activated">Brewing Method</a>
+      </li>
+      <li class="nav-item" >
+        <a class="nav-link" routerLink="/products" *ngIf="currentuser" routerLinkActive="activated">Products</a>
+      </li>
+      <li class="nav-item" >
+        <a class="nav-link" routerLink="/signup" *ngIf="!currentuser">Sign up</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/login" *ngIf="!currentuser">Login</a>
+      </li>
+       <li class="nav-item" >
+        <a class="nav-link" (click)="signOut()" *ngIf="currentuser" >Sign Out</a>
+      </li>
+       <!--<li class="nav-item" *ngIf="userEmail">
+        <a class="nav-link" >{{userEmail}}</a>
+      </li>-->
+ 
+
+      <li class="nav-item dropdown" *ngIf="currentuser">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle" aria-hidden="true"></i>
+</a>
+        <!--<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <ul>
+              <li>
+                <a class="dropdown-item" href="#">Sign Out</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">Login</a>
+              </li>
+            </ul>
+          
+        </div>-->
+        </li>
+     </ul>
+  </div>
+ 
+</div>

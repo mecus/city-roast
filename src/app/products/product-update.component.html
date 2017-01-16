@@ -1,0 +1,35 @@
+<section >
+    <div class="fp-page-head">
+        <img src="assets/about-us.jpg"  alt="">
+        <div class="fp-page-title">
+        <h1>Updating product</h1>
+        </div>
+  </div>
+</section>
+<section class="container fp-page-content">
+     <form [class.has-success]="updateVal.valid" novalidates [formGroup]="updateVal" (ngSubmit)="updateProd(updateVal.value)">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input  type="text" class="form-control" formControlName="name" required placeholder="product name">
+        </div>
+        <div class="form-group">
+            <label for="Product Code">Price</label>
+            <input type="text" class="form-control" formControlName="price" required placeholder="price">
+        </div>
+        <div class="form-group">
+            <label for="code">Product Code</label>
+            <input type="text" class="form-control" formControlName="code" required placeholder="product code">
+        </div>
+        <!--<div class="form-group">
+            <label for="name">Image</label>
+            <input type="text" class="form-control" formControlName="imageUrl" placeholder="image url">
+        </div>-->
+        <div class="form-group myinput">
+            <label for="price">Description</label>
+            <textarea rows="5" class="form-control" formControlName="description" required placeholder="description"></textarea>
+        </div>
+        <button  class="btn btn-success" type="submit">Update Product</button>
+        <span> <button class="btn btn-default" (click)="back()" type="button">Cancel</button> </span>
+       
+    </form>
+</section>

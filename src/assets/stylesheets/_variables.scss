@@ -1,0 +1,12 @@
+
+$primary-color: #35414C;
+
+$secondary-color: #FF9900;
+
+@mixin vertical-align {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
