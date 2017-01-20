@@ -56,6 +56,9 @@ import { AuthService } from './auth-service';
             color: #fff;
             font-size: 2rem;
         }
+        .form-content{
+            min-height: 500px;
+        }
         `
     ]
 })

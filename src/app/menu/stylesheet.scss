@@ -1,0 +1,76 @@
+@import '../../assets/stylesheets/variables';
+//--Header sections---//
+.app-header{
+    position: relative;
+    background-color: $primary-color;
+    top: 0px;
+    .header-container{
+        display: flex;
+        height: 700px;
+        overflow: hidden;
+        img{
+            background-size: cover;
+            width: 100%;
+            min-height: 700px;
+            opacity: 0.5;
+        }
+    }
+}
+.banner-text{
+    // margin: auto;
+    position: absolute;
+    top: 280px;
+    left: 50%;
+    max-width: 500px;
+    margin-left: -250px;
+    text-align: center;
+    h1{
+        color: lightgray;
+        font-family: 'Lobster', cursive;
+        }
+    h4{
+        color: lightgrey;
+        font-family: 'Caveat', cursive;
+        letter-spacing: 1px;
+    }
+}
+.banner-tug{
+    position: absolute;
+    bottom: 0px;
+}
+
+
+
+//----Footer Section-----///
+.footer-container{
+    background-color: $primary-color;
+   
+}
+.footer-content{
+    padding: 20px 10px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: baseline;
+    .footer-address{
+        flex: 3;
+        h5, h6 {
+            color: lightgrey;
+        }
+
+    }
+    .social-media{
+        flex: 2;
+        padding-left: 20px;
+        align-content: flex-end;
+        display: flex;
+        align-content: space-between;
+        
+        h1{
+            margin: 20px;
+        }
+        i{
+            color:#fff;
+        }
+    }
+
+}

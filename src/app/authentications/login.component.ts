@@ -35,9 +35,9 @@ import { AuthService } from './auth-service';
         `.lp-page-head{
             background-color: #35414C;
             width: 100%;
-            height: 250px;
+            height: 200px;
             overflow: hidden;
-            border-radius: 0px 0px 0px 200px;
+            border-radius: 0px 0px 0px 150px;
         }
         img{
             width: 100%;
@@ -49,12 +49,15 @@ import { AuthService } from './auth-service';
         }
         .lp-page-title{
             position: absolute;
-            top: 200px;
+            top: 160px;
             right: 50px;
         }
         .lp-page-title h1{
             color: #fff;
             font-size: 2rem;
+        }
+        .form-content{
+            min-height: 500px;
         }
         `
     ]

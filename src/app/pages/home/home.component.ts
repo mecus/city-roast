@@ -24,15 +24,22 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   image = WelcomeImage;
   products = [];
-
+  displayImg = WelcomeImage[2];
+  isHide:boolean = true;
 
   constructor(private productService:ProductService, private router:Router) { }
 
   viewProduct(data):void{
-    console.log(data.id);
     let param = data.id;
     this.router.navigate(['products/'+param]);
 
+  }
+  selectImg(image){
+    this.displayImg =image;
+    this.isHide = false;
+  }
+  closeImage(){
+    this.isHide = true;
   }
 
   ngOnInit() {
@@ -40,9 +47,14 @@ export class HomeComponent implements OnInit {
         .subscribe(products=>{
           let reverse = products.reverse();
     
-          if (reverse.length > 2){
+          if (reverse.length > 1){
             reverse.length = 3
             this.products = reverse;
+          }else{
+            if(reverse.length >= 3){
+              reverse.length = 3
+              this.products = reverse
+            }
           }
         });
        

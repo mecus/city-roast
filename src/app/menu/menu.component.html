@@ -7,7 +7,7 @@
                     <a *ngIf="isRedlogo" routerLink="/"><img src="assets/LCRartwork-05.png" style="width: 100px" alt="lcr"></a>
                  </div>
             </li>
-            <li class="brand-item-text">
+            <li class="brand-item-text" routerLink="/">
                 <div>
                     <span class="logo-text">London City Roast</span>
                     <h6>freshly made coffee</h6>
@@ -19,7 +19,7 @@
   <div class="right-nav">
      <ul class="nav navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" routerLink="/" routerLinkActive="activated"><i class="fa fa-home" aria-hidden="true"></i></a>
+            <a class="nav-link" routerLink="/" ><i class="fa fa-home" aria-hidden="true"></i></a>
         </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/about" routerLinkActive="activated">About </a>
@@ -34,7 +34,7 @@
         <a class="nav-link" routerLink="/products" *ngIf="currentuser" routerLinkActive="activated">Products</a>
       </li>
       <li class="nav-item" >
-        <a class="nav-link" routerLink="/signup" *ngIf="!currentuser">Sign up</a>
+        <a class="nav-link" routerLink="/contacts" routerLinkActive="activated">Contact</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/login" *ngIf="!currentuser">Login</a>

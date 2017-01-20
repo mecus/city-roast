@@ -5,6 +5,9 @@ import { RouterModule, Route } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
 import { BrewingComponent } from './pages/brewing/brewing.component';
+import { ContactsComponent } from './pages/contacts/contacts.component';
+import { TermsComponent } from './pages/terms/terms.component';
+import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { CoffeeComponent } from './pages/coffee/coffee.component';
 import { SignUpComponent } from './authentications/signup.component';
 import { LoginComponent } from './authentications/login.component';
@@ -14,6 +17,7 @@ import { ProductsComponent } from './products/product.component';
 import { ProductViewComponent } from './products/product-view.component';
 import { ProductUpdateComponent } from './products/product-update.component';
 import { ShoppingCartComponent } from './products/shopping-cart.component';
+
 
 import { AuthGuard } from './app-auth-guard.service';
 
@@ -34,12 +38,15 @@ const routes = [
     {path: 'brewing', component: BrewingComponent},
     {path: 'coffee', component: CoffeeComponent},
     {path: 'signup', component: SignUpComponent},
+    {path: 'contacts', component:ContactsComponent},
     {path: 'login', component: LoginComponent},
     {path: 'product/new', component: ProductformComponent},
     {path: 'products', component: ProductsComponent},
     {path: 'products/:id', component: ProductViewComponent},
     {path: 'product/update', component:ProductUpdateComponent},
     {path: 'cart', component: ShoppingCartComponent},
+    {path: 'terms', component: TermsComponent},
+    {path: 'privacy', component:PrivacyComponent},
     root,
     fallBack
 ]

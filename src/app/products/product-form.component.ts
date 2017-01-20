@@ -55,8 +55,15 @@ export class ProductformComponent implements OnInit {
          });
          
          let product = this.lastProduct.reverse();
-         let id = parseInt(product[0].id) + 1;
-         this.lastId = id.toString();
+         if(this.lastProduct.length > 0){
+             let id = parseInt(product[0].id) + 1;
+             this.lastId = id.toString();
+         }else{
+             let id = 0 + 1;
+             this.lastId = id.toString();
+         }
+         
+         
      }
      
 

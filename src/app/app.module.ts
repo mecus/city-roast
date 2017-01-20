@@ -8,6 +8,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AuthModule } from './authentications/auth.module';
 import { ProductModule } from './products/product.module';
 import { LocalStorageModule } from 'angular-2-local-storage';
+import { Ng2PageTransition } from "ng2-page-transition";
 
 
 import { firebaseConfig, authConfig } from './firebase-config';
@@ -23,6 +24,11 @@ import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
 import { BrewingComponent } from './pages/brewing/brewing.component';
 import { CoffeeComponent } from './pages/coffee/coffee.component';
+import { ContactsComponent } from './pages/contacts/contacts.component';
+import { TermsComponent } from './pages/terms/terms.component';
+import { PrivacyComponent } from './pages/privacy/privacy.component';
+
+
 
 
 
@@ -35,7 +41,11 @@ import { CoffeeComponent } from './pages/coffee/coffee.component';
     HomeComponent,
     AboutComponent,
     BrewingComponent,
-    CoffeeComponent
+    CoffeeComponent,
+    ContactsComponent,
+    TermsComponent,
+    PrivacyComponent,
+    Ng2PageTransition
 
   ],
   imports: [
