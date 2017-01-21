@@ -82,7 +82,15 @@
     }
     
 }
+.tagline{
+    margin-top: 20px;
+    opacity: 0.6;
+    font-family: 'Lobster', cursive;
+    letter-spacing: 2px;
+    // color: lightslategray;
+}
 .about-images{
+    margin-top: 20px;
     img{
         width: 100%;
     }
@@ -90,6 +98,8 @@
             transform: scale(1.2);
             @include transition(0.2s cubic-bezier(0.075, 0.82, 0.165, 2));
             cursor: pointer;
+            border: 1px solid;
+            border-color: #fff;
         }
 }
 

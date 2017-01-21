@@ -1,6 +1,10 @@
 {
   "rules": {
-    ".read": "true",
+    "products":{
+      ".read": "true",
+      ".write": "auth != null"
+    },
+    ".read": "auth != null",
     ".write": "auth != null"
   }
 }

@@ -11,16 +11,18 @@
     img{
         opacity: 0.2;
         position: relative;
-        margin-bottom: -100px;
         width: 100%;
+        margin-top: -100px;
     }
     .fp-page-title{
         position: absolute;
         top: 100px;
         right: 50px;
         h1{
-            color:#fff;
-            font-size: 2rem;
+            color: lightslategrey;
+            font-size: 1.5rem;
+            margin-right: 15px;
+
         }
     }
 }
@@ -79,7 +81,7 @@ span.add{
 
 //===Product View section===//
 .content-container{
-    // height: 500px;
+    min-height: 600px;
 
     .product-disply{
         max-width: 700px;

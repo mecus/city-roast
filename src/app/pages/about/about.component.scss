@@ -1,7 +1,7 @@
 @import '../../../assets/stylesheets/variables';
 
 .ab-page-container{
-    background-color: lightgrey;
+    // background-color: lightgrey;
 }
 
 .ab-page-head{
@@ -19,16 +19,17 @@
     }
     .ab-page-title{
         position: absolute;
-        top: 220px;
+        top: 250px;
         right: 50px;
         h1{
-            color:#fff;
-            font-size: 2rem;
+            color: lightslategrey;
+            font-size: 1.5rem;
         }
     }
 }
 .page-content{
-    max-width: 800px;
+    // max-width: 800px;
+    text-align: center;
     min-height: 500px;
     p{
         text-align: center;
@@ -38,15 +39,22 @@
         padding-top: 20px;
         
     }
+    .bio{
+        h1{
+            padding: 40px 0px;
+            // color: lightslategray;
+        }
+    }
 }
 .page-image{
     box-sizing: border-box;
-    max-width: 800px;
+    // max-width: 800px;
     display: flex;
     align-items: baseline;
     text-align: center;
     align-content: space-between;
     padding-bottom: 50px;
+    margin: 0 auto;
     .lcr-image1{
         flex: 1;
         background-color: red;

@@ -1,7 +1,7 @@
 @import '../../../assets/stylesheets/variables';
 
 .br-page-container{
-    background-color: lightgrey;
+    
 }
 
 .br-page-head{
@@ -18,15 +18,27 @@
     }
     .br-page-title{
         position: absolute;
-        top: 220px;
+        top: 250px;
         right: 50px;
         h1{
-            color:#fff;
-            font-size: 2rem;
+            color: lightslategray;
+            font-size: 1.5rem;
         }
     }
 }
 .br-page-content{
-    max-width: 800px;
     min-height: 500px;
+    max-width: 80%;
+    margin-top: 10px;
+    h1{
+        text-align: center;
+        margin: 40px 0px;
+    }
+    h5{
+        color: lightslategrey;
+        margin-bottom: 30px;
+    }
+    h2{
+        color: lightslategray;
+    }
 }

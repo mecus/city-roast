@@ -3,7 +3,16 @@
 .cb-page-container{
     // background-color: lightgrey;
 }
-
+.contact-info{
+    text-align: center;
+    h1{
+        margin: 40px 0px;
+    }
+    p{ 
+        padding: 0px;
+        margin: 0px;
+    }
+}
 .cb-page-head{
     background-color: $primary-color;
     width: 100%;
@@ -22,8 +31,9 @@
         top: 160px;
         right: 50px;
         h1{
-            color:#fff;
-            font-size: 2rem;
+            color: lightslategrey;
+            font-size: 1.5rem;
+            margin-right: 15px;
         }
     }
 }
@@ -47,6 +57,9 @@
     }
     .contact-address{
         flex: 2;
+        padding-top: 100px;
+        // border-right: 1px solid;
+        // border-color: lightgray;
         p{
             padding: 0px;
             margin: 0px;
