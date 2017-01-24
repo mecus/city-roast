@@ -1,0 +1,52 @@
+<section >
+    <div class="fp-page-head">
+        <img src="assets/about-us.jpg"  alt="">
+        <div class="fp-page-title">
+        <h1>Shopping Cart</h1>
+        </div>
+  </div>
+</section>
+<section class="container Shopping-container">
+  <p *ngIf="user">Customer email: {{user}}</p>
+  <h1>Your Basket</h1>
+    <div class="empty-cart" *ngIf="cartproduct.length < 1">
+      <h5>You have no item in your Basket</h5>
+    </div>
+    <table class="table" *ngIf="cartproduct.length > 0">
+      <thead class="thead-default">
+        <tr>
+            <th></th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th><button (click)="clearCart()" class="btn btn-danger" type="button">Empty your basket</button></th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr *ngFor="let item of cartproduct">
+          <th>
+            <img [src]="item.imageUrl" style="width: 30px;" alt="">
+          </th>
+          <td>{{item.name}}</td>
+          <td>{{item.qty}}</td>
+          <td>{{item.price | currency: 'GBP': true}}</td>
+          <td>{{item.qty * item.price | currency: 'GBP': true}}</td>
+          <td><i (click)="removeItem(item.$key)" class="fa fa-times" aria-hidden="true"></i>
+ </td>
+        </tr>
+        <tr>
+          <td colspan="3"></td>
+          <td> <h5>Total:</h5> </td>
+          <td><h4>{{sumCart | currency: 'GBP': true}}</h4></td>
+        </tr>
+      </tbody>
+    </table>
+<div class="check-out right-nav">
+    <button routerLink="/checkout" class="btn btn-primary" type="" *ngIf="cartproduct.length > 0">Check Out</button>
+    <span><button routerLink="/" class="btn btn-success" type="button">Continue Shopping</button></span>
+</div>
+
+    
+</section>

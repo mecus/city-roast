@@ -61,6 +61,20 @@
         }
     }
 }
+.cartSum{
+    border: 1px solid;
+    @include border-radius(50%);
+    padding: 5px;
+    background-color: green;
+    i{
+        font-size: 15px;
+    }
+    span{
+        margin: 0px;
+        padding: 0px;
+        font-size: 14px;
+    }
+}
 // .navbar-nav{
 
 //     .nav-item:nth-child(3){

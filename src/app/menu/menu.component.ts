@@ -2,6 +2,7 @@ import { Component, OnInit, OnChanges } from '@angular/core';
 import { AuthService } from '../authentications/auth-service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import { CartService } from '../services/cart.service';
 
 @Component({
     selector: 'app-menu',
@@ -11,7 +12,9 @@ import 'rxjs/add/operator/map';
 export class MenuComponent implements OnInit, OnChanges {
     isRedlogo:boolean = false;
     currentuser;
-    constructor(private auth:AuthService) { }
+    cartTotal = [];
+    totalItem;
+    constructor(private auth:AuthService, private cartService:CartService) { }
 
     changeLogo(){
         setInterval(()=>{
@@ -25,6 +28,18 @@ export class MenuComponent implements OnInit, OnChanges {
     signOut(){
         this.auth.logOut();
     }
+    getCartTotal(){
+        this.cartService.getCart()
+            .subscribe(cart=>{
+                cart.forEach((cart)=>{
+                  this.cartTotal.push(cart.qty);
+                  this.totalItem = this.cartTotal.reduce((sum, num)=>{
+                      return sum + Math.round(num);
+                  }, 0)
+                });
+                
+            });
+    }
     ngOnChanges(){
 
     }
@@ -32,7 +47,8 @@ export class MenuComponent implements OnInit, OnChanges {
         this.currentuser = localStorage.getItem('currentUser');
         this.auth.authChange();
         this.changeLogo();
-
+        this.getCartTotal();
+        
     }
 
 }

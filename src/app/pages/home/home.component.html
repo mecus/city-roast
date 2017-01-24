@@ -45,7 +45,7 @@
       <h2>{{item.name}}</h2>
       <h6>{{item.price | currency: 'GBP' :true}}</h6>
       <p>
-        <a href="#">add to cart</a>
+        <a (click)="addToCart(item)">add to cart</a>
       </p>
     </div>
   </div>

@@ -16,7 +16,8 @@ import { ProductformComponent } from './products/product-form.component';
 import { ProductsComponent } from './products/product.component';
 import { ProductViewComponent } from './products/product-view.component';
 import { ProductUpdateComponent } from './products/product-update.component';
-import { ShoppingCartComponent } from './products/shopping-cart.component';
+import { ShoppingCartComponent } from './check-out/shopping-cart.component';
+import { CheckOutComponent } from './check-out/check-out.component';
 
 
 import { AuthGuard } from './app-auth-guard.service';
@@ -47,6 +48,7 @@ const routes = [
     {path: 'cart', component: ShoppingCartComponent},
     {path: 'terms', component: TermsComponent},
     {path: 'privacy', component:PrivacyComponent},
+    {path: 'checkout', component: CheckOutComponent},
     root,
     fallBack
 ]

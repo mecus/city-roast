@@ -35,6 +35,7 @@ export class ProductsComponent implements OnInit {
      seeProduct(product){
          let id = product.id;
          this.router.navigate(['products/'+id]);
+
      }
    
 
@@ -101,6 +102,7 @@ export class ProductsComponent implements OnInit {
             .subscribe((product)=>{
                 this.products = product;
             });
+  
      }
 
 }

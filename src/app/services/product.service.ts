@@ -10,7 +10,9 @@ import { Product } from '../models/product.model';
 @Injectable()
 export class ProductService {
     rdata;
+   
     constructor(private af:AngularFire, private route:ActivatedRoute, private router:Router) { }
+
 
     //==Retrieving Products from the FireBase Database==//
     getProduct(){

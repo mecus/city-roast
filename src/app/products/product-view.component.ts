@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ProductService } from '../services/product.service';
+import { CartService } from '../services/cart.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import { Product } from '../models/product.model';
@@ -11,6 +12,7 @@ import { Product } from '../models/product.model';
     styleUrls: ['product.component.scss']
 })
 export class ProductViewComponent implements OnInit {
+    positiveNum:boolean = true;
     product;
     products;
     dproduct = {
@@ -20,7 +22,8 @@ export class ProductViewComponent implements OnInit {
         imageUrl: 'https://firebasestorage.googleapis.com/v0/b/city-roast.appspot.com/o/images%2Fdark-decaffeinated-colombian_large.jpg?alt=media&token=d9a20d69-6eed-43b2-bbab-fb3497e49089',
         description: ' once() method to simplify this scenario: it triggers once and then does not trigger again.'
     };
-    constructor(private productService:ProductService, private route:ActivatedRoute, private router:Router, private _location: Location) { }
+    constructor(private productService:ProductService, private route:ActivatedRoute, 
+    private router:Router, private _location: Location, private cartService:CartService) { }
 
     back(){
         this._location.back();
@@ -49,6 +52,16 @@ export class ProductViewComponent implements OnInit {
                 })[0]
 
             // console.log(this.dproduct);
+    }
+    addtoCart(val){
+        if(val < 1){
+            this.positiveNum = false;
+            window.alert('Please enter a valid number');
+        }else{
+            this.cartService.incrementQty(this.dproduct, val);
+            // this.cartService.addCart(this.dproduct);
+            this.router.navigate(['/cart']);
+        }
     }
     ngOnInit() { 
         this.getProductById();

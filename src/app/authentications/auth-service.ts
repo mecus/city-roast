@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 
 import { Router } from '@angular/router';
 import { User } from '../models/user.model';
+import { CartService } from '../services/cart.service';
 
 @Injectable()
 
@@ -16,7 +17,7 @@ export class AuthService {
     redirectUrl: string;
   
 
-    constructor(private af:AngularFire, private router:Router) { }
+    constructor(private af:AngularFire, private router:Router, private cartService:CartService) { }
 
     public storeAuthState(authState:FirebaseAuthState):FirebaseAuthState {
         if(authState){
@@ -24,6 +25,7 @@ export class AuthService {
             if(authState){
             localStorage.setItem('currentUser', (authState.auth.email));
             localStorage.setItem('idToken', (authState.uid));
+            localStorage.setItem('userId', (authState.auth.uid));
             }
         }
         return authState;
@@ -63,10 +65,16 @@ export class AuthService {
     }
 
     logOut(){
+        let D = window.confirm("Do you want to empty your shopping basket?");
+        if(D==true){
+            this.cartService.clear();
+        }
         this.af.auth.logout();
+        localStorage.removeItem('userId');
         localStorage.removeItem('currentUser');
         localStorage.removeItem('idToken');
         location.reload();
+        
         // this.router.navigate(['/login']);
          
 

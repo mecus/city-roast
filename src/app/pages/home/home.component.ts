@@ -3,6 +3,7 @@ import { Component, OnInit, Output, EventEmitter,
 import { Images, WelcomeImage } from '../../shared/images/images';
 import { ProductService } from '../../services/product.service';
 import { Router } from '@angular/router';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-home',
@@ -27,7 +28,7 @@ export class HomeComponent implements OnInit {
   displayImg = WelcomeImage[2];
   isHide:boolean = true;
 
-  constructor(private productService:ProductService, private router:Router) { }
+  constructor(private productService:ProductService, private router:Router, private cartService:CartService) { }
 
   viewProduct(data):void{
     let param = data.id;
@@ -40,6 +41,10 @@ export class HomeComponent implements OnInit {
   }
   closeImage(){
     this.isHide = true;
+  }
+  addToCart(item){
+    // this.cartService.addCart(item);
+    this.cartService.incrementQty(item, 1);
   }
 
   ngOnInit() {

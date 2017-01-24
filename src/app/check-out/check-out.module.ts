@@ -11,18 +11,14 @@ import { UploadService } from '../services/upload.service';
 import { ProductService } from '../services/product.service';
 import { CartService } from '../services/cart.service';
 
-import { ProductformComponent } from './product-form.component';
-import { ProductsComponent } from './product.component';
-import { ProductViewComponent } from './product-view.component';
-import { ProductUpdateComponent } from './product-update.component';
 
+import { ShoppingCartComponent } from './shopping-cart.component';
+import { CheckOutComponent } from './check-out.component';
 
 @NgModule({
     declarations:[
-        ProductformComponent,
-        ProductsComponent,
-        ProductViewComponent,
-        ProductUpdateComponent
+        ShoppingCartComponent,
+        CheckOutComponent
         
     ],
 
@@ -40,4 +36,4 @@ import { ProductUpdateComponent } from './product-update.component';
 
 })
 
-export class ProductModule{}
+export class CheckOutModule{}

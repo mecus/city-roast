@@ -18,13 +18,13 @@
             <h5><span>Price: </span>{{dproduct.price | currency: 'GBP' :true}}</h5>
             <div class="cart-select">
                 <span>Select: </span>
-                <input type="number" name="count" value="1">
+                <input #val type="number" name="count" value="1" pattern="[0-9]+">
             </div>
             <br>
             <h6>Product Descriptions:</h6>
             <p>{{dproduct.description}}</p>
             <div class="add-to">
-                <h6> <button class="btn btn-success" type="button">Add to cart</button></h6>
+                <h6> <button (click)="addtoCart(val.value)" class="btn btn-success" type="button">Add to cart</button></h6>
             </div>
         </div>
         
