@@ -38,6 +38,10 @@
         width: 800px;
         margin-left: -400px;
         padding: 50px 0px;
+        button:hover{
+            background-color: darken(lightgreen,  40%) !important;
+            color: #fff;
+        }
         .shop-item{
             padding: 10px;
             box-sizing: border-box;
@@ -149,4 +153,9 @@
             }
         }
     }
+}
+.added-item{
+    text-align: center;
+    margin: 0px;
+   
 }

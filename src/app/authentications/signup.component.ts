@@ -26,7 +26,11 @@ import { AuthService } from './auth-service';
                         <label for="password">Password</label>
                         <input type="password" class="form-control" formControlName="password" placeholder="password">
                     </div>
-                    <button type="submit" class="btn btn-primary">Sign up</button>
+                    <div class="alert alert-danger" role="alert" *ngIf="errMsg">
+                        <strong>{{errMsg}}</strong>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign up</button> or
+                    <a routerLink="/login">login </a><span>using your email and password</span>
                 </form>
             </div>
         </div>
@@ -64,8 +68,9 @@ import { AuthService } from './auth-service';
 })
 export class SignUpComponent implements OnInit {
     private user: FormGroup;
+    errMsg;
 
-    constructor(private fb:FormBuilder, private authService:AuthService) {
+    constructor(private fb:FormBuilder, private authService:AuthService, private router:Router) {
         this.user = fb.group({
             email: "",
             password: ""
@@ -73,10 +78,20 @@ export class SignUpComponent implements OnInit {
      }
 
      createUser(user:User){
-        this.authService.signUp(user);
+        this.authService.signUp(user)
+        .then(success=>{
+                console.log("Successfully Created user account");
+                this.router.navigate(['/login']);
+                this.authService.authChange();
+            }).catch(err=>{
+                this.errMsg = err.message;
+                console.log(this.errMsg);
+            });
 
      }
 
-    ngOnInit() { }
+    ngOnInit() {
+        
+     }
 
 }

@@ -12,15 +12,17 @@ import { Product } from '../models/product.model';
     styleUrls: ['product.component.scss']
 })
 export class ProductViewComponent implements OnInit {
-    positiveNum:boolean = true;
+    islogin:boolean = false;
+    positiveNum:boolean = false;
     product;
-    products;
+    products=[];
     dproduct = {
-        name: 'Italian Coffee Beans',
-        price: '45',
-        code: '23098',
-        imageUrl: 'https://firebasestorage.googleapis.com/v0/b/city-roast.appspot.com/o/images%2Fdark-decaffeinated-colombian_large.jpg?alt=media&token=d9a20d69-6eed-43b2-bbab-fb3497e49089',
-        description: ' once() method to simplify this scenario: it triggers once and then does not trigger again.'
+        id: 9,
+        // name: 'Italian Coffee Beans',
+        // price: '45',
+        // code: '23098',
+        // imageUrl: 'https://firebasestorage.googleapis.com/v0/b/city-roast.appspot.com/o/images%2Fdark-decaffeinated-colombian_large.jpg?alt=media&token=d9a20d69-6eed-43b2-bbab-fb3497e49089',
+        // description: ' once() method to simplify this scenario: it triggers once and then does not trigger again.'
     };
     constructor(private productService:ProductService, private route:ActivatedRoute, 
     private router:Router, private _location: Location, private cartService:CartService) { }
@@ -34,57 +36,36 @@ export class ProductViewComponent implements OnInit {
         
     }
 
-    getProductById(){
-        let id:Params;
-        this.route.params.subscribe((param:Params)=>{
-            id = param;
-        });
-        let filproduct;
-        this.productService.getProduct()
-            .subscribe((products)=>{
-                filproduct = products;
-                // console.log(products);
-            });
-            filproduct.filter((product)=>{
-                    if(product.id == id['id']){
-                        this.dproduct = product;
-                    }
-                })[0]
-
-            // console.log(this.dproduct);
-    }
     addtoCart(val){
-        if(val < 1){
-            this.positiveNum = false;
-            window.alert('Please enter a valid number');
+        if(localStorage.getItem('currentUser')){
+            if(val < 1){
+                this.positiveNum = true;
+            }else{
+                this.cartService.incrementQty(this.dproduct, val);
+                // this.cartService.addCart(this.dproduct);
+                this.router.navigate(['/cart']);
+            }
         }else{
-            this.cartService.incrementQty(this.dproduct, val);
-            // this.cartService.addCart(this.dproduct);
-            this.router.navigate(['/cart']);
+            this.islogin = true;
+            // this.cartService.noUserCart(this.dproduct, val);
+            // this.router.navigate(['/cart']);
         }
+        
     }
     ngOnInit() { 
-        this.getProductById();
-
          this.productService.getProduct()
             .subscribe((products)=>{
-                if(products.length > 2){
-                    products.length = 5;
+                if(products.length > 0){
+                    products.length = 4;
                     this.products = products.reverse();
                 }
                 
                 
             });
-            // this.route.params
-            // .switchMap((params:Params)=>this.productService.oneProduct(+params['id']))
-            // .subscribe((product:Product)=>{
-            //     this.product = product;
-            //     console.log(product);
-            // });
-            // console.log('testing from new');
-            // console.log(this.product);
-            // let prod = this.productService.oneProduct(7);
-            // console.log(prod);
+            let id = +this.route.snapshot.params['id'];
+            this.productService.getProduct().subscribe(products=>{
+                this.dproduct = products.find((product)=> product.id == id)
+            });
             
             
             

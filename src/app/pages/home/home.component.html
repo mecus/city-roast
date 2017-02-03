@@ -45,11 +45,19 @@
       <h2>{{item.name}}</h2>
       <h6>{{item.price | currency: 'GBP' :true}}</h6>
       <p>
-        <a (click)="addToCart(item)">add to cart</a>
+        <a><button (click)="addToCart(item)" class="btn btn-default" type="">add to cart</button></a>
       </p>
     </div>
   </div>
 </section>
+<div class="alert alert-danger added-item" *ngIf="isLogin">
+        <strong>OOps!! Please login to add items to your basket</strong>
+        <span><button routerLink="/login" class="btn btn-danger">login here</button></span>
+  </div>
+ <div class="alert alert-success added-item" *ngIf="itemAdd">
+        <strong>Well done! you just added product to your basket</strong>
+        <span><button routerLink="/cart" class="btn btn-success">View your basket</button></span>
+  </div>
 <div [class.hide]="isHide" class="img-container">
   <div class="img-display">
     <div class="close1">

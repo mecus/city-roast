@@ -7,7 +7,10 @@
   </div>
 </section>
 <div class="container product-list">
-    <table class="table">
+    <div *ngIf="!products.length" class="progress container load-item">
+        <div class="progress-bar w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><strong>Loading All Products!!! please wait......</strong></div>
+    </div>
+    <table *ngIf="products.length" class="table">
     <thead class="">
         <tr>
         <th>Id</th>

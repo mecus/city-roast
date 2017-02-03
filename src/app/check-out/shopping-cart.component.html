@@ -17,8 +17,8 @@
         <tr>
             <th></th>
             <th>Product</th>
-            <th>Quantity</th>
-            <th>Price</th>
+            <th>Qty</th>
+            <th>Unit Price</th>
             <th>Total</th>
             <th><button (click)="clearCart()" class="btn btn-danger" type="button">Empty your basket</button></th>
         </tr>
@@ -46,6 +46,7 @@
 <div class="check-out right-nav">
     <button routerLink="/checkout" class="btn btn-primary" type="" *ngIf="cartproduct.length > 0">Check Out</button>
     <span><button routerLink="/" class="btn btn-success" type="button">Continue Shopping</button></span>
+ 
 </div>
 
     

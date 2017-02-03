@@ -31,16 +31,16 @@
         <a class="nav-link" routerLink="/brewing" routerLinkActive="activated">Brewing Method</a>
       </li>
       <li class="nav-item" >
-        <a class="nav-link" routerLink="/products" *ngIf="currentuser" routerLinkActive="activated">Products</a>
+        <a class="nav-link" routerLink="/products" *ngIf="regUser && !anoUser" routerLinkActive="activated">Products</a>
       </li>
       <li class="nav-item" >
         <a class="nav-link" routerLink="/contacts" routerLinkActive="activated">Contact</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/login" *ngIf="!currentuser">Login</a>
+        <a class="nav-link" routerLink="/login" *ngIf="!regUser || anoUser">Login</a>
       </li>
        <li class="nav-item" >
-        <a class="nav-link" (click)="signOut()" *ngIf="currentuser" >Sign Out</a>
+        <a class="nav-link" (click)="signOut()" *ngIf="regUser && !anoUser" >Sign Out</a>
       </li>
        <!--<li class="nav-item" *ngIf="userEmail">
         <a class="nav-link" >{{userEmail}}</a>

@@ -15,6 +15,7 @@ import { CartService } from '../services/cart.service';
 export class AuthService {
     isAuthenticated: boolean = false;
     redirectUrl: string;
+    errMsg;
   
 
     constructor(private af:AngularFire, private router:Router, private cartService:CartService) { }
@@ -26,6 +27,7 @@ export class AuthService {
             localStorage.setItem('currentUser', (authState.auth.email));
             localStorage.setItem('idToken', (authState.uid));
             localStorage.setItem('userId', (authState.auth.uid));
+            // localStorage.setItem('anonymous',(authState.auth.isAnonymous))
             }
         }
         return authState;
@@ -34,33 +36,19 @@ export class AuthService {
     signUp(user:User){
         if(user){
             console.log("creating user account");
-            this.af.auth.createUser({
+           return this.af.auth.createUser({
                 email: user.email,
                 password: user.password
-            }).then(success=>{
-                console.log("Successfully Created user account");
-                this.router.navigate(['/login']);
-                this.authChange();
-            }).catch(err=>{
-                console.log("user account can't be created.. check your details")
-            });
+            })
         }
     }
 
     logIn(user:User){
         if(user){
-            this.af.auth.login({
+            return this.af.auth.login({
                 email: user.email,
                 password: user.password
-            }).then(success=>{
-                console.log('Authentication Allowed');
-                // this.isAuthenticated = true;
-                this.router.navigate(['/home']);
-                // location.reload();
-                this.authChange();
-            }).catch(err=>{
-                console.log(err);
-            });
+            })
         }
     }
 
@@ -88,11 +76,24 @@ export class AuthService {
             if(newUser){
                 console.log(newUser.auth.getToken());
                 console.log('User Currently LoggedIn');
+
+                console.log(newUser);
             }else{
                 console.log('No User LoggedIn');
             }
         });
        
     }
-
+    checkUser(){
+        return this.af.auth;
+    }
+    logAnonymous(){
+        let auth = firebase.auth();
+        return auth.signInAnonymously();
+    }
+    // deleteAnonymous(){
+    //     let auth = firebase.auth();
+    //     auth.
+    // }
+    
 }

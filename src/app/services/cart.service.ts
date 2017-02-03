@@ -16,10 +16,12 @@ export class CartService {
     }
 
     getUser(){
-        this.userId = localStorage.getItem('userId');
-         this.af.auth.subscribe(user=>{
+        if(localStorage.getItem('userId')){
+            this.userId = localStorage.getItem('userId');
+            this.af.auth.subscribe(user=>{
             this.userId = user.uid;
          });
+        }  
     }
     addCart(product, num){
         this.getUser();
@@ -61,10 +63,6 @@ export class CartService {
         }else{
            this.addCart(cartItem, num);
         }
-        
-        
-      
-       
     }
     removeItem(key){
         this.getUser();
@@ -88,6 +86,7 @@ export class CartService {
         return this.af.database.list('cart/'+this.userId);
   
     }
+
     sumCart(){
         
         this.af.database.list('cart')

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { AppRoutingModule } from '../app-routing.module';
 
 import { CommonModule } from '@angular/common';
 import { SignUpComponent } from './signup.component';
@@ -11,7 +12,7 @@ import { AuthService } from './auth-service';
 @NgModule({
     declarations: [SignUpComponent, LoginComponent],
 
-    imports: [CommonModule, FormsModule, ReactiveFormsModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, AppRoutingModule],
 
     exports: [],
 

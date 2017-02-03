@@ -13,7 +13,7 @@ import { AngularFire, FirebaseAuthState,
     styleUrls: ['check-out.module.scss']
 })
 export class ShoppingCartComponent implements OnInit {
-    user;
+    user = "kam";
     cartproduct = [];
     sumCart;
     constructor(private cartService:CartService, private _location:Location,
@@ -52,8 +52,9 @@ export class ShoppingCartComponent implements OnInit {
         
         // this.sumCart = this.cartService.sumCart();
         // console.log(this.sumCart);
-        this.user = localStorage.getItem('currentUser');
-
+        if(localStorage.getItem('currentUser')){
+            this.user = localStorage.getItem('userId');
+        }
      }
   
 }

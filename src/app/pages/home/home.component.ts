@@ -5,6 +5,7 @@ import { ProductService } from '../../services/product.service';
 import { Router } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -27,6 +28,8 @@ export class HomeComponent implements OnInit {
   products = [];
   displayImg = WelcomeImage[2];
   isHide:boolean = true;
+  itemAdd:boolean = false;
+  isLogin:boolean =false;
 
   constructor(private productService:ProductService, private router:Router, private cartService:CartService) { }
 
@@ -43,8 +46,18 @@ export class HomeComponent implements OnInit {
     this.isHide = true;
   }
   addToCart(item){
-    // this.cartService.addCart(item);
-    this.cartService.incrementQty(item, 1);
+   if(localStorage.getItem('currentUser')){
+      this.itemAdd = true;
+      setTimeout(()=>{this.itemAdd = false;}, 6000);
+    
+      this.cartService.incrementQty(item, 1);
+   }else{
+
+     this.isLogin = true;
+     setTimeout(()=>{this.isLogin = false;}, 6000)
+   }
+    
+    
   }
 
   ngOnInit() {
@@ -62,7 +75,7 @@ export class HomeComponent implements OnInit {
             }
           }
         });
-       
+      
   }
 
 }
