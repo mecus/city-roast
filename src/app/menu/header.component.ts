@@ -4,7 +4,7 @@ import { Images } from '../shared/images/images';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./stylesheet.scss']
+  styleUrls: ['./stylesheet.scss', './stylesheet.media.scss']
 })
 export class HeaderComponent implements OnInit {
   isBanner:boolean = false;

@@ -13,16 +13,18 @@
     .about-container{
         margin: 0px auto;
         text-align: center;
+    
         max-width: 900px;
         // padding: 0px 200px;
     }
 }
 .front-shop{
+    position: relative;
     margin: 0px auto;
     text-align: center;
     background-color: #2B0F0E;
     display: flex;
-    height: 400px;
+    height: 450px;
     img.img-bg{
         background-size: cover;
         width: 100%;
@@ -155,6 +157,7 @@
     }
 }
 .added-item{
+    position: relative;
     text-align: center;
     margin: 0px;
    

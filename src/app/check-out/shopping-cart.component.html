@@ -1,16 +1,47 @@
 <section >
     <div class="fp-page-head">
-        <img src="assets/about-us.jpg"  alt="">
+        <img class="cart-mobile-container" src="assets/shopping-trolley.jpg"  alt="Car Mobile">
+        <img class="table" src="assets/large-shoppin-cart.jpg"  alt="Cart Desktop">
         <div class="fp-page-title">
         <h1>Shopping Cart</h1>
         </div>
   </div>
 </section>
 <section class="container Shopping-container">
-  <p *ngIf="user">Customer email: {{user}}</p>
-  <h1>Your Basket</h1>
+  <!--<p *ngIf="user">Customer email: {{user}}</p>-->
+  <div class="empty-basket" *ngIf="cartproduct.length > 0">
+    <button (click)="clearCart()" class="btn btn-danger" type="button">Empty</button>
+  </div>
+  <h1 class="head-1">Your Basket</h1>
     <div class="empty-cart" *ngIf="cartproduct.length < 1">
       <h5>You have no item in your Basket</h5>
+    </div>
+    <div class="cart-mobile-container" *ngIf="cartproduct.length > 0">
+      <div class="cart-mobile" *ngFor="let item of cartproduct" >
+        <div class="cart-0">
+          <p>{{item.qty}}</p>
+        </div>
+        <div class="cart-1">
+          <img [src]="item.imageUrl" style="width: 30px;" alt="">
+        </div>
+        <div class="cart-2">
+          <p>{{item.name}}</p>
+        </div>
+        <div class="cart-3">
+          <p> @ {{item.price | currency: 'GBP': true}}</p>
+        </div>
+        <div class="cart-4">
+          <p> {{item.qty * item.price | currency: 'GBP': true}}</p>
+        </div>
+        <div class="cart-5">
+          <p><i (click)="removeItem(item.$key)" class="fa fa-times remove-cart-i" aria-hidden="true"></i></p>
+        </div>
+      </div>
+      <hr>
+      <div class="total-cart">
+        <h5>Total:</h5>
+        <span><p>{{sumCart | currency: 'GBP': true}}</p></span>
+      </div>
     </div>
     <table class="table" *ngIf="cartproduct.length > 0">
       <thead class="thead-default">
@@ -33,7 +64,7 @@
           <td>{{item.qty}}</td>
           <td>{{item.price | currency: 'GBP': true}}</td>
           <td>{{item.qty * item.price | currency: 'GBP': true}}</td>
-          <td><i (click)="removeItem(item.$key)" class="fa fa-times" aria-hidden="true"></i>
+          <td><i (click)="removeItem(item.$key)" class="fa fa-times remove-cart-i" aria-hidden="true"></i>
  </td>
         </tr>
         <tr>
@@ -44,8 +75,10 @@
       </tbody>
     </table>
 <div class="check-out right-nav">
-    <button routerLink="/checkout" class="btn btn-primary" type="" *ngIf="cartproduct.length > 0">Check Out</button>
-    <span><button routerLink="/" class="btn btn-success" type="button">Continue Shopping</button></span>
+  
+    <div id="paypal-button"></div>
+
+    <button routerLink="/" class="btn btn-success" type="button">Continue Shopping</button>
  
 </div>
 

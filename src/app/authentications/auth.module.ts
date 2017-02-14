@@ -6,11 +6,12 @@ import { CommonModule } from '@angular/common';
 import { SignUpComponent } from './signup.component';
 import { LoginComponent } from './login.component';
 import { AuthService } from './auth-service';
+import { AccountComponent } from './accounts/account.component';
 
 
 
 @NgModule({
-    declarations: [SignUpComponent, LoginComponent],
+    declarations: [SignUpComponent, LoginComponent, AccountComponent],
 
     imports: [CommonModule, FormsModule, ReactiveFormsModule, AppRoutingModule],
 

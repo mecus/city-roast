@@ -19,6 +19,7 @@
     background: transparent;
     z-index: 1000;
     padding: 0px !important;
+    
     .right-nav{
         position: absolute;
         right: 40px;
@@ -27,11 +28,14 @@
         ul li a{
             color: #fff !important;
             opacity: .5;
+            &:hover{cursor: pointer;}
         }
     
     }
     .brand img{
         opacity: 0.8;
+        width: 100px;
+        height: 100px;
     }
     .brand-logo{
         position: absolute;
@@ -61,6 +65,7 @@
         }
     }
 }
+
 .cartSum{
     border: 1px solid;
     @include border-radius(50%);
@@ -75,6 +80,43 @@
         font-size: 14px;
     }
 }
+//==Login and Logout Menu==//
+.login-out{
+    position: absolute;
+    top: 40px;
+    right: 60px;
+    width: 150px;
+    background-color: lightgray;
+    z-index: 100;
+    margin: 0px;
+    @include transition(0.4s);
+    overflow: hidden;
+    #iClose i{
+        padding: 5px 0px 0px 10px; 
+        color: lightslategrey; 
+        &:hover{color: red; cursor: pointer;}}
+    .login-items{
+        padding-right: 10px !important;
+        margin: 0px !important;
+        margin: 10px 0px !important;
+        li{
+            // margin-top: 10px !important;
+            padding: 5px 0px !important;
+            // list-style: none !important;
+            &:hover{cursor: pointer; color: lightslategray;}
+        }
+        hr{margin: 0px; padding: 0px;}
+    }
+}
+.dropdow-colp{
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    // background-color: red;
+    z-index: 99;
+}
+
+
 // .navbar-nav{
 
 //     .nav-item:nth-child(3){

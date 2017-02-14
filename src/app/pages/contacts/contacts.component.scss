@@ -2,6 +2,12 @@
 
 .cb-page-container{
     // background-color: lightgrey;
+     .notification{
+        padding-top: 10px;
+        margin: 0 auto;
+        width: 600px;
+        text-align: center;
+    }
 }
 .contact-info{
     text-align: center;
@@ -11,7 +17,9 @@
     p{ 
         padding: 0px;
         margin: 0px;
+        padding: 0px 50px;
     }
+   
 }
 .cb-page-head{
     background-color: $primary-color;

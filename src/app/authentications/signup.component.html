@@ -1,0 +1,40 @@
+<div class="lp-page-container">
+    <div class="lp-page-head">
+        <img src="assets/slider-access-control-jpg.jpeg"  alt="">
+        <div class="lp-page-title">
+        <h1>Sign up</h1>
+        </div>
+    </div>
+    <div class="container form-content">
+        <div class="container login-head">
+            <i class="fa fa-user-plus" aria-hidden="true"></i>
+            <p>Please create a new account with email and password</p>
+         </div>
+        <form [class.has-danger]="errMsg" [class.has-success]="user.valid" novalidate [formGroup]="user" (ngSubmit)="createUser(user.value)" >
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" formControlName="email" required placeholder="Email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" formControlName="password" required placeholder="password">
+            </div>
+            <div class="form-group">
+                <label for="password-confirmation">Password Confirmation</label>
+                <input type="password" class="form-control" formControlName="confirm" required placeholder="password confirmation">
+            </div>
+            <div class="alert alert-danger" role="alert" *ngIf="errMsg">
+                <strong>{{errMsg}}</strong>
+            </div>
+            <div class="container but-ton">
+                <button type="submit" [disabled]="!user.valid" class="btn btn-primary">Sign up</button> or
+                <a routerLink="/login">login </a><span>here</span>
+            </div>
+            
+        </form>
+        <!--<div>
+            <p>Status: {{user.status | json}}</p>
+            <p>Validate error: {{user.errors | json}}</p>
+        </div>-->
+    </div>
+</div>

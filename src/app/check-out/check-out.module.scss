@@ -11,7 +11,9 @@
         opacity: 0.2;
         position: relative;
         width: 100%;
-        margin-top: -100px;
+        margin-top: 0px;
+        min-height: 150px;
+        
     }
     .fp-page-title{
         position: absolute;
@@ -43,8 +45,15 @@
     // max-width: 800px;
     padding: 50px;
     .check-out{
-        position: relative;
+        position: absolute;
+        right: 100px;
         text-align: right;
+        display: flex;
+        button{
+            margin: 0px 4px;
+            height: 30px;
+            padding: 0px 5px;
+        }
     }
 }
 .check-out-container{

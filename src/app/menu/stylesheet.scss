@@ -9,6 +9,7 @@
         height: 700px;
         overflow: hidden;
         img{
+            position: fixed;
             background-size: cover;
             width: 100%;
             min-height: 700px;
@@ -33,6 +34,15 @@
         font-family: 'Caveat', cursive;
         letter-spacing: 1px;
     }
+    .banner-link button{
+        background: transparent;
+        color: lightslategrey;
+        border-color: lightslategrey;
+        &:hover{
+            color: lightgray;
+            border-color: lightgray;
+        }
+    }
 }
 .banner-tug{
     position: absolute;
@@ -43,8 +53,9 @@
 
 //----Footer Section-----///
 .footer-container{
+    position: relative;
     background-color: $primary-color;
-   
+    
 }
 .footer-content{
     padding: 20px 10px;

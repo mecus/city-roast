@@ -3,8 +3,8 @@
         <ul class="brand-list">
             <li class="brand-item-image">
                  <div class="brand">
-                    <a *ngIf="!isRedlogo" routerLink="/"><img src="assets/logo-lcr-05.png" style="width: 100px" alt="lcr"></a>
-                    <a *ngIf="isRedlogo" routerLink="/"><img src="assets/LCRartwork-05.png" style="width: 100px" alt="lcr"></a>
+                    <a *ngIf="!isRedlogo" routerLink="/"><img src="assets/logo-lcr-05.png"  alt="lcr"></a>
+                    <a *ngIf="isRedlogo" routerLink="/"><img src="assets/LCRartwork-05.png"  alt="lcr"></a>
                  </div>
             </li>
             <li class="brand-item-text" routerLink="/">
@@ -31,38 +31,145 @@
         <a class="nav-link" routerLink="/brewing" routerLinkActive="activated">Brewing Method</a>
       </li>
       <li class="nav-item" >
-        <a class="nav-link" routerLink="/products" *ngIf="regUser && !anoUser" routerLinkActive="activated">Products</a>
+        <a class="nav-link" routerLink="/products" *ngIf="previlege" routerLinkActive="activated">Products</a>
       </li>
       <li class="nav-item" >
         <a class="nav-link" routerLink="/contacts" routerLinkActive="activated">Contact</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/login" *ngIf="!regUser || anoUser">Login</a>
-      </li>
-       <li class="nav-item" >
-        <a class="nav-link" (click)="signOut()" *ngIf="regUser && !anoUser" >Sign Out</a>
-      </li>
-       <!--<li class="nav-item" *ngIf="userEmail">
-        <a class="nav-link" >{{userEmail}}</a>
-      </li>-->
- 
-
-      <li class="nav-item dropdown" routerLink="/cart" *ngIf="totalItem">
+      <li class="nav-item" routerLink="/cart" *ngIf="totalItem">
         <a class="nav-link cartSum" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
         <span class="badge badge-primary">{{totalItem}}</span></a>
-        <!--<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <ul>
-              <li>
-                <a class="dropdown-item" href="#">Sign Out</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="#">Login</a>
-              </li>
-            </ul>
-          
-        </div>-->
         </li>
+      
+        <li class="nav-item">
+          <a class="nav-link" (click)="openDrawer()"  *ngIf="previlege && regUser" ><span style="color: red">|</span> Admin <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+          <a class="nav-link" (click)="openDrawer()"  *ngIf="regUser && !previlege" ><span style="color: red">|</span> User <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+          <a class="nav-link" (click)="openDrawer()"  *ngIf="anoUser" ><span style="color: red">|</span> Guest <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+          <a class="nav-link"  routerLink="/login" *ngIf="!regUser && !anoUser"><span style="color: red">|</span> Login <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+      </li>
      </ul>
   </div>
  
 </div>
+
+<!--Login menu-->
+<div class="login-out" [style.height.px]="loginDraw">
+  <div id="iClose" (click)="closeDrawer()">
+    <i class="fa fa-times" aria-hidden="true"></i>
+  </div>
+  <ul class="login-items">
+     <li (click)="closeDrawer()" class="nav-item" routerLink="/cart" >
+        <a class="nav-link"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
+        <span class="badge badge-primary">= {{totalItem}}</span></a>
+      </li>
+    <li (click)="closeDrawer()" routerLink="/account" class="nav-item">Account</li>
+    <li (click)="closeDrawer()" class="nav-item">Favourite</li>
+    <hr>
+    <li (click)="closeDrawer()" class="nav-item">
+        <a class="nav-link" routerLink="/login" *ngIf="!regUser && !anoUser">Login</a>
+      </li>
+      <li (click)="closeDrawer()" class="nav-item">
+        <a class="nav-link" routerLink="/signup" *ngIf="!regUser && !anoUser">Sign up</a>
+      </li>
+    <li (click)="closeDrawer()" class="nav-item">
+      <a class="nav-link" (click)="signOut()" *ngIf="regUser || anoUser" >Sign Out</a>
+    </li>
+  
+  </ul>
+</div>
+<div class="dropdow-colp" (click)="closeDrawer()" [style.height.px]="loginDraw">
+  
+</div>
+
+<!--Colapsable menu-->
+<div class="colapse-menu" *ngIf="isMenuIcon">
+  <i (click)="openMenu()" class="fa fa-bars" aria-hidden="true"></i>
+</div>
+
+
+<!--Cart display section-->
+<div class="side-cart">
+   <li (click)="closeMenu()" class="nav-item dropdown" routerLink="/cart" *ngIf="totalItem">
+        <a class="nav-link cartSum" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
+        <span class="badge badge-primary">{{totalItem}}</span></a>
+    </li>
+</div>
+
+<!-- SideNav section -->
+<section class="side-nav-container" [style.width.%]="isImenu">
+  <div class="close-menu" (click)="closeMenu()">
+  </div>
+  <div class="side-nav">
+    <div class=" row account-menu">
+      <div class="col-xs-6 slide-close">
+        <i (click)="closeMenu()" class="fa fa-long-arrow-right" aria-hidden="true"></i>
+    </div>
+    <div class="col-xs-6 user-ac">
+      <i (click)="closeMenu()" routerLink="/account" class="fa fa-user" *ngIf="previlege && regUser" aria-hidden="true"></i><span (click)="closeMenu()" routerLink="/account" *ngIf="previlege && regUser">Admin</span>
+      <i (click)="closeMenu()" routerLink="/account" class="fa fa-user" *ngIf="!previlege && regUser" aria-hidden="true"></i><span (click)="closeMenu()" routerLink="/account" *ngIf="!previlege && regUser">User</span>
+      <i class="fa fa-user" *ngIf="anoUser" aria-hidden="true"></i><span *ngIf="anoUser">Guest</span>
+      <i class="fa fa-user" *ngIf="!anoUser && !regUser"  aria-hidden="true"></i><span *ngIf="!anoUser && !regUser">No user?</span>
+    </div>
+      
+  </div>
+  <hr>
+    <ul class="menu-list">
+        <li class="nav-item aside">
+          <i class="fa fa-home" aria-hidden="true"></i>
+            <a class="nav-link" (click)="closeMenu()" routerLink="/" >Home</a>
+        </li>
+      <li class="nav-item aside">
+        <i class="fa fa-wpexplorer" aria-hidden="true"></i>
+        <a class="nav-link" (click)="closeMenu()" routerLink="/about" routerLinkActive="activated">About </a>
+      </li>
+      <li class="nav-item aside">
+        <i class="fa fa-coffee" aria-hidden="true"></i>
+        <a class="nav-link" (click)="closeMenu()" routerLink="/coffee" routerLinkActive="activated">Our Coffee</a>
+      </li>
+      <li class="nav-item aside">
+        <i class="fa fa-ravelry" aria-hidden="true"></i>
+        <a class="nav-link" (click)="closeMenu()" routerLink="/brewing" routerLinkActive="activated">Brewing Method</a>
+      </li>
+      <li class="nav-item aside" >
+        <i class="fa fa-product-hunt" aria-hidden="true" *ngIf="regUser && !anoUser"></i>
+        <a class="nav-link" (click)="closeMenu()" routerLink="/products" *ngIf="regUser && !anoUser" routerLinkActive="activated">Products</a>
+      </li>
+      <li class="nav-item aside" >
+        <i class="fa fa-compress" aria-hidden="true"></i>
+        <a class="nav-link" (click)="closeMenu()" routerLink="/contacts" routerLinkActive="activated">Contact</a>
+      </li>
+      <li class="nav-item aside">
+        <i class="fa fa-sign-in" aria-hidden="true" *ngIf="!regUser && !anoUser"></i>
+        <a class="nav-link" (click)="closeMenu()" routerLink="/login" *ngIf="!regUser && !anoUser">Login</a>
+      </li>
+       <li class="nav-item aside" >
+         <i class="fa fa-sign-out" aria-hidden="true" *ngIf="regUser || anoUser"></i>
+        <a class="nav-link"  (click)="signOut()" *ngIf="regUser || anoUser" >Sign Out</a>
+      </li>
+       <!--<li class="nav-item" *ngIf="userEmail">
+        <a class="nav-link" >{{userEmail}}</a>
+      </li>-->
+    </ul>
+    <hr>
+    <div class="show-case">
+      
+      <div class="show-case-images">
+        <div class="case-1">
+          <img  src="assets/beans-coffee-cup.jpeg" alt="">
+        </div>
+        <div class="case-2" >
+          <img src="assets/coffee-machine.jpg" alt="">
+        </div>
+      </div>
+      <p>Welcome to London City Roast. We roast over 100 wonderful coffees from around the world,
+         including rare and exclusive varieties 
+        </p>
+        <h5><i class="fa fa-phone" aria-hidden="true"></i>
+            <span>0208 310 8517</span>
+        </h5>
+
+    </div>
+  </div>
+  
+  
+</section>

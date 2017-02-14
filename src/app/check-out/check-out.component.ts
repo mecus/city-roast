@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppService } from '../services/app.service';
 import { Observable } from 'rxjs/Observable';
 
+
 @Component({
     selector: 'check-out',
     templateUrl: './check-out.component.html',
@@ -34,7 +35,9 @@ export class CheckOutComponent implements OnInit {
                     console.log("All Request Completed");
                 }
             );
-        //  console.log(this.posts);   
+        //  console.log(this.posts); 
+
+  
     }
 
 }

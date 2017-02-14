@@ -5,10 +5,17 @@
       <h1>Contact us</h1>
     </div>
   </div>
-  <div class="container contact-info">
+  <div class="container contact-info" *ngIf="infoMsg">
       <h1>Contact us</h1>
-      <p>Please call us on the number below or fill the form below </p>
-      <p>and one of our team will get back to you as soon as possible.</p>
+      <p>Please call us on the number below or fill the form below, and one of our team will get back to you as soon as possible. </p>
+    </div>
+    <div class="notification container" >
+      <div class="alert alert-success" role="alert" *ngIf="sentNotification">
+        <strong>Thanks for getting in touch!</strong> Your message was successfully sent.
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="errMsg">
+        <strong>Oh snap!</strong> <p>{{errMsg}}</p>
+      </div>
     </div>
   <section class="container page-content">
     <div class="contact-address">
@@ -21,33 +28,42 @@
         <p>Mobile: 07878959635</p>
      </div>
     <div class="contact-form">
-      <form>
+      <form novalidate [class.has-success]="cForm.valid" [formGroup]="cForm" (ngSubmit)="saveContact(cForm.value)">
         <div class="row">
           <div class="form-group col col-xs-6">
             <label for="firstname">First Name</label>
-            <input type="text" class="form-control" id="firstnamet" placeholder="first name">
+            <input type="text" class="form-control" formControlName="firstName" required placeholder="first name">
           </div>
           <div class="form-group col col-xs-6">
             <label for="lastname">Last Name</label>
-            <input type="text" class="form-control" id="lastname" placeholder="last name">
+            <input type="text" class="form-control" formControlName="lastName" placeholder="last name">
           </div>
         </div>
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="text" class="form-control" id="email" placeholder="email">
+            <input type="text" class="form-control" formControlName="email" required placeholder="email">
           </div>
           <div class="form-group">
             <label for="telephone">Telephone</label>
-            <input type="text" class="form-control" id="telephone" placeholder="telephone">
+            <input type="text" class="form-control" formControlName="telephone" required pattern="[0-9]+" placeholder="telephone">
           </div>
           <div class="form-group">
             <label for="message">Message</label>
-            <textarea rows="5" class="form-control" id="message" placeholder="message"></textarea>
+            <textarea rows="5" class="form-control" formControlName="message" placeholder="message"></textarea>
           </div>
           <div class="form-group">
-            <button class="btn btn-default" type="button">Send</button>
+            <button class="btn btn-default" [disabled]="!cForm.valid" type="submit">Send</button>
           </div>
       </form>
     </div>
+    <div class="contact-address-mobile">
+        <h4>Our Office</h4>
+        <p>Unit B3 Crabtree Manorway North</p>
+        <p>DA17 6AX</p>
+        <br>
+        <p>Email: info@londoncityroast.com</p>
+        <p>Tel: 0208 310 8517</p>
+        <p>Mobile: 07878959635</p>
+     </div>
   </section>
 </section>

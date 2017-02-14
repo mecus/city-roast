@@ -9,7 +9,7 @@ import { CartService } from '../../services/cart.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  styleUrls: ['./home.component.scss', './home.media-query.scss'],
   animations: [
     trigger('zoom', [
       state('large', style({
@@ -30,8 +30,16 @@ export class HomeComponent implements OnInit {
   isHide:boolean = true;
   itemAdd:boolean = false;
   isLogin:boolean =false;
+  isSlider:boolean = false;
 
   constructor(private productService:ProductService, private router:Router, private cartService:CartService) { }
+
+  seeSlidepic(){
+    this.isSlider = true;
+  }
+  closeSlidepix(){
+    this.isSlider = false;
+  }
 
   viewProduct(data):void{
     let param = data.id;
@@ -66,7 +74,7 @@ export class HomeComponent implements OnInit {
           let reverse = products.reverse();
     
           if (reverse.length > 1){
-            reverse.length = 3
+            reverse.length = 5
             this.products = reverse;
           }else{
             if(reverse.length >= 3){

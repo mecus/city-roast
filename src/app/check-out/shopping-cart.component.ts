@@ -3,6 +3,7 @@ import { CartService } from '../services/cart.service';
 import { Location } from '@angular/common';
 import { iCart } from '../models/cart.model';
 
+
 import { AngularFire, FirebaseAuthState, 
     AuthMethods, AuthProviders, 
     FIREBASE_PROVIDERS } from 'angularfire2';
@@ -10,7 +11,7 @@ import { AngularFire, FirebaseAuthState,
 @Component({
     selector: 'shop-cart',
     templateUrl: 'shopping-cart.component.html',
-    styleUrls: ['check-out.module.scss']
+    styleUrls: ['check-out.module.scss', './check-out-media-query.scss']
 })
 export class ShoppingCartComponent implements OnInit {
     user = "kam";
@@ -41,6 +42,46 @@ export class ShoppingCartComponent implements OnInit {
     sumTotal(sum, num){
         return sum + Math.round(num);
     }
+
+
+    paypalCheckOut(){
+        window['paypal'].Button.render({
+        
+            env: 'sandbox', // Optional: specify 'sandbox' environment
+        
+            client: {
+                sandbox:    'ARBSCUiDOABkb_xriEZ3hIfQuU_acaJF7v_gd5hg660xW-totw0wbIhdH4ZKh1XaJSn2KTx8H4FTRv4O',
+                // production: 'xxxxxxxxx'
+            },
+
+            payment: function() {
+            
+                var env    = this.props.env;
+                var client = this.props.client;
+            
+                return window['paypal'].rest.payment.create(env, client, {
+                    transactions: [
+                        {
+                            amount: { total: "25", currency: 'GBP' }
+        
+                        }
+                    ]
+                });
+            },
+
+            commit: true, // Optional: show a 'Pay Now' button in the checkout flow
+
+            onAuthorize: function(data, actions) {
+            
+                // Optional: display a confirmation page here
+            
+                return actions.payment.execute().then(function() {
+                    // Show a success page to the buyer
+                });
+            }
+
+        }, '#paypal-button');
+    }
    
 
     ngOnInit() {
@@ -55,6 +96,8 @@ export class ShoppingCartComponent implements OnInit {
         if(localStorage.getItem('currentUser')){
             this.user = localStorage.getItem('userId');
         }
+
+        this.paypalCheckOut();
      }
   
 }

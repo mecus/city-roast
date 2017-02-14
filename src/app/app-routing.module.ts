@@ -11,6 +11,8 @@ import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { CoffeeComponent } from './pages/coffee/coffee.component';
 import { SignUpComponent } from './authentications/signup.component';
 import { LoginComponent } from './authentications/login.component';
+import { AccountComponent } from './authentications/accounts/account.component';
+
 
 import { ProductformComponent } from './products/product-form.component';
 import { ProductsComponent } from './products/product.component';
@@ -39,6 +41,7 @@ const routes = [
     {path: 'brewing', component: BrewingComponent},
     {path: 'coffee', component: CoffeeComponent},
     {path: 'signup', component: SignUpComponent},
+    {path: 'account', component: AccountComponent},
     {path: 'contacts', component:ContactsComponent},
     {path: 'login', component: LoginComponent},
     {path: 'product/new', component: ProductformComponent},

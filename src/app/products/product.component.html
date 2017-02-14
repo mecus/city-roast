@@ -8,7 +8,11 @@
 </section>
 <div class="container product-list">
     <div *ngIf="!products.length" class="progress container load-item">
-        <div class="progress-bar w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><strong>Loading All Products!!! please wait......</strong></div>
+        <div class="progress-loading" >
+            <strong>
+                <h3><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></h3>
+            </strong>
+        </div>
     </div>
     <table *ngIf="products.length" class="table">
     <thead class="">

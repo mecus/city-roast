@@ -8,7 +8,7 @@
 </section>
 <section class="container fp-page-content">
      <!--<a routerLink="/products"><button class="btn btn-default">Go to Products</button></a>-->
-    <form *ngIf="lastId" [class.has-success]="newproduct.valid" novalidates [formGroup]="newproduct" (ngSubmit)="createProd(newproduct.value)">
+    <form *ngIf="lastId" [class.has-success]="newproduct.valid" novalidate [formGroup]="newproduct" (ngSubmit)="createProd(newproduct.value)">
         <div class="form-group">
             <h6>Product Id: <span>0{{lastId}}</span></h6>
         </div>

@@ -18,6 +18,9 @@ a{
 *{
     box-sizing: border-box;
 }
+.content-body{
+    overflow: hidden;
+}
 
 .loading{
     position: absolute;

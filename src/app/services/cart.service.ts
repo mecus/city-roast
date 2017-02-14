@@ -23,7 +23,7 @@ export class CartService {
          });
         }  
     }
-    addCart(product, num){
+    addCart(product, size, num){
         this.getUser();
         if(this.userId){
             let cart:iCart = {
@@ -31,6 +31,7 @@ export class CartService {
                 name: product.name,
                 price: product.price,
                 qty: num,
+                size: size,
                 imageUrl: product.imageUrl
             }
             let db = this.af.database.list('/cart/'+this.userId);
@@ -42,7 +43,7 @@ export class CartService {
         }
 
     }
-    incrementQty(cartItem, num?){
+    incrementQty(cartItem, size, num?){
         let key = cartItem.$key;
         let qty = parseInt(cartItem.qty);
         let cart;
@@ -61,7 +62,7 @@ export class CartService {
                 .update({qty: cart.qty + 1}).then(res=>{res}).catch(err=>{err});
             }
         }else{
-           this.addCart(cartItem, num);
+           this.addCart(cartItem, size, num);
         }
     }
     removeItem(key){

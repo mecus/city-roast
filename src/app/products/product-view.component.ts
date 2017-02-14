@@ -9,7 +9,7 @@ import { Product } from '../models/product.model';
 @Component({
     selector: 'product-view',
     templateUrl: 'product-view.component.html',
-    styleUrls: ['product.component.scss']
+    styleUrls: ['product.component.scss', './product-media-query/product-view.media.scss']
 })
 export class ProductViewComponent implements OnInit {
     islogin:boolean = false;
@@ -36,12 +36,13 @@ export class ProductViewComponent implements OnInit {
         
     }
 
-    addtoCart(val){
+    addtoCart(size, val){
+        console.log(val, size);
         if(localStorage.getItem('currentUser')){
             if(val < 1){
                 this.positiveNum = true;
             }else{
-                this.cartService.incrementQty(this.dproduct, val);
+                this.cartService.incrementQty(this.dproduct, size, val);
                 // this.cartService.addCart(this.dproduct);
                 this.router.navigate(['/cart']);
             }

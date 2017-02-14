@@ -16,6 +16,7 @@ export class AuthService {
     isAuthenticated: boolean = false;
     redirectUrl: string;
     errMsg;
+    cLength;
   
 
     constructor(private af:AngularFire, private router:Router, private cartService:CartService) { }
@@ -42,6 +43,15 @@ export class AuthService {
             })
         }
     }
+    createAccount(uId){
+         let dbRef = this.af.database.list('accounts/'+uId);
+         dbRef.push({isAmin: false})
+                .then(success=>{console.log("User Account Created successfully "+success)})
+                .catch(error=>{console.log("something went wrong "+error)});
+     }
+     getAccount(uId){
+         return this.af.database.list('accounts/'+uId); 
+     }
 
     logIn(user:User){
         if(user){
@@ -53,10 +63,12 @@ export class AuthService {
     }
 
     logOut(){
-        let D = window.confirm("Do you want to empty your shopping basket?");
-        if(D==true){
-            this.cartService.clear();
-        }
+        
+        // let D = window.confirm("Do you want to empty your shopping basket?");
+        // if(D==true){
+        //     this.cartService.clear();
+        // }
+        
         this.af.auth.logout();
         localStorage.removeItem('userId');
         localStorage.removeItem('currentUser');
@@ -64,9 +76,16 @@ export class AuthService {
         location.reload();
         
         // this.router.navigate(['/login']);
-         
-
     }
+
+    // cartLength(){
+    //     this.cartService.getCart()
+    //         .subscribe(res=>{
+    //             this.cLength = res;
+    //             console.log(this.cLength);
+    //         });
+    // }
+    
     authChange(){
         this.af.auth.subscribe((newUser)=>{
             if(!localStorage.getItem('currentUser') && newUser ){
@@ -84,16 +103,14 @@ export class AuthService {
         });
        
     }
-    checkUser(){
-        return this.af.auth;
-    }
+    
     logAnonymous(){
         let auth = firebase.auth();
         return auth.signInAnonymously();
     }
-    // deleteAnonymous(){
-    //     let auth = firebase.auth();
-    //     auth.
-    // }
-    
+   authUserChange(){
+       //checking for current user LoggedIn==//
+      return this.af.auth;
+   }
+
 }

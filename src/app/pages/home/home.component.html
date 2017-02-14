@@ -5,48 +5,101 @@
     <div class="about-text container">
       <h1>Welcome</h1>
       <p>Welcome to London City Roast. We roast over 100 wonderful coffees from around the world, including rare and exclusive varieties such as Kopi Luwak and Blue Mountain Jamaica, and deliver them directly to your door. We roast to order, so your coffee will always arrive in the freshest condition possible, and offer a range of grind options as well as whole beans. We also offer a sumptuous range of teas, as well as our ever-popular coffee gift hampers.</p>
+      <button routerLink="/about" class="btn btn-default" type="button">more about us</button>
     </div>
-    <div class="row about-images">
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+
+
+    <!--Display Image-->
+    <div class="row about-images" *ngIf="!isSlider">
+      <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3" id="dImage">
         <a>
-          <img (click)="selectImg(image[0])" class="rounded" src="{{image[0]}}"  alt="">
+          <img (click)="selectImg(image[0])"  src="{{image[0]}}"  alt="">
         </a>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3" id="dImage">
         <a >
-          <img (click)="selectImg(image[2])" class="rounded" src="{{image[2]}}"  alt="">
+          <img (click)="selectImg(image[2])"  src="{{image[2]}}"  alt="">
         </a>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3" id="dImage">
         <a>
-          <img (click)="selectImg(image[1])" class="rounded" src="{{image[1]}}"  alt="">
+          <img (click)="selectImg(image[1])"  src="{{image[1]}}"  alt="">
         </a>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+      <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3" id="dImage">
         <a>
-          <img (click)="selectImg(image[3])" class="rounded" src="{{image[3]}}"  alt="">
+          <img (click)="selectImg(image[3])"  src="{{image[3]}}"  alt="">
         </a>
+      </div>
+      <button (click)="seeSlidepic()" class="btn btn-success" type="button">see all photos</button>
+    </div>
+
+    <!--Mobile image slider-->
+    <div class="mobile-slider-cover" *ngIf="isSlider">
+      <div class="row mobile-slider" >
+        <div class="col-xs-12" id="dImage">
+          <a>
+            <img (click)="selectImg(image[0])"  src="{{image[0]}}"  alt="">
+          </a>
+        </div>
+        <div class="col-xs-12" id="dImage">
+          <a >
+            <img (click)="selectImg(image[2])"  src="{{image[2]}}"  alt="">
+          </a>
+        </div>
+        <div class="col-xs-12" id="dImage">
+          <a>
+            <img (click)="selectImg(image[1])"  src="{{image[1]}}"  alt="">
+          </a>
+        </div>
+        <div class="col-xs-12" id="dImage">
+          <a>
+            <img (click)="selectImg(image[3])"  src="{{image[3]}}"  alt="">
+          </a>
+        </div>
+        
+      </div>
+      <div class="iText">
+        <p>Slide photo</p>
+      </div>
+      <div class="slider-button">
+        <button (click)="closeSlidepix()" class="btn btn-danger" type="button">Close Windows</button>
       </div>
     </div>
+
+    
+
     <div class="tagline "> 
       <p> <i>we roast the best coffee in London</i> </p>
+      <p> <i>supply offices and shops</i> </p>
     </div>
   </div>
   <br><br><br>
 </section>
+
+<section class="cta">
+  <div class="cta-content">
+    <h1>Like Our Products?</h1>
+    <h2>please order below or contact us for enquiry </h2>
+    <button routerLink="/contacts" class="btn btn-success" type="button">send message</button>
+  </div>
+</section>
+
+
 <section class="front-shop clearfix">
   <img class="img-bg" src="assets/cityroast.png" alt="">
-
-  <div class="items">
-    <div  class="shop-item rounded-top" *ngFor="let item of products">
-      <div class="item-img">
-        <img (click)="viewProduct(item)" class="rounded-top" [src]="item.imageUrl" style="width: 150px" alt="product photo">
+  <div class="shop-item-cover">
+    <div class="items">
+      <div  class="shop-item rounded-top" *ngFor="let item of products">
+        <div class="item-img">
+          <img (click)="viewProduct(item)" class="rounded-top" [src]="item.imageUrl" style="width: 150px" alt="product photo">
+        </div>
+        <h2>{{item.name}}</h2>
+        <h6>{{item.price | currency: 'GBP' :true}}</h6>
+        <p>
+          <a><button (click)="addToCart(item)" class="btn btn-default" type="">add to cart</button></a>
+        </p>
       </div>
-      <h2>{{item.name}}</h2>
-      <h6>{{item.price | currency: 'GBP' :true}}</h6>
-      <p>
-        <a><button (click)="addToCart(item)" class="btn btn-default" type="">add to cart</button></a>
-      </p>
     </div>
   </div>
 </section>

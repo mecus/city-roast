@@ -1,0 +1,48 @@
+<div class="lp-page-container">
+    <div class="lp-page-head">
+        <img src="assets/slider-access-control-jpg.jpeg"  alt="">
+        <div class="lp-page-title">
+        <h1>Login</h1>
+        </div>
+    </div>
+    <div class="container logged-in" *ngIf="!dashboard">
+        <div class="jumbotron">
+            <h5>Please login as a guest or Login with email or Create a new account</h5>
+            <div class="login-option">
+                <button (click)="logAnonymous()" class="btn btn-primary">Login as a Guest </button>
+                <button (click)="openDash()" class="btn btn-success">Login with email & password</button>
+                 <button routerLink="/signup" class="btn btn-danger">Create account</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container form-content" *ngIf="dashboard">
+    <div class="container login-head">
+        <i class="fa fa-lock" aria-hidden="true"></i>
+        <p>Please login with your email and password</p>
+        <!--<div *ngIf="!anoUser">
+            <button (click)="logAnonymous()" class="btn btn-success" type="button">Guest Login no password</button>
+            <h3>OR</h3>
+        </div>-->
+        
+    </div>
+    
+        <form novalidate [class.has-success]="user.valid" [formGroup]="user" (ngSubmit)="loginUser(user.value)">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" formControlName="email" required placeholder="Email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" formControlName="password" required placeholder="password">
+            </div>
+            <div class="alert alert-danger" role="alert" *ngIf="errMsg">
+                <strong>{{errMsg.message}}</strong>
+            </div>
+            <div class="container but-ton">
+                <button type="submit" [disabled]="!user.valid" class="btn btn-primary">Login</button>
+                or <span > <a routerLink="/signup"> Sign up </a> here</span>
+            </div>
+        </form>
+    </div>
+</div>

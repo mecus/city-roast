@@ -27,5 +27,9 @@ export class AppService {
             .map((res:Response)=>  res.json());
             
     }
+    addContact(){
+        return this.af.database.list('/contacts');
+        
+    }
 
 }

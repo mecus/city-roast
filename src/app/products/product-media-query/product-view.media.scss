@@ -1,0 +1,105 @@
+//===Product View section===//
+
+@media only screen and (min-width:250px) and (max-width: 640px){
+    .big-screen{
+        display: none;
+    }
+    .description-small{
+        padding: 0px 10px 20px 10px;
+        text-align: center;
+        h6{
+            font-size: 22px;
+            letter-spacing: 2px;
+            font-family: 'Lobster', cursive;
+            margin-bottom: 10px;
+        }
+        
+    }
+
+    
+    .content-container{
+        button.small-screen{color:lightslategray;}
+        min-height: 500px;
+        margin-bottom: 50px;
+        .product-disply{
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 50px 0px;
+            display: flex;
+            align-content: space-between;
+
+            .product-img{
+                flex: 1;
+                img{width:150px;}
+            }
+            .product-details{
+                padding-left: 20px;
+                flex: 2;
+                .cart-select{ 
+                    display: -webkit-flex;
+                    display: flex;
+                    width: 100%;
+                    margin-right: 10px;
+                    span{
+                        // flex: 1;
+                        margin: 10px 0px 0px 0px;
+                    }
+                    input{
+                        margin: 5px;
+                        width: 100px;
+                        
+                    }
+                }
+                .pick-size{
+                    display: -webkit-flex;
+                    display: flex;
+                    width: 100%;
+                    margin-right: 10px;
+                    span{
+                        // flex: 1;
+                        margin: 10px 5px 0px 0px;
+                        
+                    }
+                    select{
+                        // flex: 2;
+                        width: 110px;
+                        
+                    }
+                }
+                .add-to{
+                    padding: 0px;
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+    .other-product{
+        max-width: 700px;
+        margin: 0 auto;
+        display: flex;
+        .other-item{
+            height: 200px;
+            flex: 1;
+            .other-item-details{
+                width: 100px;
+                text-align: center;
+                h6{
+                    font-size: 12px;
+                    padding: 0px;
+                    margin: 0px;
+                }
+                p{
+                    @extend h6;
+                    font-size: 10px;
+                    
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 640px){
+     .small-screen{
+        display: none;
+    }
+}
