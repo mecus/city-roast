@@ -55,33 +55,74 @@
 .footer-container{
     position: relative;
     background-color: $primary-color;
+    border-top: 2px solid;
+    border-color: #f48024;
     
 }
 .footer-content{
     padding: 20px 10px;
     box-sizing: border-box;
-    display: flex;
-    align-items: baseline;
+    // display: flex;
+    text-align: center;
+    .footer-brand{
+        margin-bottom: 10px;
+        img{
+            -webkit-filter: grayscale(100%);
+            filter: grayscale(100%); 
+            opacity: 0.5;
+        }
+    }
     .footer-address{
-        flex: 3;
+        // flex: 3;
         h5, h6 {
             color: lightgrey;
         }
+        #imail{
+            color: #f48024;
+            letter-spacing: 2px;
+            opacity: 0.6;
+        }
+        #crt{
+            font-size: 14px;
+            letter-spacing: 3px;
+        }
+        #tel{
+            letter-spacing: 4px;
+        }
+        #tcp{
+            color:aquamarine;
+            opacity: 0.5;
+            #tc:hover{
+                cursor: pointer;
+                color: lightslategray;
+            }
+            #pv:hover{
+               cursor: pointer;
+               color: lightslategray; 
+            }
+        }
 
     }
+    #designer{
+        p{
+            color: lightslategray;
+            opacity: 0.5;
+            letter-spacing: 3px;
+        }
+    }
     .social-media{
-        flex: 2;
-        padding-left: 20px;
-        align-content: flex-end;
-        display: flex;
-        align-content: space-between;
-        
+        display: inline-flex;
         h1{
             margin: 20px;
+            i{
+                color:#fff;
+                &:hover{
+                    cursor: pointer;
+                    color: lightslategray; 
+                }
+            }
         }
-        i{
-            color:#fff;
-        }
+        
     }
 
 }

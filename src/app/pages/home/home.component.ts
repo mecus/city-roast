@@ -58,7 +58,7 @@ export class HomeComponent implements OnInit {
       this.itemAdd = true;
       setTimeout(()=>{this.itemAdd = false;}, 6000);
     
-      this.cartService.incrementQty(item, 1);
+      this.cartService.incrementQty(item, 250, 1);
    }else{
 
      this.isLogin = true;

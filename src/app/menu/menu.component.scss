@@ -5,13 +5,15 @@
 //---Navigation menu Section---//
 
 .activated {
-    color: #fff !important;
-    background-color: green;
+    color: #f48024 !important;
+    background-color: #000;
     @include border-radius(5px);
     padding-left: 5px;
     padding-right: 5px;
     border: 1px solid;
+    border-color: #f48024;
     @include transition(0.2s);
+    li a{color: #f48024}
     // box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .navbar{

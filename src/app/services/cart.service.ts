@@ -43,7 +43,7 @@ export class CartService {
         }
 
     }
-    incrementQty(cartItem, size, num?){
+    incrementQty(cartItem, size?, num?){
         let key = cartItem.$key;
         let qty = parseInt(cartItem.qty);
         let cart;

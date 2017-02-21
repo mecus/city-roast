@@ -10,6 +10,7 @@
     background-color: $secondary-color;
     background: -moz-linear-gradient($secondary-color);
     padding: 50px 0px;
+    position: relative;
     .about-container{
         margin: 0px auto;
         text-align: center;
@@ -162,3 +163,28 @@
     margin: 0px;
    
 }
+.cta{
+        position: relative;
+        background-color: #000;
+        // background-color: #f48024;
+        width: 100%;
+        padding: 30px 10px;
+        .cta-content{
+            text-align: center;
+            h1{
+                font-size: 28px;
+                color: #f48024;
+                font-weight: 800;
+            }
+            h2{
+                font-size: 18px;
+                color: lightslategray;
+                font-weight: 600;
+            }
+            button{
+                background-color: transparent;
+                border-color:#f48024;
+                color: #f48024; 
+            }
+        }
+    }
