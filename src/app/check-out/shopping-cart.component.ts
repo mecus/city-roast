@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from '../services/cart.service';
 import { Location } from '@angular/common';
 import { iCart } from '../models/cart.model';
+import { Router } from '@angular/router';
 
 
 import { AngularFire, FirebaseAuthState, 
@@ -18,8 +19,12 @@ export class ShoppingCartComponent implements OnInit {
     cartproduct = [];
     sumCart;
     constructor(private cartService:CartService, private _location:Location,
-    private af:AngularFire) { }
+    private af:AngularFire, private _router:Router) { }
 
+    moveTopayment(){
+        location.reload();
+        this._router.navigate(["/checkout"]);
+    }
     back(){
         this._location.back();
     }
@@ -40,7 +45,7 @@ export class ShoppingCartComponent implements OnInit {
     }
 
     sumTotal(sum, num){
-        return sum + Math.round(num);
+        return sum + num;
     }
 
 
@@ -97,7 +102,7 @@ export class ShoppingCartComponent implements OnInit {
             this.user = localStorage.getItem('userId');
         }
 
-        this.paypalCheckOut();
+        // this.paypalCheckOut();
      }
   
 }

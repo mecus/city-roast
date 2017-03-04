@@ -53,20 +53,20 @@ export class HomeComponent implements OnInit {
   closeImage(){
     this.isHide = true;
   }
-  addToCart(item){
-   if(localStorage.getItem('currentUser')){
-      this.itemAdd = true;
-      setTimeout(()=>{this.itemAdd = false;}, 6000);
+  // addToCart(item){
+  //  if(localStorage.getItem('currentUser')){
+  //     this.itemAdd = true;
+  //     setTimeout(()=>{this.itemAdd = false;}, 6000);
     
-      this.cartService.incrementQty(item, 250, 1);
-   }else{
+  //     this.cartService.incrementQty(item, 250, 1);
+  //  }else{
 
-     this.isLogin = true;
-     setTimeout(()=>{this.isLogin = false;}, 6000)
-   }
+  //    this.isLogin = true;
+  //    setTimeout(()=>{this.isLogin = false;}, 6000)
+  //  }
     
     
-  }
+  // }
 
   ngOnInit() {
     this.productService.getProduct()

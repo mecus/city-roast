@@ -43,44 +43,49 @@
         <span><p>{{sumCart | currency: 'GBP': true}}</p></span>
       </div>
     </div>
-    <table class="table" *ngIf="cartproduct.length > 0">
-      <thead class="thead-default">
-        <tr>
-            <th></th>
-            <th>Product</th>
-            <th>Qty</th>
-            <th>Unit Price</th>
-            <th>Total</th>
-            <th><button (click)="clearCart()" class="btn btn-danger" type="button">Empty your basket</button></th>
-        </tr>
-      </thead>
-      <tbody>
-        
-        <tr *ngFor="let item of cartproduct">
-          <th>
-            <img [src]="item.imageUrl" style="width: 30px;" alt="">
-          </th>
-          <td>{{item.name}}</td>
-          <td>{{item.qty}}</td>
-          <td>{{item.price | currency: 'GBP': true}}</td>
-          <td>{{item.qty * item.price | currency: 'GBP': true}}</td>
-          <td><i (click)="removeItem(item.$key)" class="fa fa-times remove-cart-i" aria-hidden="true"></i>
- </td>
-        </tr>
-        <tr>
-          <td colspan="3"></td>
-          <td> <h5>Total:</h5> </td>
-          <td><h4>{{sumCart | currency: 'GBP': true}}</h4></td>
-        </tr>
-      </tbody>
-    </table>
-<div class="check-out right-nav">
-  
-    <div id="paypal-button"></div>
-
-    <button routerLink="/" class="btn btn-success" type="button">Continue Shopping</button>
- 
-</div>
-
+    <div class="container ">
+      <table class="table cart-table" *ngIf="cartproduct.length > 0">
+        <thead class="thead-default">
+          <tr>
+              <th></th>
+              <th>Product</th>
+              <th>Qty</th>
+              <th>Size</th>
+              <th>Blend Type</th>
+              <th>Unit Price</th>
+              <th>Total</th>
+              <th></th>
+              <!--<th><button (click)="clearCart()" class="btn btn-danger" type="button">Empty your basket</button></th>-->
+          </tr>
+        </thead>
+        <tbody>
+          
+          <tr *ngFor="let item of cartproduct">
+            <th>
+              <img [src]="item.imageUrl" style="width: 30px;" alt="">
+            </th>
+            <td>{{item.name}}</td>
+            <td>{{item.qty}}</td>
+            <td>{{item.size}}</td>
+            <td>{{item.type}}</td>
+            <td>{{item.price | currency: 'GBP': true}}</td>
+            <td>{{item.qty * item.price | currency: 'GBP': true}}</td>
+            <td><i (click)="removeItem(item.$key)" class="fa fa-times remove-cart-i" aria-hidden="true"></i>
+          </td>
+                  </tr>
+                  <tr>
+                    <td colspan="5"></td>
+                    <td> <h5>Total:</h5> </td>
+                    <td><h4>{{sumCart | currency: 'GBP': true}}</h4></td>
+                  </tr>
+                </tbody>
+              </table>
+          <div class="check-out right-nav">
+            
+              <button id="btn-check" *ngIf="cartproduct.length > 0" (click)="moveTopayment()" class="btn btn-success" type="button">Proceed to Check Out</button>
+              <button routerLink="/" class="btn btn-success" type="button">Continue Shopping</button>
+          
+          </div>
+        </div>
     
 </section>

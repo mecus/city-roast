@@ -17,6 +17,35 @@
 
 
 @media only screen and (min-width:250px) and (max-width: 640px)  {
+    .navbar{
+        .anonymous-wrapper{
+            position: fixed;
+            width: 100%;
+            height: 100vmax;
+            background-color: rgba(0,0,0, 0.5);
+            
+            .anonymous{
+                position: absolute;
+                top: 15%;
+                left: 50%;
+                width: 80%;
+                margin-left: -40% ;
+                text-align: center;
+                @include transition(0.2s);
+                .ano-content{
+                    background-color: lightslategrey;
+                    width: 100%;
+                    h2{
+                        // color: black;
+                    }
+                    p {padding: 10px 0px; color: black;}
+                    span#span{
+                        color: red;
+                    }
+                }
+            }
+        }
+    }
 
     .activated {
         color: lightslategrey !important;
@@ -28,6 +57,7 @@
         @include transition(0.2s);
         // box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
+    
     .right-nav, .login-out{display: none;}
     .side-cart{
         position: absolute;
@@ -40,6 +70,7 @@
             a{background-color: #fff;}
         }
     }
+    
     .side-nav-container{
         position: fixed;
         top: 0px;
@@ -170,7 +201,23 @@
         }
         
     }
+    .cartSum{
+        border: 1px solid;
+        @include border-radius(50%);
+        padding: 5px;
+        // background-color: green;
+        i{
+            font-size: 15px;
+            color: #f48024;
+        }
+        span{
+            margin: 0px;
+            padding: 0px;
+            font-size: 14px;
+        }
+    }
 }
+
 @media only screen and  (min-width: 640px){
  .side-nav-container, .colapse-menu, .side-cart{
      display: none;

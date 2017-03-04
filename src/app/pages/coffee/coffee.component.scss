@@ -48,23 +48,29 @@
         }
     }
     .coffees{
-        display: flex;
+        margin: auto;
         text-align: center;
-        .coffee {
-            flex: 1;
-            width: 20%;
-            margin: 4px;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            padding: 20px 10px;
-            .coffee-title{
-                text-align: center;
-                padding: 10px 10px;
-                h1{
-                    font-size: 16px;
-                    color: lightslategray;
+        .content-wrapper{
+            margin: 5px;
+            .coffee {
+                margin: 0px;
+                padding: 0px;
+                padding: 10px 5px;
+                .coffee-wrapper{
+                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                    padding: 10px;
+                    .coffee-title{
+                        text-align: center;
+                        padding: 10px 10px;
+                        h1{
+                            font-size: 16px;
+                            color: lightslategray;
+                        }
+                    }
                 }
             }
         }
+
     }
 }
 

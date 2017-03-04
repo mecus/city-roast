@@ -92,7 +92,7 @@ span.add{
 
         .product-img{
             flex: 1;
-            img{width:250px;}
+            img{width:250px; margin-bottom: 20px;}
         }
         .product-details{
             padding-left: 20px;
@@ -111,10 +111,11 @@ span.add{
                     width: 100px;
                 }
             }
-            .pick-size{
+            .pick-size, .pick-type{
                 display: -webkit-flex;
                 display: flex;
                 width: 190px;
+                padding-bottom: 4px;
                 span{
                     margin: 10px 10px 0px 0px;
                 }

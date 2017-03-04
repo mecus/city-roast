@@ -9,60 +9,68 @@
 <section class="ac-main-content container">
     <div class="ac-update">
         <h4>Billing Address</h4>
-        <div class="form-group row">
-            <label for="example-text-input" class="col-2 col-form-label">First Name</label>
-            <div class="col-10 form-input">
-                <input class="form-control" type="text" value="kale" id="example-text-input">
+        <form novalidates [formGroup]="cusForm">
+
+            <div class="form-group row">
+                <label for="example-text-input" class="col-2 col-form-label">First Name</label>
+                <div class="col-10 form-input">
+                    <input class="form-control" type="text" formControlName="firstName">
+                </div>
             </div>
-        </div>
-        <div class="form-group row">
-        <label for="example-search-input" class="col-2 col-form-label">Last Name</label>
-        <div class="col-10 form-input">
-            <input class="form-control" type="search" value="Artisanal " id="example-search-input">
-        </div>
-        </div>
-       
-         <div class="form-group row">
-        <label for="example-datetime-local-input" class="col-2 col-form-label">Company Name</label>
-        <div class="col-10 form-input">
-            <input class="form-control" type="text" value="Starbucks" id="example-datetime-local-input">
-        </div>
-         </div>
-         
-        <div class="form-group row">
-        <label for="example-password-input" class="col-2 col-form-label">First Line Address</label>
-        <div class="col-10 form-input">
-            <input class="form-control" type="text" value="hunter2" id="example-password-input">
-        </div>
-        </div>
+            <div class="form-group row">
+            <label for="example-search-input" class="col-2 col-form-label">Last Name</label>
+            <div class="col-10 form-input">
+                <input class="form-control" type="search"  formControlName="lastName">
+            </div>
+            </div>
+        
+            <div class="form-group row">
+            <label for="example-datetime-local-input" class="col-2 col-form-label">Email</label>
+            <div class="col-10 form-input">
+                <input class="form-control" type="text"  formControlName="email">
+            </div>
+            </div>
+            <div class="form-group row">
+            <label for="example-datetime-local-input" class="col-2 col-form-label">Telephone</label>
+            <div class="col-10 form-input">
+                <input class="form-control" type="text"  formControlName="telephone">
+            </div>
+            </div>
+            
+            <div class="form-group row">
+            <label for="example-password-input" class="col-2 col-form-label">First Line Address</label>
+            <div class="col-10 form-input">
+                <input class="form-control" type="text" value="hunter2" formControlName="addressOne">
+            </div>
+            </div>
 
-        <div class="form-group row">
-        <label for="example-number-input" class="col-2 col-form-label">Second Line Address</label>
-        <div class="col-10 form-input">
-            <input class="form-control" type="text" value="42" id="example-number-input">
-        </div>
-        </div>
+            <div class="form-group row">
+            <label for="example-number-input" class="col-2 col-form-label">Second Line Address</label>
+            <div class="col-10 form-input">
+                <input class="form-control" type="text" value="42" formControlName="addressTwo">
+            </div>
+            </div>
 
-        <div class="form-group row">
-        <label for="example-date-input" class="col-2 col-form-label">Post Code</label>
-        <div class="col-10 form-input">
-            <input class="form-control" type="text" value="SE14 5DG" id="example-date-input">
-        </div>
-        </div>
+            <div class="form-group row">
+            <label for="example-date-input" class="col-2 col-form-label">Post Code</label>
+            <div class="col-10 form-input">
+                <input class="form-control" type="text" value="SE14 5DG" formControlName="postCode">
+            </div>
+            </div>
 
-        <div class="form-group row">
-        <label for="example-month-input" class="col-2 col-form-label">City</label>
-        <div class="col-10 form-input">
-            <input class="form-control" type="text" value="London" id="example-month-input">
-        </div>
-        </div>
+            <div class="form-group row">
+            <label for="example-month-input" class="col-2 col-form-label">City</label>
+            <div class="col-10 form-input">
+                <input class="form-control" type="text" value="London" formControlName="city">
+            </div>
+            </div>
 
-        <div class="form-group row">
-        <label for="example-week-input" class="col-2 col-form-label">Country</label>
-        <div class="col-10 form-input">
-            <input class="form-control" type="text" value="United Kingdom" id="example-week-input">
-        </div>
-        </div>
-
+            <div class="form-group row">
+            <label for="example-week-input" class="col-2 col-form-label">Country</label>
+            <div class="col-10 form-input">
+                <input class="form-control" type="text" value="United Kingdom" formControlName="country">
+            </div>
+            </div>
+         </form>
     </div>
 </section>

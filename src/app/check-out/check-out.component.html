@@ -7,22 +7,101 @@
   </div>
 </section>
 <section class="check-out-container">
-    <div class="customer-info">
-        
+    
+    <div class="row customer-info">
+        <div class="col col-lg-9 cus-details">
+            <h1>Customer Details</h1>
+
+            <form [formGroup]="cusForm" (ngSubmit)="saveCustomer(cusForm.value)" class="main-form" action="https://secure-test.worldpay.com/wcc/purchase"  id="paymentForm" method="post">
+                <input type=hidden name="testMode" value="100">
+                <div class="row name-section">
+                    <div class="col col-xs-6 col-lg-6 form-group">
+                        <label for="formGroupExampleInput">First Name</label>
+                        <input type="text" class="form-control" formControlName="firstName" placeholder="first name">
+                    </div>
+                    <div class="col col-xs-6 col-lg-6 form-group">
+                        <label for="formGroupExampleInput2">Last Name</label>
+                        <input type="text" class="form-control" formControlName="lastName" placeholder="last name">
+                    </div>
+                     <div class="col col-xs-6 col-lg-6 form-group">
+                        <label for="formGroupExampleInput">Email</label>
+                        <input type="text" class="form-control" formControlName="email" placeholder="example@email.com">
+                    </div>
+                    <div class="col col-xs-6 col-lg-6 form-group">
+                        <label for="formGroupExampleInput2">Telephone</label>
+                        <input type="text" class="form-control" formControlName="telephone" placeholder="telephone">
+                    </div>
+                </div>
+                
+                <div class="row address-section">
+                    
+                    <div class="col col-xs-12 col-lg-6 address-input">
+                        <h6>Home Address</h6>
+                        <hr>
+                        <div class="col col-xs-6 col-lg-6 form-group">
+                            <label for="formGroupExampleInput">Address 1</label>
+                            <input type="text" class="form-control" formControlName="addressOne" placeholder="first line address">
+                        </div>
+                        <div class="col col-xs-6 col-lg-6 form-group">
+                            <label for="formGroupExampleInput2">Address 2</label>
+                            <input type="text" class="form-control" formControlName="addressTwo" placeholder="second line address">
+                        </div>
+                        <div class="col col-xs-6 col-lg-6 form-group">
+                            <label for="formGroupExampleInput">Post Code</label>
+                            <input type="text" class="form-control" formControlName="postCode" placeholder="post code">
+                        </div>
+                        <div class="col col-xs-6 col-lg-6 form-group">
+                            <label for="formGroupExampleInput2">City</label>
+                            <input type="text" class="form-control" formControlName="city" placeholder="city">
+                        </div>
+
+                        <div class="col col-xs-12 col-lg-6 form-group">
+                            <label for="formGroupExampleInput2">Country</label>
+                            <input type="text" class="form-control" formControlName="country" value="United Kingdom" placeholder="United Kingdom">
+                        </div>
+                    </div>
+                    <div class="col col-xs-12  col-lg-6 card-input">
+                        <div id='paymentSection'></div>
+                    </div>
+                    
+                </div>
+                
+            
+                <input id="pay-btn" class="btn btn-default" type="submit" value="Proceed to Payment" onclick="Worldpay.submitTemplateForm()" />
+            </form>
+        </div>
+        <div class="col col-xs-12 col-sm-12 col-md-6 col-lg-3 order-detail-container">
+            <div class="order-detail">
+                <h1>Your Order</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="3"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let cart of carts">
+                            <td><img [src]="cart.imageUrl" style="width: 30px" alt=""></td>
+                            <td><p>{{cart.qty}}x </p></td>
+                            <td><p>{{cart.name}}</p></td>
+                            <td><p>{{cart.qty * cart.price | currency:'GBP':true}}</p></td>
+                        </tr>
+                    </tbody>
+                </table>
+                    <hr>
+                    <h6>Total: {{sumCart | currency: 'GBP': true}}</h6>
+            </div>
+            <!--<input class="btn btn-default" type="submit" value="Continue to Order" onclick="Worldpay.submitTemplateForm()" />-->
+        </div>
     </div>
     <div class="order-items">
         <div>
-            <ul>
-                <li *ngFor="let post of posts">
-                    <h3>{{post.title}}</h3>
-                    <p>{{post.body}}</p>
-                </li>
-            </ul>
+
         </div>
         <div>
-            <!--<div id="paypal-button"></div> -->
+
 
         </div>
     </div>
-    <a target="blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9B5PWJLL573J8">PayPal PayNow</a>
+  
 </section>

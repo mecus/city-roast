@@ -5,6 +5,7 @@ import { CartService } from '../services/cart.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import { Product } from '../models/product.model';
+import { AuthService } from '../authentications/auth-service';
 
 @Component({
     selector: 'product-view',
@@ -25,7 +26,7 @@ export class ProductViewComponent implements OnInit {
         // description: ' once() method to simplify this scenario: it triggers once and then does not trigger again.'
     };
     constructor(private productService:ProductService, private route:ActivatedRoute, 
-    private router:Router, private _location: Location, private cartService:CartService) { }
+    private router:Router, private _location: Location, private cartService:CartService, private authService:AuthService) { }
 
     back(){
         this._location.back();
@@ -36,21 +37,40 @@ export class ProductViewComponent implements OnInit {
         
     }
 
-    addtoCart(size, val){
-        console.log(val, size);
-        if(localStorage.getItem('currentUser')){
-            if(val < 1){
-                this.positiveNum = true;
-            }else{
-                this.cartService.incrementQty(this.dproduct, size, val);
-                // this.cartService.addCart(this.dproduct);
-                this.router.navigate(['/cart']);
+    addtoCart(size, val, type){
+        // console.log(val, size);
+        if(!localStorage.getItem('idToken')){
+            this.authService.logAnonymous()
+                .then(res=>{
+                    this.authService.authChange();
+                })
+                .catch(err=>console.log(err));
+
+            setTimeout(()=>{
+                if(localStorage.getItem('currentUser')){
+                    if(val < 1){
+                        this.positiveNum = true;
+                    }else{
+                        this.cartService.incrementQty(this.dproduct, size, val, type);
+                        // this.cartService.addCart(this.dproduct);
+                        this.router.navigate(['/cart']);
+                    }
+                }
+
+            }, 500);
+            
+        }else
+            if(localStorage.getItem('currentUser')){
+                if(val < 1){
+                    this.positiveNum = true;
+                }else{
+                    this.cartService.incrementQty(this.dproduct, size, val, type);
+                    // this.cartService.addCart(this.dproduct);
+                    this.router.navigate(['/cart']);
+                }
             }
-        }else{
-            this.islogin = true;
-            // this.cartService.noUserCart(this.dproduct, val);
-            // this.router.navigate(['/cart']);
-        }
+        
+        
         
     }
     ngOnInit() { 

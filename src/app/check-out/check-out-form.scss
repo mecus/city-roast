@@ -1,0 +1,100 @@
+
+@media only screen and (min-width:250px) and (max-width:640px){
+    .card-input{
+        width: 250px;
+        padding: 0px;
+        margin: 0px;
+        // padding: 0px 10px;
+    }
+    .order-detail-container{
+        padding: 0px;
+        margin: 20px 0px;
+    }
+}
+
+
+.cus-details{
+    margin: 0px;
+    padding: 0px;
+    border: 1.5px solid;
+    border-color: lightslategrey;
+    .main-form{
+       padding: 10px 20px;
+    }
+
+    h1{
+        font-size: 18px;
+        margin: 0px;
+        padding: 5px 10px;
+        color: lightgray;
+        background-color: lightslategrey;
+    }
+    input#pay-btn{
+        background-color: #f48024;
+    }
+}
+.order-detail-container{
+    // padding-left: 20px;
+    .order-detail{
+        margin: 0px;
+        padding: 0px;
+        border: 1.5px solid;
+        border-color: lightslategrey;
+        table{
+    
+             p{
+                font-size: 14px;
+                padding: 0px 10px;
+            }
+        }
+       
+        h1{
+            font-size: 18px;
+            margin: 0px;
+            padding: 5px 10px;
+            color: lightgray;
+            background-color: lightslategrey;
+        }
+        h6{
+            margin-left: 50px;
+        }
+        input.btn{
+            height: 20px;
+            background-color: transparent;
+            border-radius: 0px !important;
+        }
+        .final-total{
+            padding-left: 20px;
+        }
+    }
+}
+
+.order-content{
+    padding: 20px 10px;
+
+    .shipping-address{
+        border: 1px solid;
+        border-color: lightslategrey;
+        background-color: lightslategrey;
+        h1{
+            font-size: 18px;
+            margin: 0px;
+            padding: 5px 10px;
+            color: lightgray;
+            background-color: lightslategrey;
+        }
+        p{
+            // background-color: red;
+            padding: 5px 0px;
+            margin: 0px;
+        }
+    }
+    .place-order-btn{
+        padding: 50px 100px;
+        // background-color: lightgrey;
+        .btn{
+            width: 200px;
+            height: 100px;
+        }
+    }
+}

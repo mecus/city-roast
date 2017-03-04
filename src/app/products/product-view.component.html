@@ -28,14 +28,26 @@
             <br>
             <h5><span>Price: </span>{{dproduct.price | currency: 'GBP' :true}}</h5>
             <div class="cart-select">
-                <span> <strong>No: </strong></span>
+                <span> <strong>Qty: </strong></span>
                 <input #val type="number" class="form-control s-input" name="count" value="1" pattern="[0-9]+" >
                 <div *ngIf="positiveNum" class="alert alert-danger big-screen" role="alert">
                     please enter a valid number in the box!.
                 </div>
             </div>
+            <div class="pick-type">
+                <span> <strong>Blend: </strong> </span>
+                <select #type name="type" class="form-control" placeholder="Select">
+                    <option value="Standard Coffee">Select blend</option>
+                    <option value="Coffee beans">Coffee Beans</option>
+                    <option value="Espresso">Espresso</option>
+                    <option value="Paper Filter">Paper Filter</option>
+                    <option value="French Press">French Press</option>
+                    <option value="Metal Filter">Metal Filter</option>
+                    <option value="Turkish Fine">Turkish Fine</option>
+                </select>
+            </div>
             <div class="pick-size">
-                <span> <strong>S: </strong> </span>
+                <span> <strong>Size: </strong> </span>
                 <select #size name="size" class="form-control">
                     <option value="250mg">250mg</option>
                     <option value="500mg">500mg</option>
@@ -48,7 +60,7 @@
                 <p>{{dproduct.description}}</p>
             </div>
             <div class="add-to">
-                <h6> <button (click)="addtoCart( size.value, val.value )" class="btn btn-success" type="button">Add to cart</button></h6>
+                <h6> <button (click)="addtoCart( size.value, val.value, type.value )" class="btn btn-success" type="button">Add to cart</button></h6>
                 <div *ngIf="islogin" class="alert alert-danger alert-p" role="alert">
                     <strong>Oh snap!</strong> please login to add this product to your basket. <span><button routerLink="/login" class="btn btn-default">login here</button></span>
                 </div>

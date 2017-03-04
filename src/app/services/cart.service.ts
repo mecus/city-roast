@@ -1,17 +1,20 @@
 import { Injectable } from '@angular/core';
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase';
-import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
 
 import { iCart } from '../models/cart.model';
+import { Customer } from '../models/customer-details.model';
 
 @Injectable()
 export class CartService {
     productArr = [];
     userId;
-    constructor(private af:AngularFire, private router:Router) { 
+    worldpayUrl = "https://api.worldpay.com/v1/orders";
+    constructor(private af:AngularFire, private router:Router, private _http:Http) { 
        
     }
 
@@ -23,7 +26,7 @@ export class CartService {
          });
         }  
     }
-    addCart(product, size, num){
+    addCart(product, size, num, type){
         this.getUser();
         if(this.userId){
             let cart:iCart = {
@@ -32,6 +35,7 @@ export class CartService {
                 price: product.price,
                 qty: num,
                 size: size,
+                type: type,
                 imageUrl: product.imageUrl
             }
             let db = this.af.database.list('/cart/'+this.userId);
@@ -43,7 +47,7 @@ export class CartService {
         }
 
     }
-    incrementQty(cartItem, size?, num?){
+    incrementQty(cartItem, size?, num?, type?){
         let key = cartItem.$key;
         let qty = parseInt(cartItem.qty);
         let cart;
@@ -62,7 +66,7 @@ export class CartService {
                 .update({qty: cart.qty + 1}).then(res=>{res}).catch(err=>{err});
             }
         }else{
-           this.addCart(cartItem, size, num);
+           this.addCart(cartItem, size, num, type);
         }
     }
     removeItem(key){
@@ -107,4 +111,48 @@ export class CartService {
         return sum + Math.round(num);
     }
 
+
+    //Saving Customer Details
+    saveCustomerDetails(customer){
+        this.getUser();
+        if(this.userId){
+            let customerDetails = {
+                firstName: customer.firstName,
+                lastName: customer.lastName,
+                email: customer.email,
+                telephone: customer.telephone,
+                addressOne: customer.addressOne,
+                addressTwo: customer.addressTwo,
+                postCode: customer.postCode,
+                county: customer.county,
+                country: "United Kingdom",
+
+            }
+            let db = this.af.database.list('/customers/'+this.userId);
+                db.push(customerDetails)
+                    .then(res=>{console.log(res +"Customer Saved")})
+                    .catch(error=>{console.log(error)});
+        }
+        
+    }
+    getCustomerDetails(){
+        this.getUser();
+        return this.af.database.list('customers/'+this.userId);
+    }
+
+    deleteCustomerDetails(){
+        this.getUser();
+        let cusDb = this.af.database.list('customers/'+this.userId);
+        cusDb.remove().then(res=> res).catch(err=> console.log(err))
+    }
+    // Creating Order
+    createOrder(data):Observable<Customer>{
+        let body = JSON.stringify(data)
+        let headers = new Headers({'Content-Type': 'application/json', 'Authorisation': 'T_S_663dac67-6e1c-4f9b-bbf4-8e2a2305d838'});
+        let options = new RequestOptions({headers: headers});
+        return this._http.post(this.worldpayUrl, body, options)
+            .map((res:Response) => res.json())
+            
+            
+    }
 }

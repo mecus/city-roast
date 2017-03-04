@@ -14,11 +14,13 @@ import { CartService } from '../services/cart.service';
 
 import { ShoppingCartComponent } from './shopping-cart.component';
 import { CheckOutComponent } from './check-out.component';
+import { OrderComponent } from './order.component';
 
 @NgModule({
     declarations:[
         ShoppingCartComponent,
-        CheckOutComponent
+        CheckOutComponent,
+        OrderComponent 
         
     ],
 

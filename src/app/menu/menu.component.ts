@@ -3,6 +3,7 @@ import { AuthService } from '../authentications/auth-service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { CartService } from '../services/cart.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -18,14 +19,14 @@ export class MenuComponent implements OnInit, OnChanges {
     totalItem;
 
     previlege: boolean=false;
- 
+    loginAlert:boolean = false;
 
     isImenu:number = 0;
     isMenuIcon:boolean = true;
     loginDraw:number = 0;
 
 
-    constructor(private authService:AuthService, private cartService:CartService) { }
+    constructor(private authService:AuthService, private cartService:CartService, private router:Router) { }
     openDrawer(){
         this.loginDraw = 200;
     }
@@ -48,14 +49,42 @@ export class MenuComponent implements OnInit, OnChanges {
             this.isRedlogo = false;
         }, 15000)
     }
+    registerUser(){
+        this.loginAlert = false;
+        this.router.navigate(["/signup"])
+    }
+    loginUser(){
+        this.loginAlert = false;
+        this.router.navigate(["/login"])
+    }
+    closeWindow(){
+        this.loginAlert = false;
+    }
 
     signOut(){
         if(this.anoUser){
-          this.cartService.clear();  
+          this.cartService.clear();
+        //   this.cartService.deleteCustomerDetails(); 
         }
         this.authService.logOut();
         
     }
+    notifyLogin(){
+        
+    }
+    logAnonymous(){
+        if(!localStorage.getItem('idToken')){
+            this.authService.logAnonymous()
+                .then(success=>{
+                //==This section runs to save the current user to the local-storage==//
+                this.loginAlert = false;
+                this.authService.authChange();
+                // this.router.navigate(['/']);
+                })
+                .catch(error=>console.log(error));
+            } 
+        }
+
     getCartTotal(){
         this.cartService.getCart()
             .subscribe(cart=>{
@@ -101,14 +130,19 @@ export class MenuComponent implements OnInit, OnChanges {
                     acUser.forEach(adm=>{
                     if(adm.isAmin == true ){
                         this.previlege = true;
-                        console.log("truthy");
+                        console.log("Admin truthy");
                     }
                 });
                 
             });
+            
         }
        
-        
+        setTimeout(()=>{
+            if(!localStorage.getItem('idToken')){
+                this.loginAlert = true;
+            }
+        }, 50000);
     }
 
 }
