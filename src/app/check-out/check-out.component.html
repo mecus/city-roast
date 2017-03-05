@@ -12,8 +12,8 @@
         <div class="col col-lg-9 cus-details">
             <h1>Customer Details</h1>
 
-            <form [formGroup]="cusForm" (ngSubmit)="saveCustomer(cusForm.value)" class="main-form" action="https://secure-test.worldpay.com/wcc/purchase"  id="paymentForm" method="post">
-                <input type=hidden name="testMode" value="100">
+            <form [formGroup]="cusForm" (ngSubmit)="saveCustomer(cusForm.value)" class="main-form" >
+               
                 <div class="row name-section">
                     <div class="col col-xs-6 col-lg-6 form-group">
                         <label for="formGroupExampleInput">First Name</label>
@@ -32,11 +32,11 @@
                         <input type="text" class="form-control" formControlName="telephone" placeholder="telephone">
                     </div>
                 </div>
-                
+                <br><br>
                 <div class="row address-section">
                     
                     <div class="col col-xs-12 col-lg-6 address-input">
-                        <h6>Home Address</h6>
+                        <h6>Billing Address</h6>
                         <hr>
                         <div class="col col-xs-6 col-lg-6 form-group">
                             <label for="formGroupExampleInput">Address 1</label>
@@ -60,14 +60,45 @@
                             <input type="text" class="form-control" formControlName="country" value="United Kingdom" placeholder="United Kingdom">
                         </div>
                     </div>
-                    <div class="col col-xs-12  col-lg-6 card-input">
-                        <div id='paymentSection'></div>
+                    <div class="col col-xs-12  col-lg-6 address-input">
+                        <h6  (click)="hideMyform()"><input type="checkbox" > Add Delivery Address if different</h6>
+                        <hr>
+                        <div id="delivery-form" *ngIf="hideForm">
+                            <div class="col col-xs-6 col-lg-6 form-group">
+                                <label for="formGroupExampleInput">Address 1</label>
+                                <input type="text" class="form-control" formControlName="deliveryOne" placeholder="first line address">
+                            </div>
+                            <div class="col col-xs-6 col-lg-6 form-group">
+                                <label for="formGroupExampleInput2">Address 2</label>
+                                <input type="text" class="form-control" formControlName="deliveryTwo" placeholder="second line address">
+                            </div>
+                            <div class="col col-xs-6 col-lg-6 form-group">
+                                <label for="formGroupExampleInput">Post Code</label>
+                                <input type="text" class="form-control" formControlName="deliveryCode" placeholder="post code">
+                            </div>
+                            <div class="col col-xs-6 col-lg-6 form-group">
+                                <label for="formGroupExampleInput2">City</label>
+                                <input type="text" class="form-control" formControlName="deliveryCity" placeholder="city">
+                            </div>
+
+                            <div class="col col-xs-12 col-lg-6 form-group">
+                                <label for="formGroupExampleInput2">Country</label>
+                                <input type="text" class="form-control" formControlName="deliveryCountry" value="United Kingdom" placeholder="United Kingdom">
+                            </div>
+                            <br><br><br>
+                            <div class="col col-xs-12 col-lg-12 form-group">
+                                <span>
+                                    <label for="formGroupExampleInput2">Select box if billing address is the same as delivery address</label>
+                                </span>
+                                <input type="checkbox" class="form-control" formControlName="deliveryTrue" value="" >
+                            </div>
+                        </div>
                     </div>
                     
                 </div>
                 
-            
-                <input id="pay-btn" class="btn btn-default" type="submit" value="Proceed to Payment" onclick="Worldpay.submitTemplateForm()" />
+                <br><br>
+                <button id="pay-btn" class="btn btn-default" type="submit" value="Proceed to Payment"  >Proceed to Payment</button>
             </form>
         </div>
         <div class="col col-xs-12 col-sm-12 col-md-6 col-lg-3 order-detail-container">

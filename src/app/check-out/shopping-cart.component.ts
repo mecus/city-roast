@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
 import { CartService } from '../services/cart.service';
 import { Location } from '@angular/common';
 import { iCart } from '../models/cart.model';
@@ -18,11 +18,16 @@ export class ShoppingCartComponent implements OnInit {
     user = "kam";
     cartproduct = [];
     sumCart;
+    accepTerms:boolean = false;
     constructor(private cartService:CartService, private _location:Location,
-    private af:AngularFire, private _router:Router) { }
+    private af:AngularFire, private _router:Router, private _elementRef:ElementRef) { }
 
+    @HostListener('change', ['$event']) termsChange($event){
+        if($event.target.checked == true){
+            this.accepTerms = true;
+        }else{this.accepTerms = false}
+    }
     moveTopayment(){
-        location.reload();
         this._router.navigate(["/checkout"]);
     }
     back(){
@@ -49,45 +54,45 @@ export class ShoppingCartComponent implements OnInit {
     }
 
 
-    paypalCheckOut(){
-        window['paypal'].Button.render({
+    // paypalCheckOut(){
+    //     window['paypal'].Button.render({
         
-            env: 'sandbox', // Optional: specify 'sandbox' environment
+    //         env: 'sandbox', // Optional: specify 'sandbox' environment
         
-            client: {
-                sandbox:    'ARBSCUiDOABkb_xriEZ3hIfQuU_acaJF7v_gd5hg660xW-totw0wbIhdH4ZKh1XaJSn2KTx8H4FTRv4O',
-                // production: 'xxxxxxxxx'
-            },
+    //         client: {
+    //             sandbox:    'ARBSCUiDOABkb_xriEZ3hIfQuU_acaJF7v_gd5hg660xW-totw0wbIhdH4ZKh1XaJSn2KTx8H4FTRv4O',
+    //             // production: 'xxxxxxxxx'
+    //         },
 
-            payment: function() {
+    //         payment: function() {
             
-                var env    = this.props.env;
-                var client = this.props.client;
+    //             var env    = this.props.env;
+    //             var client = this.props.client;
             
-                return window['paypal'].rest.payment.create(env, client, {
-                    transactions: [
-                        {
-                            amount: { total: "25", currency: 'GBP' }
+    //             return window['paypal'].rest.payment.create(env, client, {
+    //                 transactions: [
+    //                     {
+    //                         amount: { total: "25", currency: 'GBP' }
         
-                        }
-                    ]
-                });
-            },
+    //                     }
+    //                 ]
+    //             });
+    //         },
 
-            commit: true, // Optional: show a 'Pay Now' button in the checkout flow
+    //         commit: true, // Optional: show a 'Pay Now' button in the checkout flow
 
-            onAuthorize: function(data, actions) {
+    //         onAuthorize: function(data, actions) {
             
-                // Optional: display a confirmation page here
+    //             // Optional: display a confirmation page here
             
-                return actions.payment.execute().then(function() {
-                    // Show a success page to the buyer
-                });
-            }
+    //             return actions.payment.execute().then(function() {
+    //                 // Show a success page to the buyer
+    //             });
+    //         }
 
-        }, '#paypal-button');
-    }
-   
+    //     }, '#paypal-button');
+    // }
+ 
 
     ngOnInit() {
         this.cartService.getCart()
@@ -103,6 +108,9 @@ export class ShoppingCartComponent implements OnInit {
         }
 
         // this.paypalCheckOut();
+
+        
+        
      }
   
 }

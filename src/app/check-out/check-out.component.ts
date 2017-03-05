@@ -20,14 +20,19 @@ export class CheckOutComponent implements OnInit, AfterViewInit {
     sumCart;
     cusForm;
     customerInput = new Customer;
+    hideForm:boolean = false;
     constructor(private appService:AppService, private cartService:CartService, 
     private _elementRef:ElementRef, private _fb:FormBuilder, private _router:Router) { 
         this.cusForm = _fb.group(this.customerInput);
     }
 
+    hideMyform(){
+        this.hideForm = true;
+    }
   
     saveCustomer(details){
         this.cartService.saveCustomerDetails(details);
+        console.log(details);
         this._router.navigate(['/order']);
     }
      sumCartPrice(cart){

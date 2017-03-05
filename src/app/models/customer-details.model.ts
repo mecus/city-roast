@@ -9,6 +9,13 @@ export interface iCustomer {
     postCode: string;
     city: string;
     country: string;
+
+    deliveryOne: string;
+    deliveryTwo: string;
+    deliveryCode: string;
+    deliveryCity: string;
+    deliveryCountry: string;
+    deliveryTrue: string;
 }
 
 export class Customer {
@@ -22,6 +29,13 @@ export class Customer {
     city: string;
     country: string;
 
+    deliveryOne: string;
+    deliveryTwo: string;
+    deliveryCode: string;
+    deliveryCity: string;
+    deliveryCountry: string;
+    deliveryTrue: string;
+
     constructor(){
         this.firstName = "Jon";
         this.lastName = "Doe";
@@ -32,5 +46,12 @@ export class Customer {
         this.postCode = "";
         this.city = "";
         this.country = "Unite Kingdom";
+
+        this.deliveryOne = "";
+        this.deliveryTwo = "";
+        this.deliveryCode = "";
+        this.deliveryCity = "";
+        this.deliveryCountry = "Unite Kingdom";
+        this.deliveryTrue = "";
     }
 }

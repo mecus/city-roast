@@ -5,6 +5,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
 
 import { iCart } from '../models/cart.model';
 import { Customer } from '../models/customer-details.model';
@@ -13,7 +14,7 @@ import { Customer } from '../models/customer-details.model';
 export class CartService {
     productArr = [];
     userId;
-    worldpayUrl = "https://api.worldpay.com/v1/orders";
+    
     constructor(private af:AngularFire, private router:Router, private _http:Http) { 
        
     }
@@ -124,8 +125,15 @@ export class CartService {
                 addressOne: customer.addressOne,
                 addressTwo: customer.addressTwo,
                 postCode: customer.postCode,
-                county: customer.county,
+                city: customer.city,
                 country: "United Kingdom",
+
+                deliveryOne: customer.deliveryOne,
+                deliveryTwo: customer.deliveryTwo,
+                deliveryCode: customer.deliveryCode,
+                deliveryCity: customer.deliveryCity,
+                deliveryCountry: "United Kingdom",
+                deliveryTrue: customer.deliveryTrue,
 
             }
             let db = this.af.database.list('/customers/'+this.userId);
@@ -145,14 +153,22 @@ export class CartService {
         let cusDb = this.af.database.list('customers/'+this.userId);
         cusDb.remove().then(res=> res).catch(err=> console.log(err))
     }
-    // Creating Order
-    createOrder(data):Observable<Customer>{
-        let body = JSON.stringify(data)
-        let headers = new Headers({'Content-Type': 'application/json', 'Authorisation': 'T_S_663dac67-6e1c-4f9b-bbf4-8e2a2305d838'});
-        let options = new RequestOptions({headers: headers});
-        return this._http.post(this.worldpayUrl, body, options)
-            .map((res:Response) => res.json())
-            
-            
+
+    // Creating New Order
+    createOrder(order, shipping, items){
+        this.getUser();
+       
+        
+       
+         console.log(shipping);
+        if(this.userId){
+            let db = this.af.database.list('/orders/'+this.userId);
+            db.push(order).then(res=> res).catch(err=>console.log(err));
+
+            let dbp = this.af.database.list('/orders/'+this.userId +'/product/');
+            dbp.push(items).then(res=> res).catch(err=>console.log(err));
+        }else{
+            console.log("user don't exit");
+        }
     }
 }

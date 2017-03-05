@@ -80,12 +80,16 @@
                   </tr>
                 </tbody>
               </table>
+              <input *ngIf="cartproduct.length > 0" type="checkbox" name="" (change)="termsChange($event)"> <span *ngIf="cartproduct.length > 0" style="padding: 0; margin-bottom: 10; font-size: 12"> I agree to the terms and condition</span>
+              <br>
           <div class="check-out right-nav">
             
-              <button id="btn-check" *ngIf="cartproduct.length > 0" (click)="moveTopayment()" class="btn btn-success" type="button">Proceed to Check Out</button>
+              <button [disabled]="!accepTerms" id="btn-check" *ngIf="cartproduct.length > 0" (click)="moveTopayment()" class="btn btn-success" type="button">Proceed to Check Out</button>
               <button routerLink="/" class="btn btn-success" type="button">Continue Shopping</button>
-          
+              
           </div>
+          
         </div>
     
 </section>
+
