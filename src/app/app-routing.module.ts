@@ -21,7 +21,11 @@ import { ProductUpdateComponent } from './products/product-update.component';
 import { ShoppingCartComponent } from './check-out/shopping-cart.component';
 import { CheckOutComponent } from './check-out/check-out.component';
 import { OrderComponent } from './check-out/order.component';
+import { PaymentMethodComponent } from './check-out/payment-method.component';
 
+
+import { RedirectComponent } from './redirect/redirect.component';
+import { OrderSuccessComponent} from './redirect/order-success.component';
 
 import { AuthGuard } from './app-auth-guard.service';
 
@@ -54,6 +58,9 @@ const routes = [
     {path: 'privacy', component:PrivacyComponent},
     {path: 'checkout', component: CheckOutComponent},
     {path: 'order', component: OrderComponent},
+    {path: 'redirect', component: RedirectComponent},
+    {path: 'payment-confirmation', component: OrderSuccessComponent},
+    {path: 'payment-method', component: PaymentMethodComponent},
     root,
     fallBack
 ]

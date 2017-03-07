@@ -117,7 +117,9 @@ export class CartService {
     saveCustomerDetails(customer){
         this.getUser();
         if(this.userId){
+
             let customerDetails = {
+                customerId: customer.customerId,
                 firstName: customer.firstName,
                 lastName: customer.lastName,
                 email: customer.email,
@@ -133,7 +135,7 @@ export class CartService {
                 deliveryCode: customer.deliveryCode,
                 deliveryCity: customer.deliveryCity,
                 deliveryCountry: "United Kingdom",
-                deliveryTrue: customer.deliveryTrue,
+                deliveryTrue: customer.deliveryTrue, //check if billing address is the same as delivery
 
             }
             let db = this.af.database.list('/customers/'+this.userId);
@@ -155,20 +157,49 @@ export class CartService {
     }
 
     // Creating New Order
-    createOrder(order, shipping, items){
+    createOrder(customer, shipping, items, amount){
         this.getUser();
-       
-        
-       
-         console.log(shipping);
+       let newOrder = {
+            orderId: customer.orderId,
+            customerName: customer.customerName,
+            email: customer.email,
+            telephone: customer.telephone,
+            address: customer.address,
+            postCode: customer.postcode,
+            city: customer.city,
+            shipping: shipping,
+            amount: amount,
+            
+       }
+   
         if(this.userId){
             let db = this.af.database.list('/orders/'+this.userId);
-            db.push(order).then(res=> res).catch(err=>console.log(err));
+            db.push(newOrder).then(res=>{ 
+                console.log(res.key);
+                if(res.key){
+                    let dbp = this.af.database.list('/orders/'+this.userId + '/' +res.key + '/items/');
+                    items.forEach((item)=>{
+                        console.log(item);
+                        dbp.push({
+                            name: item.name,
+                            type: item.type,
+                            qty: item.qty,
+                            size: item.size,
+                            price: item.price
+                        }).then(res=> res).catch(err=>console.log(err));
+                    })
+   
+                }
+            })
+            .catch(err=>console.log(err));
 
-            let dbp = this.af.database.list('/orders/'+this.userId +'/product/');
-            dbp.push(items).then(res=> res).catch(err=>console.log(err));
+            
         }else{
             console.log("user don't exit");
         }
+    }
+    //Retrieving Order from the database
+    getOrder(){
+       return this.af.database.list('/orders/'+this.userId);
     }
 }

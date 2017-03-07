@@ -1,5 +1,6 @@
 
 export interface iCustomer {
+    customerId: string;
     firstName: string;
     lastName: string;
     email: string;
@@ -19,6 +20,7 @@ export interface iCustomer {
 }
 
 export class Customer {
+    customerId: string;
     firstName: string;
     lastName: string;
     email: string;
@@ -37,6 +39,7 @@ export class Customer {
     deliveryTrue: string;
 
     constructor(){
+        this.customerId = "LCREF"+Math.floor((Math.random() * 1000) + 100);
         this.firstName = "Jon";
         this.lastName = "Doe";
         this.email = "";

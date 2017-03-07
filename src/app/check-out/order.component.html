@@ -10,19 +10,20 @@
     <div class="row">
         <div class="col col-lg-8 order-review">
             <div class="shipping-address">
-                <h1>Shipping Address</h1>
+                <h1>Shipping Details</h1>
              
                 <div *ngFor="let customer of customerInfo">
-                    <div class="col col-lg-6">
+                    <div class="jumbotron col col-lg-6">
+                        <h4>Personal Details</h4>
                         <p>First Name: {{customer.firstName}}</p>
                         <p>Last Name: {{customer.lastName}}</p>
                         <p>Email: {{customer.email}}</p>
                         <p>Telephone: {{customer.telephone}}</p>
-                        
+                        <!--<p>OrderId: {{customer.customerId}}</p>-->
                     </div>
-                    <div class="col col-lg-6">
-                        <p>Address Line 1: {{customer.addressOne}}</p>
-                        <p>Address Line 2: {{customer.addressTwo}}</p>
+                    <div class="jumbotron col col-lg-6">
+                        <h4>Shippin Address</h4>
+                        <p>Address: {{customer.addressOne +' '+ customer.addressTwo}}</p>
                         <p>Post Code: {{customer.postCode}}</p>
                         <p>City: {{customer.city}}</p>
                         <p>Country: {{customer.country}}</p>
@@ -103,61 +104,11 @@
                 
     </div>
     <div class="place-order-btn col col-lg-6">
-        <div id="main-form">
-        </div>
-        <button (click)="checkValue()" type="button">check</button>
+        <button (click)="checkValue()" class="btn btn-success" routerLink="/payment-method" type="button">Payment method</button>
+        
          <!--<button (click)="newOrder()" class="btn btn-success" type="">Finish Payment</button>-->
     </div>
    </div>
    
 </section>
-<div id="myform">
-  <input type="hidden" name="PSPID" value="epdq3027479">
-	<input type="hidden" name="ORDERID" value="STDREF558">
-	<input type="hidden" name="AMOUNT" value={{ordTotal+ordelivery}}>
-	<input type="hidden" name="CURRENCY" value="GBP">
-	<input type="hidden" name="LANGUAGE" value="en_US">
-	<!-- lay out information -->
-	
-	<input type="hidden" name="TITLE" value="London City Roast">
-	
-	<input type="hidden" name="BGCOLOR" value="#fff">
-	<input type="hidden" name="TXTCOLOR" value="fill here your text color">
-	<input type="hidden" name="TBLBGCOLOR" value="fill here your table background color">
-	<input type="hidden" name="TBLTXTCOLOR" value="fill here your table text color">
-	<input type="hidden" name="BUTTONBGCOLOR" value="fill here your background button color">
-	<input type="hidden" name="BUTTONTXTCOLOR" value="fill here your button text color">
-	<input type="hidden" name="FONTTYPE" value="fill here your font">
-	
-	<input type="hidden" name="LOGO" value="">
-	<!-- or dynamic template page -->
-	<input type="hidden" name="TP" value="">
-	<!-- post-payment redirection -->
-	<input type="hidden" name="ACCEPTURL" VALUE="http://localhost:4200/cart">
-	<input type="hidden" name="DECLINEURL" VALUE="">
-	<input type="hidden" name="EXCEPTIONURL" VALUE="">
-	<input type="hidden" name="CANCELURL" VALUE="">
-	<input type="hidden" name="BACKURL" VALUE="">
-	<!-- miscellanous -->
-	<input type="hidden" name="HOMEURL" VALUE="http://localhost:4200">
-	<input type="hidden" name="CATALOGURL" VALUE="">
-	<input type="hidden" name="CN" value="Mike James">
-	<input type="hidden" name="EMAIL" value="austin@gmail.com">
-	<input type="hidden" name="PM" VALUE="">
-	<input type="hidden" name="BRAND" VALUE="">
-	<input type="hidden" name="OWNERZIP" VALUE="">
-	<input type="hidden" name="OWNERADDRESS" VALUE="">
-	<input type="hidden" name="OWNERADDRESS2" VALUE="">
-	<input type="hidden" name="OWNERADDRESS3" VALUE="">
-	<input type="hidden" name="SHASIGN" value="fill here your signature">
-	<input type="hidden" name="ALIAS" VALUE="">
-	<input type="hidden" name="ALIASUSAGE" VALUE="">
-	<input type="hidden" name="ALIASOPERATION" VALUE="">
-	<input type="hidden" name="COM" VALUE="">
-	<input type="hidden" name="COMPLUS" VALUE="">
-	<input type="hidden" name="PARAMPLUS" VALUE="">
-	<input type="hidden" name="USERID" VALUE="">
-	<input type="hidden" name="CREDITCODE" VALUE="">
-  <input type="submit" class="btn btn-success" value="<Proceed to payment" id=submit2 name=submit2>
-	
-</div>
+

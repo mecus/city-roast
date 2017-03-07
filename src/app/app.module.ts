@@ -10,6 +10,7 @@ import { ProductModule } from './products/product.module';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import { Ng2PageTransition } from "ng2-page-transition";
 import { CheckOutModule } from './check-out/check-out.module';
+import { RedirectModule } from './redirect/redirect.module';
 
 
 import { firebaseConfig, authConfig } from './firebase-config';
@@ -58,6 +59,7 @@ import { PrivacyComponent } from './pages/privacy/privacy.component';
     AuthModule,
     ProductModule,
     CheckOutModule,
+    RedirectModule,
     AngularFireModule.initializeApp(firebaseConfig, authConfig),
     LocalStorageModule.withConfig({
             prefix: 'my-app',

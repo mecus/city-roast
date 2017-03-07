@@ -2,6 +2,9 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { CartService } from '../services/cart.service';
 import { CustomerOrder } from '../models/order.model';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Md5 } from 'ts-md5/dist/md5';
+import { SHA1 } from '../services/functions';
 
 @Component({
     selector: 'order',
@@ -14,21 +17,20 @@ export class OrderComponent implements OnInit {
     sumCart:number = 0;
     cusOrder;
     deliveryFee:number = 0;
-    newD;
 
     //creating order
     newOrder = new CustomerOrder;
     orderForm:FormGroup;
     //Payment Amount to Barclays
-    ordTotal:number = 0;
     ordelivery:number = 0;
     shippingMethod:string = "Free Delivery";
-    constructor(private cartService:CartService, private _fb:FormBuilder) {
+
+    constructor(private cartService:CartService, private _fb:FormBuilder, private _router:Router) {
         this.orderForm = _fb.group(this.newOrder)
+
      }
 
     @HostListener('change', ['$event']) onChange($event) {
-            // this.newD = $event.target.checked;
             if($event.target.name == 'free' && $event.target.checked == true){
                 this.deliveryFee = 0.00;
                 this.shippingMethod = "Free Delivery"
@@ -56,16 +58,12 @@ export class OrderComponent implements OnInit {
         });
         
         this.sumCart = priceArr.reduce(this.sumTotal, 0);
-        this.ordTotal = priceArr.reduce(this.converFloat, 0);
+        
     }
-
     sumTotal(sum, num){
         return sum + num;
     }
-    converFloat(sum, num){
-        let rund = sum + num;
-        return parseInt(rund.toString().replace('.', ''));
-    }
+  
 
     // newOrder(){
     //     this.cartService.createOrder(this.customerInfo)
@@ -76,11 +74,16 @@ export class OrderComponent implements OnInit {
     checkValue(){
         // console.log(this.orderForm.value);
         // console.log();
-        this.cartService.createOrder(this.orderForm.value, this.shippingMethod, this.orders);
+        this.cartService.createOrder(
+            this.orderForm.value, 
+            this.shippingMethod, this.orders, 
+            this.sumCart+this.deliveryFee);
+
+            this._router.navigate(["/payment-method"]);
     }
 
     ngOnInit() { 
-
+     
         this.cartService.getCustomerDetails()
             .subscribe(customers=>{
                 this.customerInfo = customers;
@@ -93,31 +96,21 @@ export class OrderComponent implements OnInit {
             });
             
 
-        let nform = document.createElement('form');
-        let myf = document.getElementById('myform');
-        nform.id = "form1";
-        nform.name = "form1";
-        nform.action = "https://mdepayments.epdq.co.uk/Ncol/Test/orderstandard.asp";
-        nform.method = "post";
-        nform.appendChild(myf);
-        let main = document.getElementById('main-form');
-        main.appendChild(nform);
-
+        
 
 
         this.cartService.getCustomerDetails()
             .subscribe(customers=>{
                 this.customerInfo =  customers;
-                console.log(this.customerInfo[0].firstName);
                 this.orderForm.patchValue({
-                        orderId: "LCREF123",
+                        orderId: this.customerInfo[0].customerId,
                         customerName: this.customerInfo[0].firstName + " " + this.customerInfo[0].lastName,
-                        address:this.customerInfo[0].addressOne + " " +this.customerInfo[0].addressTwo + " " +this.customerInfo[0].postCode +" " + this.customerInfo[0].city,
+                        address:this.customerInfo[0].addressOne + ", " +this.customerInfo[0].addressTwo, 
+                        postcode: this.customerInfo[0].postCode,
+                        city: this.customerInfo[0].city,
                         email: this.customerInfo[0].email,
-                        shipping: this.shippingMethod,
-                       
-                        
-        
+                        telephone: this.customerInfo[0].telephone
+
                 });
             });
 
