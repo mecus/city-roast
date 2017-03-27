@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { CartService } from '../services/cart.service';
 import { CustomerOrder } from '../models/order.model';
+import { Customer, iCustomer } from '../models/customer-details.model';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Md5 } from 'ts-md5/dist/md5';
@@ -13,10 +14,16 @@ import { SHA1 } from '../services/functions';
 })
 export class OrderComponent implements OnInit {
     orders=[];
-    customerInfo=[];
+    customer=[];
     sumCart:number = 0;
     cusOrder;
     deliveryFee:number = 0;
+    hidePage:boolean = false;
+
+    //creating update form
+    editForm: FormGroup;
+    editValue = new Customer;
+    isEdit:boolean = false;
 
     //creating order
     newOrder = new CustomerOrder;
@@ -26,21 +33,24 @@ export class OrderComponent implements OnInit {
     shippingMethod:string = "Free Delivery";
 
     constructor(private cartService:CartService, private _fb:FormBuilder, private _router:Router) {
-        this.orderForm = _fb.group(this.newOrder)
+        this.orderForm = _fb.group(this.newOrder);
+
+        this.editForm = _fb.group(this.editValue);
+
 
      }
 
     @HostListener('change', ['$event']) onChange($event) {
-            if($event.target.name == 'free' && $event.target.checked == true){
+            if($event.target.id == 'free' && $event.target.checked == true){
                 this.deliveryFee = 0.00;
                 this.shippingMethod = "Free Delivery"
             }
-            else if($event.target.name == 'express' && $event.target.checked == true){
+            else if($event.target.id == 'express' && $event.target.checked == true){
                 this.deliveryFee = 2.99;
                 this.ordelivery = 299;
                 this.shippingMethod = "UK Express (1-2 Working Days)";
             }
-            else if($event.target.name == 'next-day' && $event.target.checked == true){
+            else if($event.target.id == 'next-day' && $event.target.checked == true){
                 this.deliveryFee = 4.99;
                 this.ordelivery = 499;
                 this.shippingMethod = "UK Next Working Day (on orders placed before 12:00pm, exclusions apply - see Delivery Policy)";
@@ -63,7 +73,21 @@ export class OrderComponent implements OnInit {
     sumTotal(sum, num){
         return sum + num;
     }
-  
+    modifyOrder(){
+        this.hidePage = true;
+    }
+
+    saveCustomerUpdate(value){
+        this.cartService.updateCustomerDetails(value);
+        this.isEdit = false;
+    }
+
+    editDetails(){
+        this.isEdit = true;
+    }
+    cancelEdit(){
+        this.isEdit = false;
+    }
 
     // newOrder(){
     //     this.cartService.createOrder(this.customerInfo)
@@ -71,22 +95,33 @@ export class OrderComponent implements OnInit {
     //             console.log(order);
     //         });
     // }
-    checkValue(){
+    createOrder(){
         // console.log(this.orderForm.value);
         // console.log();
         this.cartService.createOrder(
             this.orderForm.value, 
             this.shippingMethod, this.orders, 
             this.sumCart+this.deliveryFee);
-
-            this._router.navigate(["/payment-method"]);
+           
+         
+        // this._router.navigate(["/payment-method"]);
+        // location.reload(true);
+        
+    
     }
 
     ngOnInit() { 
+        this.cartService.getOrder().subscribe((orders)=>{
+            // console.log(orders);
+            if(!orders[0]){
+                this.hidePage = true;
+            }
+            
+        });
      
         this.cartService.getCustomerDetails()
             .subscribe(customers=>{
-                this.customerInfo = customers;
+                this.customer = customers;
             });
 
         this.cartService.getCart()
@@ -94,27 +129,39 @@ export class OrderComponent implements OnInit {
                 this.orders = carts
                 this.sumCartPrice(carts);
             });
-            
-
-        
 
 
         this.cartService.getCustomerDetails()
             .subscribe(customers=>{
-                this.customerInfo =  customers;
+                this.customer = customers;
+                // console.log(customers.firstName);
                 this.orderForm.patchValue({
-                        orderId: this.customerInfo[0].customerId,
-                        customerName: this.customerInfo[0].firstName + " " + this.customerInfo[0].lastName,
-                        address:this.customerInfo[0].addressOne + ", " +this.customerInfo[0].addressTwo, 
-                        postcode: this.customerInfo[0].postCode,
-                        city: this.customerInfo[0].city,
-                        email: this.customerInfo[0].email,
-                        telephone: this.customerInfo[0].telephone
+                        id: customers.id,
+                        orderId: customers.customerId,
+                        customerName: customers.firstName + " " + customers.lastName,
+                        address:customers.addressOne + ", " +customers.addressTwo, 
+                        postcode: customers.postCode,
+                        city: customers.city,
+                        country: customers.country,
+                        email: customers.email,
+                        telephone: customers.telephone
 
                 });
+
+                this.editForm.patchValue({
+                    firstName: customers.firstName,
+                    lastName: customers.lastName,
+                    email: customers.email,
+                    telephone: customers.telephone,
+                    addressOne: customers.addressOne,
+                    addressTwo: customers.addressTwo,
+                    postCode: customers.postCode,
+                    city: customers.city,
+                    country: "Unite Kingdom"
+                })
             });
 
-            
+            // console.log(this.editForm);
     }
 
 }

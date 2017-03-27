@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CartService } from '../services/cart.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'ord-success',
@@ -6,8 +8,14 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./styles/order-success.component.scss', './styles/stylesheet.scss']
 })
 export class OrderSuccessComponent implements OnInit {
-    constructor() { }
+    constructor(private cartService:CartService, private router:Router) { }
 
+
+    deleteCart(){
+        this.cartService.clear();
+        this.router.navigate(['/']);
+        location.reload();
+    }
     ngOnInit() { }
 
 }

@@ -19,6 +19,8 @@ export class ShoppingCartComponent implements OnInit {
     cartproduct = [];
     sumCart;
     accepTerms:boolean = false;
+    liginAlert:boolean = false;
+    currentuser;
     constructor(private cartService:CartService, private _location:Location,
     private af:AngularFire, private _router:Router, private _elementRef:ElementRef) { }
 
@@ -29,6 +31,7 @@ export class ShoppingCartComponent implements OnInit {
     }
     moveTopayment(){
         this._router.navigate(["/checkout"]);
+        this.liginAlert =true;
     }
     back(){
         this._location.back();
@@ -105,6 +108,7 @@ export class ShoppingCartComponent implements OnInit {
         // console.log(this.sumCart);
         if(localStorage.getItem('currentUser')){
             this.user = localStorage.getItem('userId');
+            this.currentuser = localStorage.getItem('currentUser');
         }
 
         // this.paypalCheckOut();

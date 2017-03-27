@@ -1,0 +1,38 @@
+<section>
+  <br>
+  <table class="table table-striped">
+    <thead class="thead-inverse">
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Telephone</th>
+        <th>Message</th>
+        <th></th>
+       
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let contact of contacts | async">
+        <td>{{contact.firstName}}</td>
+        <td>{{contact.lastName}}</td>
+        <td>{{contact.email}}</td>
+        <td>{{contact.telephone}}</td>
+        
+        <td><button (click)="seeContact(contact)" class="btn btn-success" type="button">read message</button></td>
+        <td><i  class="fa fa-times remove-cart-i" aria-hidden="true"></i></td>
+      </tr>
+
+    </tbody>
+  </table>
+  <div class="display-contact" *ngIf="showMsg">
+    <div class="jumbotron-container">
+      
+      <div class="jumbotron">
+        <h4>From: {{singlecontact.firstName}}</h4>
+        <p>message: {{singlecontact.message}}</p>
+      </div>
+      <button (click)="closeMsg()" class="btn btn-danger" type="button">close</button>
+    </div>
+  </div>
+</section>

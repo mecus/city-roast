@@ -1,0 +1,35 @@
+<section class="db-page-container">
+  <div class="db-page-head">
+    <!--<img src="assets/Coffee-Producers.jpeg"  alt="">-->
+    <div class="db-page-title">
+      <h1>Admin<span style="color: #f48024">DashBoard</span></h1>
+    </div>
+  </div>
+</section>
+<section class="dashboard-container">
+  <div class="dashboard container">
+    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+          <ul class="dash-list navbar-nav mr-auto container">
+              
+              <li class="list-item">
+                <a routerLink="/dashboard/products-list" class="nav-link" routerLinkActive="active">Products</a>
+                </li>
+              <li  class="list-item">
+                <a routerLink="/dashboard/customers" class="nav-link" routerLinkActive="active">Customers</a>
+              </li>
+              <li  class="list-item">
+                <a routerLink="/dashboard/orders-list" class="nav-link" routerLinkActive="active" >Orders</a>
+              </li>
+               <li  class="list-item">
+                <a routerLink="/dashboard/contacts" class="nav-link" routerLinkActive="active" >Contacts</a>
+              </li>
+              <!--<li  class="list-item">
+                <a routerLink="/dashboard/items" class="nav-link" routerLinkActive="active" >Items</a>
+              </li>-->
+          </ul>
+    </nav>
+   </div>
+</section>
+<div class="out-let container">
+  <router-outlet></router-outlet>
+</div>

@@ -83,3 +83,19 @@ h1.head-1{
         cursor: pointer;
     }
 }
+.jumbo-content{
+    padding: 50px 20px;
+    max-width: 600px;
+    .jumbotron{
+        padding: 50px;
+        h1{
+            font-size: 2rem;
+            color: lightslategrey;
+            margin-bottom: 20px;
+        }
+        .card-type{
+            padding: 10px 0px;
+        }
+    }
+}
+

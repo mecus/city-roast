@@ -29,61 +29,65 @@
         }
     }
 }
-.page-content{
-    // max-width: 800px;
-    position: relative;
+#cover-page{
     background-color: #fff;
-    text-align: center;
-    min-height: 500px;
-    width: 100%;
-    padding: 0px 100px;
-    p{
-        text-align: center;
-        padding: 20px 0px;
-    }
-    h4{
-        padding-top: 20px;
-        
-    }
-    .bio{
-        h1{
-            padding: 40px 0px;
-            // color: lightslategray;
-        }
-    }
-    .page-image{
-        box-sizing: border-box;
+    position: relative;
+    .page-content{
         // max-width: 800px;
-        display: flex;
-        align-items: baseline;
+        position: relative;
+        background-color: #fff;
         text-align: center;
-        align-content: space-between;
-        padding-bottom: 50px;
-        margin: 0 auto;
-        .lcr-image1{
-            flex: 1;
-            background-color: red;
-            width: 30%;
-            margin-right: 10px;
-            img{
-                width: 100%;
+        min-height: 500px;
+        // width: 100%;
+        padding: 0px 100px;
+        p{
+            text-align: center;
+            padding: 20px 0px;
+        }
+        h4{
+            padding-top: 20px;
+            
+        }
+        .bio{
+            h1{
+                padding: 40px 0px;
+                // color: lightslategray;
             }
         }
-        .lcr-image2{
-            flex: 1;
-            background-color: orange;
-            width: 30%;
-            img{
-                width: 100%;
+        .page-image{
+            box-sizing: border-box;
+            // max-width: 800px;
+            display: flex;
+            align-items: baseline;
+            text-align: center;
+            align-content: space-between;
+            padding-bottom: 50px;
+            margin: 0 auto;
+            .lcr-image1{
+                flex: 1;
+                background-color: red;
+                width: 30%;
+                margin-right: 10px;
+                img{
+                    width: 100%;
+                }
             }
-        }
-        .lcr-image3{
-            flex: 1;
-            background-color: deeppink;
-            width: 30%;
-            margin-left: 10px;
-            img{
-                width: 100%;
+            .lcr-image2{
+                flex: 1;
+                background-color: orange;
+                width: 30%;
+                img{
+                    width: 100%;
+                }
+            }
+            .lcr-image3{
+                flex: 1;
+                background-color: deeppink;
+                width: 30%;
+                margin-left: 10px;
+                img{
+                    width: 100%;
+                }
             }
         }
     }

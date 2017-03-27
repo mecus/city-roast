@@ -1,0 +1,74 @@
+<section >
+    <div class="fp-page-head">
+        <img src="assets/about-us.jpg"  alt="">
+        <div class="fp-page-title">
+        <h1>Payment Method</h1>
+        </div>
+  </div>
+</section>
+<div class="jumbo-content">
+    
+    <div class="container jumbotron jumbo-content">
+    <h1>Payment Method</h1>
+    <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information</p>
+    <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+    <!--<button routerLink="/order" type="button">Go Back</button>-->
+    
+
+
+    <div id="main-form">
+    </div>
+
+    <div id="myform">
+            <div *ngFor="let order of returnOrder">
+            <input type="hidden" name="PSPID" value="epdq3027479">
+            <input type="hidden" name="ORDERID" value={{order.orderId}}>
+            <input type="hidden" name="AMOUNT" value={{order.amount*100}}>
+            <input type="hidden" name="CURRENCY" value="GBP">
+            <input type="hidden" name="LANGUAGE" value="en_US">
+            <!-- lay out information -->
+            
+            <input type="hidden" name="TITLE" value="London City Roast">
+            
+            <input type="hidden" name="BGCOLOR" value="fill here your bgcolor color">
+            <input type="hidden" name="TXTCOLOR" value="fill here your text color">
+            <input type="hidden" name="TBLBGCOLOR" value="fill here your table background color">
+            <input type="hidden" name="TBLTXTCOLOR" value="fill here your table text color">
+            <input type="hidden" name="BUTTONBGCOLOR" value="fill here your background button color">
+            <input type="hidden" name="BUTTONTXTCOLOR" value="fill here your button text color">
+            <input type="hidden" name="FONTTYPE" value="fill here your font">
+            
+            <input type="hidden" name="LOGO" value="">
+            <!-- or dynamic template page -->
+            <input type="hidden" name="TP" value="">
+            <!-- post-payment redirection -->
+            <input type="hidden" name="ACCEPTURL" value="http://localhost:4200/payment-confirmation">
+            <input type="hidden" name="DECLINEURL" VALUE="">
+            <input type="hidden" name="EXCEPTIONURL" VALUE="">
+            <input type="hidden" name="CANCELURL" VALUE="">
+            <input type="hidden" name="BACKURL" VALUE="http://localhost:4200/payment-method">
+            <!-- miscellanous -->
+            <input type="hidden" name="HOMEURL" value="http://localhost:4200">
+            <input type="hidden" name="CATALOGURL" VALUE="">
+            <input type="hidden" name="CN" value={{order.customerName}}>
+            <input type="hidden" name="EMAIL" value={{order.email}}>
+            <input type="hidden" name="PM" value="">
+            <input type="hidden" name="BRAND" value="">
+            <input type="hidden" name="OWNERZIP" value={{order.postCode}}>
+            <input type="hidden" name="OWNERADDRESS" value={{order.address}}>
+            <input type="hidden" name="OWNERADDRESS2" value="">
+            <input type="hidden" name="OWNERCTY" value={{order.city}}>
+            <input type="hidden" name="SHASIGN" value={{hashSign}}>
+            <input type="hidden" name="ALIAS" value="">
+            <input type="hidden" name="ALIASUSAGE" VALUE="">
+            <input type="hidden" name="ALIASOPERATION" VALUE="">
+            <input type="hidden" name="COM" VALUE="">
+            <input type="hidden" name="COMPLUS" VALUE="">
+            <input type="hidden" name="PARAMPLUS" VALUE="">
+            <input type="hidden" name="USERID" VALUE="">
+            <input type="hidden" name="CREDITCODE" VALUE="">
+            <input type="submit" class="btn btn-success" value="Proceed to payment>" id=submit2 name=submit2>
+            </div>
+        </div>
+    </div>
+</div>

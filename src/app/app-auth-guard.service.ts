@@ -18,22 +18,23 @@ export class AuthGuard implements CanActivate {
     }
     //AuthGuard for Products // Access Admin Only
     checkAdmin(url:string):boolean{
-        let isAmin:boolean;
+        let isAdmin:boolean;
          if(localStorage.getItem('idToken')){
-            this.authService.getAccount(localStorage.getItem('idToken'))
-            .subscribe(acUser=>{
-                    acUser.forEach(adm=>{
-                    if(adm.isAmin == true ){
+           this.authService.getAccount(localStorage.getItem('idToken'))
+            .subscribe(adm=>{
+                    
+                    if(adm.isAdmin == true ){
                         console.log("True Admin");
-                        isAmin = true;
+                        isAdmin = true;
+                        
                     }
-                });
+                
                 
             });
-            
-            return isAmin; 
+            this.authService.redirectUrl = url;
+            return isAdmin;
         }
-        this.authService.redirectUrl = url;
+        
         this.router.navigate(['/login']);
         return false;
     }

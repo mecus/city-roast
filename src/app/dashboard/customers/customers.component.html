@@ -1,0 +1,35 @@
+<section>
+
+  <div>
+    <br>
+    <table class="table table-striped">
+      <thead class="thead-inverse">
+        <tr>
+          <th>Customer Id</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Telephone</th>
+          <th>Address</th>
+          <th>Postcode</th>
+          <th>City</th>
+          <th>Country</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customer of customers | async">
+          <td>{{customer.customerId}}</td>
+          <td>{{customer.firstName+" "+customer.lastName}}</td>
+          <td>{{customer.email}}</td>
+          <td>{{customer.telephone}}</td>
+          <td>{{customer.addressOne+" "+customer.addressTwo}}</td>
+          <td>{{customer.postCode}}</td>
+          <td>{{customer.city}}</td>
+          <td>{{customer.country}}</td>
+          <td><i  class="fa fa-times remove-cart-i" aria-hidden="true"></i></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</section>

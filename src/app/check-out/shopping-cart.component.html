@@ -3,12 +3,13 @@
         <img class="cart-mobile-container" src="assets/shopping-trolley.jpg"  alt="Car Mobile">
         <img class="table" src="assets/large-shoppin-cart.jpg"  alt="Cart Desktop">
         <div class="fp-page-title">
-        <h1>Shopping Cart</h1>
+          
+          <h1>Shopping Cart</h1>
         </div>
   </div>
 </section>
 <section class="container Shopping-container">
-  <!--<p *ngIf="user">Customer email: {{user}}</p>-->
+  <p *ngIf="currentuser.includes('@')">Your email: {{currentuser}}</p>
   <div class="empty-basket" *ngIf="cartproduct.length > 0">
     <button (click)="clearCart()" class="btn btn-danger" type="button">Empty</button>
   </div>
@@ -87,6 +88,15 @@
               <button [disabled]="!accepTerms" id="btn-check" *ngIf="cartproduct.length > 0" (click)="moveTopayment()" class="btn btn-success" type="button">Proceed to Check Out</button>
               <button routerLink="/" class="btn btn-success" type="button">Continue Shopping</button>
               
+              
+          </div>
+          
+          <div class="cart-login-alert" *ngIf="liginAlert">
+            <div>
+              <p>Please register or login with email and password before check out</p>
+            </div>
+            <button class="btn btn-danger" type="button">Register</button> Or
+              <button class="btn btn-primary" type="button">login</button>
           </div>
           
         </div>

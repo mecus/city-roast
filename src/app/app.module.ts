@@ -11,6 +11,8 @@ import { LocalStorageModule } from 'angular-2-local-storage';
 import { Ng2PageTransition } from "ng2-page-transition";
 import { CheckOutModule } from './check-out/check-out.module';
 import { RedirectModule } from './redirect/redirect.module';
+import { DashboardModule } from './dashboard/dashboard.module';
+// import { DashboardRouteModule } from './dashboard/dashboard-route/dashboard-route.module';
 
 
 import { firebaseConfig, authConfig } from './firebase-config';
@@ -21,6 +23,7 @@ import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { HeaderComponent } from './menu/header.component';
 import { FooterComponent } from './menu/footer.component';
+
 
 import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
@@ -47,15 +50,16 @@ import { PrivacyComponent } from './pages/privacy/privacy.component';
     ContactsComponent,
     TermsComponent,
     PrivacyComponent,
-    Ng2PageTransition
+    Ng2PageTransition,
 
   ],
   imports: [
     BrowserModule,
+    DashboardModule,
+    AppRoutingModule,
     FormsModule, ReactiveFormsModule,
     HttpModule,
     MenuModule,
-    AppRoutingModule,
     AuthModule,
     ProductModule,
     CheckOutModule,

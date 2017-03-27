@@ -40,8 +40,8 @@ export class Customer {
 
     constructor(){
         this.customerId = "LCREF"+Math.floor((Math.random() * 1000) + 100);
-        this.firstName = "Jon";
-        this.lastName = "Doe";
+        this.firstName = "";
+        this.lastName = "";
         this.email = "";
         this.telephone = "";
         this.addressOne = "";

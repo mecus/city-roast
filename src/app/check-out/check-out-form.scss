@@ -41,7 +41,7 @@
         border: 1.5px solid;
         border-color: lightslategrey;
         table{
-    
+           
              p{
                 font-size: 14px;
                 padding: 0px 10px;
@@ -66,6 +66,7 @@
         .final-total{
             padding-left: 20px;
         }
+       
     }
 }
 
@@ -73,9 +74,15 @@
     padding: 20px 10px;
 
     .shipping-address{
-        border: 1px solid;
-        border-color: lightslategrey;
+        position: relative;
+        // border: 1px solid;
+        // border-color: lightslategrey;
         // background-color: lightslategrey;
+        .edit{
+            position: relative;
+            right: 5px;
+          
+        }
         h1{
             font-size: 18px;
             margin: 0px;
@@ -89,12 +96,35 @@
             margin: 0px;
         }
     }
+    .edit-form{
+        margin-top: 10px;
+    }
     .place-order-btn{
-        padding: 50px 100px;
+        // padding: 50px 100px;
         // background-color: lightgrey;
+        margin-bottom: 50px;
         .btn{
-            width: 200px;
-            height: 100px;
+            width: 100%;
+            border-radius: 0;
+            border: none;
+            background-color: #000;
+            color: #f48024;
+            font-weight: 600;
+            // font-family: 'Anton', sans-serif;
+            // letter-spacing: 2px;
+           &:hover{
+               background-color: #f48024;
+               color: #fff;
+               font-weight: 800;
+               cursor: pointer;
+           }
         }
+    }
+}
+#e-order{
+    max-width: 700px;
+    min-height: 500px;
+    .jumbotron{
+        margin: 50px;
     }
 }

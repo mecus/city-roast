@@ -31,5 +31,8 @@ export class AppService {
         return this.af.database.list('/contacts');
         
     }
+    getContacts(){
+        return this.af.database.list('/contacts');
+    }
 
 }

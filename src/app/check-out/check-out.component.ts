@@ -21,9 +21,24 @@ export class CheckOutComponent implements OnInit, AfterViewInit {
     cusForm;
     customerInput = new Customer;
     hideForm:boolean = false;
+    customers=[];
+   
     constructor(private appService:AppService, private cartService:CartService, 
     private _elementRef:ElementRef, private _fb:FormBuilder, private _router:Router) { 
         this.cusForm = _fb.group(this.customerInput);
+
+        if(localStorage.getItem("currentUser").includes('@')){
+            this.cusForm.patchValue({
+
+             email: localStorage.getItem("currentUser")
+         });
+        }else{
+            this.cusForm.patchValue({
+
+             email: "enter your email"
+         });
+        }
+        
     }
 
     hideMyform(){
@@ -31,8 +46,17 @@ export class CheckOutComponent implements OnInit, AfterViewInit {
     }
   
     saveCustomer(details){
-        this.cartService.saveCustomerDetails(details);
-        console.log(details);
+        
+        let lastId = this.customers.reverse();
+        if(lastId.length > 0){
+            let id = parseInt(lastId[0].id)
+            
+            this.cartService.saveCustomerDetails(details, id+1);
+        }else{
+            this.cartService.saveCustomerDetails(details, 1); 
+        }
+           
+        // console.log(this.lastId);
         this._router.navigate(['/order']);
     }
      sumCartPrice(cart){
@@ -50,15 +74,34 @@ export class CheckOutComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit() { 
+        this.cartService.getAllCustomerDetails().subscribe((customers)=>{
+                this.customers = customers;
+            });
+      
+        
+
          this.cartService.getCart().subscribe((cart)=>{
              this.carts = cart;
              this.sumCartPrice(cart)
             //  console.log(this.carts);
          });
-       
-        
-     
-  
+         
+         this.cartService.getCustomerDetails()
+            .subscribe((customer)=>{
+                // console.log(customer.firstName);
+
+                this.cusForm.patchValue({
+                    firstName:  customer.firstName,
+                    lastName:  customer.lastName,
+                    // email:  "",
+                    telephone:  customer.telephone,
+                    addressOne:  customer.addressOne,
+                    addressTwo:  customer.addressTwo,
+                    postCode:  customer.postCode,
+                    city:  customer.city,
+                    country:  "United Kingdom"
+                })
+            });
     }
     ngAfterViewInit(){
         var sDom = document.createElement("script");

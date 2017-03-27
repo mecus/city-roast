@@ -3,4 +3,8 @@
 .page-content{
     position: relative;
     height: 500px;
+    max-width: 60%;
+    .jumbotron{
+        margin: 50px;
+    }
 }

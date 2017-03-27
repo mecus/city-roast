@@ -1,0 +1,11 @@
+@import '../../../assets/stylesheets/variables';
+
+.page-content{
+    position: relative;
+    height: 500px;
+    max-width: 60%;
+    .jumbotron{
+        margin: 50px;
+        h4{color: red;}
+    }
+}

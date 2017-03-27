@@ -1,0 +1,45 @@
+
+.myinput input {
+    height: 100px;
+}
+.hidden{
+    opacity: 0;
+    width: 50px;
+}
+.display-image{
+    background-color: red;
+    position: absolute;
+    opacity: .8;
+}
+.file-input{
+    position: absolute;
+    top: 10%;
+    width: 50px;
+    opacity: .2;
+    overflow: hidden;
+    background-color: gray;
+    &:hover{
+        background-color: lightseagreen;
+        cursor: pointer;
+    }
+  
+}
+span.add{
+    position: relative;
+    padding: 0px 5px;
+    text-align: center;
+    color: black;
+    z-index: -1000;
+    font-size: 14px;
+    margin: 0 auto;
+
+
+}
+.load-item{
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 150px;
+    .progress-loading{
+        text-align: center;
+    }
+}

@@ -1,11 +1,11 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async } from '@angular/core/testing';
-import { RedirectComponent } from './redirect.component';
+import { CustomersComponent } from './customers.component';
 
-describe('Component: Redirect', () => {
+describe('Component: Customers', () => {
   it('should create an instance', () => {
-    let component = new RedirectComponent();
+    let component = new CustomersComponent();
     expect(component).toBeTruthy();
   });
 });

@@ -13,7 +13,7 @@
         <form [class.has-danger]="errMsg" [class.has-success]="user.valid" novalidate [formGroup]="user" (ngSubmit)="createUser(user.value)" >
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" formControlName="email" required placeholder="Email">
+                <input type="email" class="form-control" formControlName="email" pattern="[A-Za-z]+\.?-?[A-Za-z]+@[A-Za-z]+\.(com|co.uk|net|org)" required placeholder="Email">
             </div>
             <div class="form-group">
                 <label for="password">Password</label>

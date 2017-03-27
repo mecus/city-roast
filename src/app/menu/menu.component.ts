@@ -17,6 +17,7 @@ export class MenuComponent implements OnInit, OnChanges {
     anoUser:boolean = false;
     cartTotal = [];
     totalItem;
+    
 
     previlege: boolean=false;
     loginAlert:boolean = false;
@@ -24,14 +25,17 @@ export class MenuComponent implements OnInit, OnChanges {
     isImenu:number = 0;
     isMenuIcon:boolean = true;
     loginDraw:number = 0;
+    closeWind:boolean=false;
 
 
     constructor(private authService:AuthService, private cartService:CartService, private router:Router) { }
     openDrawer(){
-        this.loginDraw = 200;
+        this.loginDraw = 150;
+        this.closeWind = true;
     }
     closeDrawer(){
         this.loginDraw = 0;
+        this.closeWind = false;
     }
     openMenu(){
         this.isImenu = 100;
@@ -91,7 +95,7 @@ export class MenuComponent implements OnInit, OnChanges {
                 cart.forEach((cart)=>{
                   this.cartTotal.push(cart.qty);
                   this.totalItem = this.cartTotal.reduce((sum, num)=>{
-                      return sum + Math.round(num);
+                      return sum + Math.ceil(num);
                   }, 0)
                 });
                 
@@ -116,27 +120,41 @@ export class MenuComponent implements OnInit, OnChanges {
          );
     }
 
+    timer;
+    clearTimer(){
+        clearInterval(this.timer)
+    }
+
     ngOnInit() { 
         this.userChange();
         
         this.getCartTotal();
+      
+        
+      
+        
         // this.authService.authChange();
         // this.regUser = localStorage.getItem('currentUser');
         this.changeLogo();
-        if(localStorage.getItem('idToken')){
-            this.authService.getAccount(localStorage.getItem('idToken'))
-            .subscribe(acUser=>{
-                // console.log(acUser[0].isAmin);
-                    acUser.forEach(adm=>{
-                    if(adm.isAmin == true ){
-                        this.previlege = true;
-                        console.log("Admin truthy");
-                    }
+       
+        this.timer = setInterval(()=>{
+                if(localStorage.getItem('idToken')){
+                this.authService.getAccount(localStorage.getItem('idToken'))
+                .subscribe(adm=>{
+                    // console.log(adm.isAdmin);
+                        if(adm.isAdmin == true ){
+                            this.previlege = true;
+                            console.log("Admin truthy");
+                            this.clearTimer();
+                        }else{
+                            this.previlege = false;
+                        }
                 });
                 
-            });
+            }
             
-        }
+        }, 1500);
+    
        
         setTimeout(()=>{
             if(!localStorage.getItem('idToken')){

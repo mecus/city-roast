@@ -4,6 +4,18 @@
       ".read": "true",
       ".write": "auth != null"
     },
+    "customers":{
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+    "contacts":{
+      ".read": "true",
+      ".write": "auth != null"
+    },
+    "orders":{
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
     ".read": "true",
     ".write": "true"
   }

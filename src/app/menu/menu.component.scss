@@ -74,20 +74,23 @@
         
         .anonymous{
             position: absolute;
-            top: 15%;
+            top: 5%;
             left: 50%;
-            width: 50%;
-            margin-left: -25% ;
+            width: 40%;
+            margin-left: -20% ;
             text-align: center;
             @include transition(0.2s);
             .ano-content{
-                background-color: lightslategray;
+                background-color: #fff;
                 opacity: 0.99;
                 width: 100%;
                 h2{
                     // color: black;
                 }
                 p{padding: 10px 0px;}
+                span#span{
+                        color: red;
+                    }
             }
         }
     }
@@ -111,11 +114,12 @@
 //==Login and Logout Menu==//
 .login-out{
     position: absolute;
-    top: 40px;
-    right: 60px;
-    width: 150px;
+    top: 0px;
+    right: 0px;
+    // width: 150px;
+    height: 200px;
     background-color: lightgray;
-    z-index: 100;
+    z-index: 1000;
     margin: 0px;
     @include transition(0.4s);
     overflow: hidden;
@@ -137,7 +141,7 @@
     }
 }
 .dropdow-colp{
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100vh;
     // background-color: red;

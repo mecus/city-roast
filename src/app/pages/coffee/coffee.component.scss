@@ -30,47 +30,68 @@
         }
     }
 }
-.cf-page-content{
-    position: relative;
-    min-height: 500px;
+#cover-page{
     background-color: #fff;
-    width: 100%;
-    .coffee-text{
-        margin: 0 auto;
-        max-width: 900px;
-        text-align: center;
-        margin-bottom: 40px;
-        h1{
-            padding: 40px 0px;
+    position: relative;
+    .cf-page-content{
+        position: relative;
+        min-height: 500px;
+        background-color: #fff;
+        // width: 100%;
+        .coffee-text{
+            margin: 0 auto;
+            max-width: 900px;
+            text-align: center;
+            margin-bottom: 40px;
+            h1{
+                padding: 40px 0px;
+            }
+            p{
+                margin-top:  15px;
+            }
         }
-        p{
-            margin-top:  15px;
-        }
-    }
-    .coffees{
-        margin: auto;
-        text-align: center;
-        .content-wrapper{
-            margin: 5px;
-            .coffee {
-                margin: 0px;
-                padding: 0px;
-                padding: 10px 5px;
-                .coffee-wrapper{
-                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-                    padding: 10px;
-                    .coffee-title{
-                        text-align: center;
-                        padding: 10px 10px;
-                        h1{
-                            font-size: 16px;
-                            color: lightslategray;
+        .coffees{
+            margin: auto;
+            text-align: center;
+            .content-wrapper{
+                margin: 5px;
+                .coffee {
+                    margin: 0px;
+                    padding: 0px;
+                    padding: 10px 5px;
+                    .coffee-wrapper{
+                        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                        padding: 10px;
+                        .coffee-img{
+                            img{
+                                width: 200px;
+                            }
                         }
+                        .coffee-title{
+                            text-align: center;
+                            padding: 10px 10px;
+                            h1{
+                                font-size: 16px;
+                                color: lightslategray;
+                            }
+                            button{
+                                // color: lightslategray;
+                                background-color: transparent !important;
+                                color: #f48024;
+                                border-color: #f48024;
+                                &:hover{
+                                    background-color: #000 !important;
+                                    color: #f48024;
+                                    border-color: #f48024;
+                                }
+                            }
+                        }
+                        
                     }
                 }
             }
-        }
 
+        }
     }
 }
 

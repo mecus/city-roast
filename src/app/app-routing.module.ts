@@ -14,17 +14,19 @@ import { LoginComponent } from './authentications/login.component';
 import { AccountComponent } from './authentications/accounts/account.component';
 
 
-import { ProductformComponent } from './products/product-form.component';
-import { ProductsComponent } from './products/product.component';
+// import { ProductformComponent } from './products/product-form.component';
+// import { ProductsComponent } from './products/product.component';
 import { ProductViewComponent } from './products/product-view.component';
-import { ProductUpdateComponent } from './products/product-update.component';
+// import { ProductUpdateComponent } from './products/product-update.component';
 import { ShoppingCartComponent } from './check-out/shopping-cart.component';
 import { CheckOutComponent } from './check-out/check-out.component';
 import { OrderComponent } from './check-out/order.component';
 import { PaymentMethodComponent } from './check-out/payment-method.component';
 
+// import { DashboardComponent } from './dashboard/dashboard.component';
 
-import { RedirectComponent } from './redirect/redirect.component';
+
+import { ErrorComponent } from './redirect/error.component';
 import { OrderSuccessComponent} from './redirect/order-success.component';
 
 import { AuthGuard } from './app-auth-guard.service';
@@ -49,16 +51,13 @@ const routes = [
     {path: 'account', component: AccountComponent},
     {path: 'contacts', component:ContactsComponent},
     {path: 'login', component: LoginComponent},
-    {path: 'product/new', component: ProductformComponent},
-    {path: 'products', component: ProductsComponent, canActivate: [AuthGuard]},
     {path: 'products/:id', component: ProductViewComponent},
-    {path: 'product/update', component:ProductUpdateComponent},
     {path: 'cart', component: ShoppingCartComponent},
     {path: 'terms', component: TermsComponent},
     {path: 'privacy', component:PrivacyComponent},
     {path: 'checkout', component: CheckOutComponent},
     {path: 'order', component: OrderComponent},
-    {path: 'redirect', component: RedirectComponent},
+    {path: 'exception', component: ErrorComponent},
     {path: 'payment-confirmation', component: OrderSuccessComponent},
     {path: 'payment-method', component: PaymentMethodComponent},
     root,

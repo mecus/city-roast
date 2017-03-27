@@ -33,7 +33,8 @@
                 text-align: center;
                 @include transition(0.2s);
                 .ano-content{
-                    background-color: lightslategrey;
+                    background-color: #fff;
+                    opacity: 0.99;
                     width: 100%;
                     h2{
                         // color: black;

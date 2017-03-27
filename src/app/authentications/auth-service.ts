@@ -44,13 +44,13 @@ export class AuthService {
         }
     }
     createAccount(uId){
-         let dbRef = this.af.database.list('accounts/'+uId);
-         dbRef.push({isAmin: false})
+         let dbRef = this.af.database.object('accounts/'+uId);
+         dbRef.set({isAdmin: false})
                 .then(success=>{console.log("User Account Created successfully "+success)})
                 .catch(error=>{console.log("something went wrong "+error)});
      }
      getAccount(uId){
-         return this.af.database.list('accounts/'+uId); 
+         return this.af.database.object('accounts/'+uId); 
      }
 
     logIn(user:User){

@@ -1,0 +1,33 @@
+<section class="container fp-page-content">
+     <!--<a routerLink="/products"><button class="btn btn-default">Go to Products</button></a>-->
+    <form *ngIf="lastId" [class.has-success]="newproduct.valid" novalidate [formGroup]="newproduct" (ngSubmit)="createProd(newproduct.value)">
+        <div class="form-group">
+            <h6>Product Id: <span>0{{lastId}}</span></h6>
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input  type="text" class="form-control" formControlName="name" required placeholder="product name">
+        </div>
+        <div class="form-group">
+            <label for="Product Code">Price</label>
+            <input type="text" class="form-control" formControlName="price" required pattern="[0-9]+" placeholder="price">
+        </div>
+        <div class="form-group">
+            <label for="code">Product Code</label>
+            <input type="text" class="form-control" formControlName="code" required pattern="[0-9]+" placeholder="product code">
+        </div>
+        <!--<div class="form-group">
+            <label for="name">Image</label>
+            <input type="text" (change)="onChange(e)" class="form-control" formControlName="imageUrl" placeholder="image url">
+        </div>-->
+        <div class="form-group myinput">
+            <label for="price">Description</label>
+            <textarea rows="5" class="form-control" formControlName="description" required placeholder="description"></textarea>
+        </div>
+        <button class="btn" [disabled]="!newproduct.valid" [class.btn-success]="newproduct.valid" type="submit">Add Product</button>
+       <span><a routerLink="/dashboard/products-list">Cancel</a></span>
+    </form>
+    <!--<div>
+        <p>Validate: {{newproduct.valid | json}}</p>
+    </div>-->
+</section>

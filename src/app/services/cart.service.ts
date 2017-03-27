@@ -114,11 +114,11 @@ export class CartService {
 
 
     //Saving Customer Details
-    saveCustomerDetails(customer){
+    saveCustomerDetails(customer, lastId){
         this.getUser();
         if(this.userId){
-
             let customerDetails = {
+                id: lastId,
                 customerId: customer.customerId,
                 firstName: customer.firstName,
                 lastName: customer.lastName,
@@ -138,16 +138,44 @@ export class CartService {
                 deliveryTrue: customer.deliveryTrue, //check if billing address is the same as delivery
 
             }
-            let db = this.af.database.list('/customers/'+this.userId);
-                db.push(customerDetails)
+            let db = this.af.database.object('/customers/'+this.userId);
+                db.set(customerDetails)
                     .then(res=>{console.log(res +"Customer Saved")})
                     .catch(error=>{console.log(error)});
+
         }
         
     }
+    updateCustomerDetails(customer){
+        this.getUser();
+        if(!customer){return}
+        
+        let customerUpdate = {
+            firstName: customer.firstName,
+            lastName: customer.lastName,
+            email: customer.email,
+            telephone: customer.telephone,
+            addressOne: customer.addressOne,
+            addressTwo: customer.addressTwo,
+            postCode: customer.postCode,
+            city: customer.city,
+            country: "United Kingdom"
+        }
+
+        let db = this.af.database.object('/customers/'+this.userId);
+            db.update(customer)
+                .then(res=>{console.log(res +"Customer Saved")})
+                .catch(error=>{console.log(error)});
+
+    }
+
+
     getCustomerDetails(){
         this.getUser();
-        return this.af.database.list('customers/'+this.userId);
+        return this.af.database.object('customers/'+this.userId);
+    }
+    getAllCustomerDetails(){
+        return this.af.database.list('customers/');
     }
 
     deleteCustomerDetails(){
@@ -159,39 +187,50 @@ export class CartService {
     // Creating New Order
     createOrder(customer, shipping, items, amount){
         this.getUser();
-       let newOrder = {
-            orderId: customer.orderId,
-            customerName: customer.customerName,
-            email: customer.email,
-            telephone: customer.telephone,
-            address: customer.address,
-            postCode: customer.postcode,
-            city: customer.city,
-            shipping: shipping,
-            amount: amount,
-            
-       }
+        let orderDate = new Date().toString();
+        let newOrder = {
+                id: customer.id,
+                orderId: customer.orderId,
+                customerName: customer.customerName,
+                email: customer.email,
+                telephone: customer.telephone,
+                address: customer.address,
+                postCode: customer.postcode,
+                city: customer.city,
+                country: customer.country,
+                shipping: shipping,
+                amount: amount,
+                orDate: orderDate,
+                
+        }
    
         if(this.userId){
-            let db = this.af.database.list('/orders/'+this.userId);
+            //Saving Orders
+            let db = this.af.database.list('/orders/');
             db.push(newOrder).then(res=>{ 
                 console.log(res.key);
-                if(res.key){
-                    let dbp = this.af.database.list('/orders/'+this.userId + '/' +res.key + '/items/');
-                    items.forEach((item)=>{
-                        console.log(item);
-                        dbp.push({
-                            name: item.name,
-                            type: item.type,
-                            qty: item.qty,
-                            size: item.size,
-                            price: item.price
-                        }).then(res=> res).catch(err=>console.log(err));
-                    })
-   
-                }
             })
             .catch(err=>console.log(err));
+
+            //Saving Order for Current_User
+            let udb = this.af.database.list('/orders/'+this.userId);
+                udb.push(newOrder).then(res=>{ 
+                console.log(res.key);
+            })
+            .catch(err=>console.log(err));
+            //Saving Ordered items
+            let dbp = this.af.database.list('/orders/items/');
+            items.forEach((item)=>{
+                console.log(item);
+                dbp.push({
+                    id: customer.id,
+                    name: item.name,
+                    type: item.type,
+                    qty: item.qty,
+                    size: item.size,
+                    price: item.price
+                }).then(res=> res).catch(err=>console.log(err));
+            })
 
             
         }else{
@@ -200,6 +239,18 @@ export class CartService {
     }
     //Retrieving Order from the database
     getOrder(){
-       return this.af.database.list('/orders/'+this.userId);
+        this.getUser();
+        return this.af.database.list('/orders/');
+    }
+    getUserOrder(){
+        this.getUser();
+        return this.af.database.list('/orders/'+this.userId);
+    }
+    getOrderItems(){
+       return this.af.database.list('/orders/items/');
+
+    }
+    deleteOrder(order){
+        return this.af.database.list('/orders/'+this.userId);
     }
 }

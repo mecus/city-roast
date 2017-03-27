@@ -6,13 +6,24 @@
         </div>
   </div>
 </section>
-<section class="order-content container">
+<section *ngIf="!hidePage" class="container">
+    <div id="e-order" class="container">
+        <div class="jumbotron">
+            <h3>You already have a pending.. order</h3>
+            <p>Please click on button below to proceed to payment methods</p>
+            <!--<button (click)="modifyOrder()" class="btn btn-primary" type="button">see details</button> or click here to:  -->
+            <span class="btn btn-success"  routerLink="/payment-method">Next</span>
+        </div>
+    </div>
+</section>
+<section *ngIf="hidePage" class="order-content container">
     <div class="row">
         <div class="col col-lg-8 order-review">
             <div class="shipping-address">
-                <h1>Shipping Details</h1>
+                <h1>Shipping Details <span *ngIf="!isEdit"><button (click)="editDetails()" type="button">Edit</button></span></h1>
+                
              
-                <div *ngFor="let customer of customerInfo">
+                <div *ngIf="!isEdit">
                     <div class="jumbotron col col-lg-6">
                         <h4>Personal Details</h4>
                         <p>First Name: {{customer.firstName}}</p>
@@ -30,12 +41,108 @@
                     </div>
                 </div>
             </div>
-            
+          
+            <!--Edit payment details-->
+            <div class="edit-form jumbotron" *ngIf="isEdit">
+                <h5>Edit your details</h5>
+                <form novalidate [class.alert-danger]="!editForm.valid" [class.has-success]="editForm.valid" [formGroup]="editForm" (ngSubmit)="saveCustomerUpdate(editForm.value)" class="main-form" >
+               
+                <div class="row name-section">
+                    <div class="col col-xs-6 col-lg-6 form-group">
+                        <label for="formGroupExampleInput">First Name <span style="color: red">*</span></label>
+                        <input type="text" class="form-control" formControlName="firstName" required placeholder="first name">
+                    </div>
+                    <div class="col col-xs-6 col-lg-6 form-group">
+                        <label for="formGroupExampleInput2">Last Name <span style="color: red">*</span></label>
+                        <input type="text" class="form-control" formControlName="lastName" required placeholder="last name">
+                    </div>
+                     <div class="col col-xs-6 col-lg-6 form-group">
+                        <label for="formGroupExampleInput">Email <span style="color: red">*</span></label>
+                        <input type="text" class="form-control" formControlName="email" required pattern="[A-Za-z]+\.?-?[A-Za-z]+@[A-Za-z]+\.(com|co.uk|net|org)" placeholder="example@email.com">
+                        <div *ngIf="editForm.get('email').hasError('required') && doValidation" class="alert alert-danger" role="alert">type in a correct email</div>
+                    </div>
+                    <div class="col col-xs-6 col-lg-6 form-group">
+                        <label for="formGroupExampleInput2">Telephone <span style="color: red">*</span></label>
+                        <input type="text" class="form-control" formControlName="telephone" required pattern="^0\d{10}" placeholder="e.g 02078946526">
+                    </div>
+                </div>
+                <br><br>
+                <div class="row address-section">
+                    
+                    <div class="col col-xs-12 col-lg-12 address-input">
+                        <h6>Billing Address</h6>
+                        <hr>
+                        <div class="col col-xs-6 col-lg-6 form-group">
+                            <label for="formGroupExampleInput">Address 1 <span style="color: red">*</span></label>
+                            <input type="text" class="form-control" formControlName="addressOne" required placeholder="House/Flat no.">
+                        </div>
+                        <div class="col col-xs-6 col-lg-6 form-group">
+                            <label for="formGroupExampleInput2">Address 2 <span style="color: red">*</span></label>
+                            <input type="text" class="form-control" formControlName="addressTwo" required placeholder="Street/Road name">
+                        </div>
+                        <div class="col col-xs-6 col-lg-6 form-group">
+                            <label for="formGroupExampleInput">Post Code <span style="color: red">*</span></label>
+                            <input type="text" class="form-control" formControlName="postCode" pattern="^[A-Za-z]{2}\d\d?\s?\d[A-Za-z]{2}" required placeholder="e.g SE12 7KL">
+                        </div>
+                        <div class="col col-xs-6 col-lg-6 form-group">
+                            <label for="formGroupExampleInput2">City <span style="color: red">*</span></label>
+                            <input type="text" class="form-control" formControlName="city" required placeholder="city">
+                        </div>
+
+                        <div class="col col-xs-12 col-lg-6 form-group">
+                            <label for="formGroupExampleInput2">Country</label>
+                            <input type="text" class="form-control" formControlName="country" value="United Kingdom" placeholder="United Kingdom">
+                        </div>
+                    </div>
+                </div>
+                
+                <br><br>
+                <button  id="pay-btn" class="btn btn-primary"  type="submit" value="Proceed to Payment" [disabled]="!editForm.valid" >Save Changes</button>
+                <button (click)="cancelEdit()" id="pay-btn" class="btn btn-danger"  type="button"  >Cancel & go back</button>
+                <span *ngIf="!editForm.valid"  style="font-size: 12px">please fill all required field <span style="color: red">*</span></span>
+            </form>
+            </div>
+            <!--shipping method-->
+            <div class="container">
+                <div class="shipping-method">
+                <br>
+                
+                <table class="table">
+                    <thead class="thead-inverse">
+                        <tr>
+                            
+                            <th colspan="3"><h5>Shipping Methods</h5></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr>
+                            
+                            <td><input (change)="onChange($event)" type="radio" defaultValue="checked" name="optradio" id="free" ></td>
+                            <td>Uk Standard(3-5 working days)</td>
+                            <td>Free</td>
+                            
+                        
+                        <tr>
+                            <td><input (change)="onChange($event)" type="radio" name="optradio" id="express" ></td>
+                            <td>UK Express (1-2 Working Days)</td>
+                            <td>£2.99</td>
+                        </tr>
+                        <tr>
+                            <td><input (change)="onChange($event)" type="radio" name="optradio" id="next-day" ></td>
+                            <td>UK Next Working Day (on orders placed before 12:00pm, exclusions apply - see Delivery Policy)</td>
+                            <td>£4.99</td>
+                        </tr>
+                    </tbody>
+                </table>
+                        
+            </div>
+        </div>
         </div>
         <div class="col col-lg-4 item-order">
             <div class="order-detail-container">
                 <div class="order-detail">
-                    <h1>Your Order</h1>
+                    <h1>Your Basket</h1>
                     <table>
                         <thead>
                             <tr>
@@ -66,49 +173,20 @@
                                     <td colspan="2"></td>
                                     <td><h6> {{sumCart + deliveryFee | currency: 'GBP': true}}</h6></td>
                                 </tr>
+                                <br>
                             </tbody>
                         </table>
                        </div>
                 </div>
+                <br>
+            </div>
+            
+             <div class="place-order-btn">
+                <button (click)="createOrder()" class="btn btn-primary" routerLink="/payment-method"  type="button">Payment method</button>
+                
+                <!--<button (click)="newOrder()" class="btn btn-success" type="">Finish Payment</button>-->
             </div>
             
         </div>
     </div>
-   <div class="row">
-        <div class="shipping-method col col-lg-6">
-        <h4>Shipping Methods</h4>
-       <table class="table">
-            <thead>
-                <tr>
-                    <th colspan="3"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input (change)="onChange($event)" type="checkbox" defaultValue="checked" name="free" ></td>
-                    <td>Uk Standard(3-5 working days)</td>
-                    <td>Free</td>
-                </tr>
-                <tr>
-                    <td><input (change)="onChange($event)" type="checkbox" name="express" ></td>
-                    <td>UK Express (1-2 Working Days)</td>
-                    <td>£2.99</td>
-                </tr>
-                <tr>
-                    <td><input (change)="onChange($event)" type="checkbox" name="next-day"  ></td>
-                    <td>UK Next Working Day (on orders placed before 12:00pm, exclusions apply - see Delivery Policy)</td>
-                    <td>£4.99</td>
-                </tr>
-            </tbody>
-        </table>
-                
-    </div>
-    <div class="place-order-btn col col-lg-6">
-        <button (click)="checkValue()" class="btn btn-success" routerLink="/payment-method" type="button">Payment method</button>
-        
-         <!--<button (click)="newOrder()" class="btn btn-success" type="">Finish Payment</button>-->
-    </div>
-   </div>
-   
 </section>
-
