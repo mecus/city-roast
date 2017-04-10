@@ -10,6 +10,7 @@ import { AppService } from '../services/app.service';
 import { UploadService } from '../services/upload.service';
 import { ProductService } from '../services/product.service';
 import { CartService } from '../services/cart.service';
+import { MailService } from '../services/mail.service';
 
 
 import { ShoppingCartComponent } from './shopping-cart.component';
@@ -35,7 +36,7 @@ import { PaymentMethodComponent } from './payment-method.component';
     exports: [
   
     ],
-    providers:[AppService, UploadService, ProductService, CartService]
+    providers:[AppService, UploadService, ProductService, CartService, MailService]
 
 
 })

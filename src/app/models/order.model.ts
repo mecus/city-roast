@@ -1,5 +1,5 @@
 export interface iOrder {
-    id: string;
+    customerId: string;
     orderId: string;
     customerName: string;
     email: string;
@@ -13,7 +13,7 @@ export interface iOrder {
 }
 
 export class CustomerOrder {
-    id: string;
+    customerId: string;
     orderId: string;
     customerName: string;
     email: string;
@@ -26,8 +26,8 @@ export class CustomerOrder {
     orDate: Date;
 
     constructor(){
-    this.id = "";
-    this.orderId = " 12345";
+    this.customerId = "";
+    this.orderId = "LCREF"+Math.floor((Math.random() * 1000) + 100);
     this.customerName= " ";
     this.email = "";
     this.telephone = "";

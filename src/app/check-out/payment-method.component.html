@@ -1,6 +1,6 @@
 <section >
     <div class="fp-page-head">
-        <img src="assets/about-us.jpg"  alt="">
+        <!--<img src="assets/about-us.jpg"  alt="">-->
         <div class="fp-page-title">
         <h1>Payment Method</h1>
         </div>
@@ -13,44 +13,78 @@
     <div *ngFor="let sum of orders">
         <h5 style="color: #f48024" >Due Amount:  {{sum.amount | currency:'GBP':true}}</h5>
     </div>
-    <p>Thank you for placing your order on our websit, as part of our security measure we will redirect you to a secured payment page to take your card details.</p>
-    
+    <p>Thank you for placing your order on our websit, as part of our security measure we will redirect you to a secured payment page to take your card details and process the payment.</p>
+    <p>Chose one from the two payment method below!</p>
     <!--<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>-->
     <!--<button routerLink="/order" type="button">Go Back</button>-->
     
+    <div class="row">
+        <div class="barclaypay col col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <div id="main-form">
+            </div>
+            <div id="myform">
+                    <div *ngFor="let order of orders">
+                        <input type="hidden" name="PSPID" value="epdq3027479">
+                        <input type="hidden" name="ORDERID" value={{order.orderId}}>
+                        <input type="hidden" name="AMOUNT" value={{order.amount*100}}>
+                        <input type="hidden" name="CURRENCY" value="GBP">
+                        <input type="hidden" name="LANGUAGE" value="en_US">
+                        
+                        <!-- lay out information -->
+                        <input type="hidden" name="TITLE" value="London City Roast">
+                        <input type="hidden" name="ACCEPTURL" value="http://www.londoncityroast.com/payment-confirmation">
+                        <input type="hidden" name="BACKURL" value="http://www.londoncityroast.com/payment-method">
+                        <input type="hidden" name="EXCEPTIONURL" value="http://www.londoncityroast.com/exception">
+                        <!-- miscellanous -->
+                        <input type="hidden" name="HOMEURL" value="http://www.londoncityroast.com">
+            
+                        <input type="hidden" name="CN" value={{order.customerName}}>
+                        <input type="hidden" name="EMAIL" value={{order.email}}>
+                        <input type="hidden" name="OWNERZIP" value={{order.postCode}}>
+                        <input type="hidden" name="OWNERADDRESS" value={{order.address}}>
+                        <input type="hidden" name="OWNERTOWN" value={{order.city}}>
+                        <input type="hidden" name="OWNERCTY" value={{order.country}}>
 
+                        <input type="hidden" name="SHASIGN" value={{hashSign}}>
+                        <input type="submit" class="btn btn-success" value="Barclays" id=submit2 name=submit2>
+                    </div>
+                </div>
+                <div class="card-type">
+                     <i class="fa fa-cc-visa" aria-hidden="true"></i>
+                    <i class="fa fa-cc-jcb" aria-hidden="true"></i>
+                    <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
+                    <a><img src="https://www.merchantequip.com/image/?logos=a&height=36" alt="Merchant Equipment Store Credit Card Logos" /></a>
+                </div>
+        </div>
+        <div class="worldpay col col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <div id="payForm">
+            </div>
+            <div id="form10" *ngFor="let order of orders">
+                <input type="hidden" name="testMode" value="100">
+                <!-- These first four elements are mandatory. -->
+                <input type="hidden" name="instId" value="1189962">
+                <input type="hidden" name="cartId" value="{{order.orderId}}">
+                <input type="hidden" name="currency" value="GBP">
+                <input type="hidden" name="amount" value="{{order.amount}}">
 
-    <div id="main-form">
-    </div>
+                <!-- These elements below are optional. -->
+                <input type="hidden" name="desc" value="Coffee">
+                <input type="hidden" name="name" value="{{order.customerName}}">
+                <input type="hidden" name="address1" value="{{order.address}}">
+                <input type="hidden" name="town" value="{{order.city}}">
+                <input type="hidden" name="postcode" value="{{order.postCode}}">
+                <input type="hidden" name="country" value="{{order.country}}">
+                <input type="hidden" name="email" value="{{order.email}}">
+                <input class="btn btn-danger" type="submit" value="Worldpay">
+            </div>
+            <div class="card-type">
+                <i class="fa fa-cc-visa" aria-hidden="true"></i>
+                <i class="fa fa-cc-jcb" aria-hidden="true"></i>
+                <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
+                <a><img src="https://www.merchantequip.com/image/?logos=me&height=36" alt="Merchant Equipment Store Credit Card Logos" /></a>
 
-    <div id="myform">
-            <div *ngFor="let order of orders">
-            <input type="hidden" name="PSPID" value="epdq3027479">
-            <input type="hidden" name="ORDERID" value={{order.orderId}}>
-            <input type="hidden" name="AMOUNT" value={{order.amount*100}}>
-            <input type="hidden" name="CURRENCY" value="GBP">
-            <input type="hidden" name="LANGUAGE" value="en_US">
-            <!-- lay out information -->
-            <input type="hidden" name="TITLE" value="London City Roast">
-            <input type="hidden" name="ACCEPTURL" value="http://localhost:4200/payment-confirmation">
-            <input type="hidden" name="BACKURL" value="http://localhost:4200/payment-method">
-            <input type="hidden" name="EXCEPTIONURL" value="http://localhost:4200/exception">
-            <!-- miscellanous -->
-            <input type="hidden" name="HOMEURL" value="http://localhost:4200">
- 
-            <input type="hidden" name="CN" value={{order.customerName}}>
-            <input type="hidden" name="EMAIL" value={{order.email}}>
-            <input type="hidden" name="OWNERZIP" value={{order.postCode}}>
-            <input type="hidden" name="OWNERADDRESS" value={{order.address}}>
-            <input type="hidden" name="OWNERTOWN" value={{order.city}}>
-            <input type="hidden" name="OWNERCTY" value={{order.country}}>
-
-            <input type="hidden" name="SHASIGN" value={{hashSign}}>
-            <input type="submit" class="btn btn-success" value="Proceed to payment>" id=submit2 name=submit2>
             </div>
         </div>
-        <div class="card-type">
-            <a ><img alt="Credit Card Logos" title="Credit Card Logos" src="http://www.credit-card-logos.com/images/multiple_credit-card-logos-1/credit_card_logos_9.gif" width="176" height="35" border="0" /></a>
-        </div>
+    </div>
     </div>
 </div>

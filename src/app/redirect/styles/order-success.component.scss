@@ -8,3 +8,15 @@
         margin: 50px;
     }
 }
+
+@media only screen and (min-width:250px) and (max-width: 640px){
+    .page-content{
+        position: relative;
+        height: 500px;
+        max-width: 100%;
+        .jumbotron{
+            margin: 0px;
+            margin-top: 20px;
+        }
+    }
+}

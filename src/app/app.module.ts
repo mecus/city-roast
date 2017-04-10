@@ -31,7 +31,7 @@ import { BrewingComponent } from './pages/brewing/brewing.component';
 import { CoffeeComponent } from './pages/coffee/coffee.component';
 import { ContactsComponent } from './pages/contacts/contacts.component';
 import { TermsComponent } from './pages/terms/terms.component';
-import { PrivacyComponent } from './pages/privacy/privacy.component';
+import { ReturnComponent } from './pages/return/return.component';
 
 
 
@@ -49,7 +49,7 @@ import { PrivacyComponent } from './pages/privacy/privacy.component';
     CoffeeComponent,
     ContactsComponent,
     TermsComponent,
-    PrivacyComponent,
+    ReturnComponent,
     Ng2PageTransition,
 
   ],

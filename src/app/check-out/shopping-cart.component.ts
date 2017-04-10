@@ -1,7 +1,9 @@
 import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
 import { CartService } from '../services/cart.service';
+import { MailService } from '../services/mail.service';
 import { Location } from '@angular/common';
 import { iCart } from '../models/cart.model';
+import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 
 
@@ -21,8 +23,10 @@ export class ShoppingCartComponent implements OnInit {
     accepTerms:boolean = false;
     liginAlert:boolean = false;
     currentuser;
+   
     constructor(private cartService:CartService, private _location:Location,
-    private af:AngularFire, private _router:Router, private _elementRef:ElementRef) { }
+    private af:AngularFire, private _router:Router, private _elementRef:ElementRef,
+    private _mailSender:MailService) { }
 
     @HostListener('change', ['$event']) termsChange($event){
         if($event.target.checked == true){
@@ -98,6 +102,11 @@ export class ShoppingCartComponent implements OnInit {
  
 
     ngOnInit() {
+        //Only allowed user if they logged in
+        if(!localStorage.getItem('currentUser')){
+            this._router.navigate(["/login"])
+            return
+        }
         this.cartService.getCart()
             .subscribe(cart=>{
                 this.cartproduct = cart;
@@ -114,6 +123,7 @@ export class ShoppingCartComponent implements OnInit {
         // this.paypalCheckOut();
 
         
+        // this.railsOrder = this._mailSender.getorders();
         
      }
   

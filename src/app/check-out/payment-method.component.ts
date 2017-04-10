@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef, AfterViewInit  } from '@angular/core';
 import { CartService } from '../services/cart.service';
 import { CustomerOrder } from '../models/order.model';
 import { Observable } from 'rxjs/Observable';
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
     templateUrl: './payment-method.component.html',
     styleUrls: ['./styles/stylesheet.scss']
 })
-export class PaymentMethodComponent implements OnInit {
+export class PaymentMethodComponent implements OnInit, AfterViewInit {
     cusId;
     orders=[]; //work on the this later
     fieldOk:boolean = false;
@@ -21,11 +21,21 @@ export class PaymentMethodComponent implements OnInit {
     hashSign;
 
 
-    constructor(private cartService:CartService, private _router:Router) {
+    constructor(private cartService:CartService, private _router:Router, private _elementRef:ElementRef) {
   
      }
 
-    ngOnInit() { 
+     paymentSubmit(){
+
+     }
+
+    ngOnInit() {
+        //Only allowed user if they logged in
+        if(!localStorage.getItem('currentUser')){
+            this._router.navigate(["/login"])
+            return
+        }
+
         let nform = document.createElement('form');
         let myf = document.getElementById('myform');
         nform.id = "form1";
@@ -56,14 +66,14 @@ export class PaymentMethodComponent implements OnInit {
             if(this.orders.length > 0){
                 let passphrase = "LCRUB3DA172000@#tig";
                 // console.log(order.orderId);
-                let accpturl = "ACCEPTURL=http://localhost:4200/payment-confirmation"+passphrase;
+                let accpturl = "ACCEPTURL=http://www.londoncityroast.com/payment-confirmation"+passphrase;
                 let amount = "AMOUNT="+this.orders[0].amount*(100)+passphrase;
-                let backurl = "BACKURL=http://localhost:4200/payment-method"+passphrase;
+                let backurl = "BACKURL=http://www.londoncityroast.com/payment-method"+passphrase;
                 let cusName ="CN="+this.orders[0].customerName+passphrase;
                 let currency ="CURRENCY=GBP"+passphrase;
                 let email ="EMAIL="+this.orders[0].email+passphrase;
-                let expturl ="EXCEPTIONURL=http://localhost:4200/exception"+passphrase;
-                let homeurl ="HOMEURL=http://localhost:4200"+passphrase;
+                let expturl ="EXCEPTIONURL=http://www.londoncityroast.com/exception"+passphrase;
+                let homeurl ="HOMEURL=http://www.londoncityroast.com"+passphrase;
                 let language ="LANGUAGE=en_US"+passphrase;
                 let orderId ="ORDERID="+this.orders[0].orderId+passphrase;
                 let ownaddress ="OWNERADDRESS="+this.orders[0].address+passphrase;
@@ -97,7 +107,7 @@ export class PaymentMethodComponent implements OnInit {
                     ownZip+
                     pspdq+
                     title
-                    ).toUpperCase();
+                    );
 
                 // let hash = (accpturl+amount+backurl+cusName+currency+
                 //     email+homeurl+language+orderId+ownaddress+
@@ -117,8 +127,10 @@ export class PaymentMethodComponent implements OnInit {
                 console.log(hash);
                 // console.log(newHash);
                 // console.log(testHash);
-
-                this.fieldOk = true;
+                setTimeout(()=>{
+                    this.fieldOk = true;
+                },500);
+                
             }else{
                 this._router.navigate(["/order"]) 
             }
@@ -128,6 +140,25 @@ export class PaymentMethodComponent implements OnInit {
     
 
 
+    }
+
+     ngAfterViewInit(){
+
+        let subFormHolder = document.getElementById('payForm');
+        let form = document.getElementById('form10');
+        let subForm = document.createElement('form');
+        subForm.action = "https://secure-test.worldpay.com/wcc/purchase";
+        subForm.name = "BuyForm";
+        subForm.method = "POST"
+        subForm.appendChild(form);
+        subFormHolder.appendChild(subForm);
+
+        // var script = document.createElement("script");
+        // script.type = "text/javascript";
+        // script.src = "https://cdn.worldpay.com/v1/worldpay.js";
+        // this._elementRef.nativeElement.appendChild(script);
+
+    
     }
 
 }

@@ -76,6 +76,7 @@
         // flex: 3;
         h5, h6 {
             color: lightgrey;
+            letter-spacing: 1px;
         }
         #imail{
             color: #f48024;
@@ -112,6 +113,10 @@
     }
     .social-media{
         display: inline-flex;
+        // display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */
+        // display: -moz-box;      /* OLD: Firefox (buggy) */
+        // display: -ms-flexbox;   /* MID: IE 10 */
+        // display: -webkit-flex;  /* NEW, Chrome 21?28, Safari 6.1+ */
         h1{
             margin: 20px;
             i{

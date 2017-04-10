@@ -20,6 +20,9 @@ export class UpdateProductComponent implements OnInit {
             name: ["", ],
             price: ["", ],
             code: ["", ],
+            blend: "",
+            size: "",
+            roast: "",
             imageUrl: "",
             description: ["",]
         });
@@ -36,7 +39,7 @@ export class UpdateProductComponent implements OnInit {
         }else{
             alert("Update can't continue..Please go back to products and select again!")
         }
-        this.router.navigate(['/products']);
+        this.router.navigate(['dashboard']);
      }
     ngOnInit() { 
         this.patchdata = this.productService.rdata;
@@ -44,7 +47,11 @@ export class UpdateProductComponent implements OnInit {
             this.updateVal.patchValue({
                 name: this.patchdata.name,
                 price: this.patchdata.price,
-                code: this.patchdata.code, 
+                code: this.patchdata.code,
+                //  <!--Add Blend, Size, and Roast-->
+                blend: this.patchdata.blend,
+                size: this.patchdata.size,
+                roast: this.patchdata.roast,
                 imageUrl: this.patchdata.imageUrl,
                 description: this.patchdata.description,
             });

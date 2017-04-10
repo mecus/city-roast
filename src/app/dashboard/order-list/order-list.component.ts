@@ -16,6 +16,8 @@ export class OrderListComponent implements OnInit {
 
   orders=[];
   sinOrder={};
+  railsOrder;
+
   constructor(private cartService:CartService, private router:Router) { }
 
   seeItems(id){
@@ -27,8 +29,8 @@ export class OrderListComponent implements OnInit {
     this.cartService.getOrder().subscribe((orders)=>{
       this.orders = orders
     })
-
-    
+   
+    this.railsOrder = this.cartService.getFinalOrder();
   }
 
 }

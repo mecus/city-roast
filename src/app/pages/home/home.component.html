@@ -85,24 +85,68 @@
   </div>
 </section>
 
-
-<section class="front-shop clearfix">
-  <img class="img-bg" src="assets/cityroast.png" alt="">
-  <div class="shop-item-cover">
-    <div class="items">
-      <div  class="shop-item rounded-top" *ngFor="let item of products">
-        <div class="item-img">
-          <img (click)="viewProduct(item)" class="rounded-top" [src]="item.imageUrl" style="width: 150px" alt="product photo">
-        </div>
-        <h2>{{item.name}}</h2>
-        <h6>{{item.price | currency: 'GBP' :true}}</h6>
-        <p>
-          <a><button (click)="viewProduct(item)" class="btn btn-default" type="">Order Now</button></a>
-        </p>
-      </div>
+<!--Displaying Desktop Produscts-->
+<section id="desktop-prod">
+  <section class="front-shop clearfix">
+    <img class="img-bg" src="assets/cityroast.png" alt="">
+    <div class="shop-item-cover">
+      <div class="items">
+        <button id="all-p-btn" type="button" class="btn btn-xs btn-primary">All Products</button>
+        <div  class="shop-item rounded-top" *ngFor="let item of products">
+          <div class="item-img">
+            <div class="p-size">
+              <div class="badge">
+                <h5 >{{item.size}}</h5>
+              </div>
+            </div>
+            <img (click)="viewProduct(item)" class="rounded-top" [src]="item.imageUrl" style="width: 150px" alt="product photo">
+          </div>
+          <div class="item-title">
+            <h2>{{item.name}}</h2>
+            <h5>{{item.blend}}</h5>
+            <h5>{{item.roast}}</h5>
+            <h6>{{item.price | currency: 'GBP' :true}}</h6>
+          </div>
+          <p>
+            <a><button (click)="viewProduct(item)" class="btn btn-default" type="">Order Now</button></a>
+          </p>
+        </div> 
+      </div> 
     </div>
-  </div>
+  </section>
 </section>
+
+<!--Displaying Mobile Products-->
+<section id="mobile-prod">
+  <section class="front-shop clearfix" >
+    <img class="img-bg" src="assets/cityroast.png" alt="">
+    <div class="shop-item-cover">
+      <div class="items">
+        <button id="all-p-btn" type="button" class="btn btn-xs btn-primary">All Products</button>
+        <div  class="shop-item rounded-top" *ngFor="let item of mProducts">
+          <div class="item-img">
+            <div class="p-size">
+              <div class="badge">
+                <h5 >{{item.size}}</h5>
+              </div>
+            </div>
+            <img (click)="viewProduct(item)" class="rounded-top" [src]="item.imageUrl" style="width: 150px" alt="product photo">
+          </div>
+          <div class="item-title">
+            <h2>{{item.name}}</h2>
+            <h5>{{item.blend}}</h5>
+            <h5>{{item.roast}}</h5>
+            <h6>{{item.price | currency: 'GBP' :true}}</h6>
+          </div>
+          <p>
+            <a><button (click)="viewProduct(item)" class="btn btn-default" type="">Order Now</button></a>
+          </p>
+        </div> 
+      </div> 
+    </div>
+  </section>
+</section>
+
 <div class="alert alert-danger added-item" *ngIf="isLogin">
         <strong>OOps!! Please login to add items to your basket</strong>
         <span><button routerLink="/login" class="btn btn-danger">login here</button></span>

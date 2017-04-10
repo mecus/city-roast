@@ -19,12 +19,14 @@
     <div class="anonymous-wrapper" *ngIf="loginAlert">
       <div class="anonymous ">
         <div class="ano-content jumbotron">
-          <h2>Please continue browsing as guest user </h2>
-          <button (click)="logAnonymous()" class="btn btn-primary" type="button">Continue</button>
+          <button (click)="logAnonymous()" class="btn btn-default mce-btn-small" type="button">Continue as Guest</button>
+          <p style="margin: 0px; padding: 0px;">OR</p>
+          <p>Login with your email to benefit from the best experience our website can offer </p>
+          <button (click)="closeWindow()" routerLink="/login" class="btn mce-btn-small btn-primary" type="button">Login</button>
           <br>
-          <h3 style="margin-top: 10px;">OR</h3>
-          <p>You may want to <span id="span" style="text-decoration: underline; color: lightslategrey" (click)="registerUser()">register</span> here or <span id="span" style="text-decoration: underline; color: lightslategrey" (click)="loginUser()">login</span>  if you already have an account</p>
-          <button (click)="closeWindow()" class="btn btn-danger" type="">close</button>
+          <!--<h4 style="margin-top: 10px;">OR</h4>-->
+          <p>You may also want to <span class="btn" id="span" style="text-decoration: underline; color: lightslategrey" (click)="registerUser()">register</span> here </p>
+          <button (click)="closeWindow()" class="btn mce-btn-large btn-danger" type="">close</button>
         </div>
       </div>
     </div>

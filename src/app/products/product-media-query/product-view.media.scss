@@ -26,6 +26,10 @@
             margin: 0 auto;
             padding: 50px 0px;
             display: flex;
+            display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */
+            display: -moz-box;      /* OLD: Firefox (buggy) */
+            display: -ms-flexbox;   /* MID: IE 10 */
+            display: -webkit-flex;  /* NEW, Chrome 21?28, Safari 6.1+ */
             align-content: space-between;
 
             .product-img{
@@ -36,8 +40,11 @@
                 padding-left: 20px;
                 flex: 2;
                 .cart-select{ 
-                    display: -webkit-flex;
                     display: flex;
+                    display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */
+                    display: -moz-box;      /* OLD: Firefox (buggy) */
+                    display: -ms-flexbox;   /* MID: IE 10 */
+                    display: -webkit-flex;  /* NEW, Chrome 21?28, Safari 6.1+ */
                     width: 100%;
                     margin-right: 10px;
                     span{
@@ -51,8 +58,11 @@
                     }
                 }
                 .pick-size{
-                    display: -webkit-flex;
                     display: flex;
+                    display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */
+                    display: -moz-box;      /* OLD: Firefox (buggy) */
+                    display: -ms-flexbox;   /* MID: IE 10 */
+                    display: -webkit-flex;  /* NEW, Chrome 21?28, Safari 6.1+ */
                     width: 100%;
                     margin-right: 10px;
                     span{
@@ -77,6 +87,10 @@
         max-width: 700px;
         margin: 0 auto;
         display: flex;
+        display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */
+        display: -moz-box;      /* OLD: Firefox (buggy) */
+        display: -ms-flexbox;   /* MID: IE 10 */
+        display: -webkit-flex;  /* NEW, Chrome 21?28, Safari 6.1+ */
         .other-item{
             height: 200px;
             flex: 1;

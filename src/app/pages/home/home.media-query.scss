@@ -3,7 +3,7 @@
 @import '../../../assets/stylesheets/transitions';
 
 @media only screen and (min-width:250px) and (max-width: 640px){
-    .img-container{display: none;}
+    .img-container, #desktop-prod{display: none;}
     .about-container-cover{
         position: relative;
         background-color: #fff;
@@ -31,7 +31,11 @@
         text-align: center;
         background-color: #2B0F0E;
         display: flex;
-        height: 460px;
+        display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */
+        display: -moz-box;      /* OLD: Firefox (buggy) */
+        display: -ms-flexbox;   /* MID: IE 10 */
+        display: -webkit-flex;  /* NEW, Chrome 21?28, Safari 6.1+ */
+        height: 470px;
         img.img-bg{
             background-size: cover;
             width: 100%;
@@ -44,9 +48,14 @@
             // overflow-x: scroll;
 
             .items{
+                #all-p-btn{display: block;}
                 position: none;
                 left: 0px;
                 display: flex;
+                display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */
+                display: -moz-box;      /* OLD: Firefox (buggy) */
+                display: -ms-flexbox;   /* MID: IE 10 */
+                display: -webkit-flex;  /* NEW, Chrome 21?28, Safari 6.1+ */
                 justify-content: space-around;
                 margin: 0px;
                 width: 100%;
@@ -156,6 +165,10 @@
             margin-left: -420px;
             margin-top: 5%;
             display: flex;
+            display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */
+            display: -moz-box;      /* OLD: Firefox (buggy) */
+            display: -ms-flexbox;   /* MID: IE 10 */
+            display: -webkit-flex;  /* NEW, Chrome 21?28, Safari 6.1+ */
             
             .close1{
                 flex: 1;
@@ -216,8 +229,11 @@
             position: relative;
             top: 20%;
             margin: 10px 0px;
-            display: -webkit-flex;
             display: flex;
+            display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */
+            display: -moz-box;      /* OLD: Firefox (buggy) */
+            display: -ms-flexbox;   /* MID: IE 10 */
+            display: -webkit-flex;  /* NEW, Chrome 21?28, Safari 6.1+ */
             width: 100%;
             overflow-x: scroll;
             #dImage{
@@ -259,6 +275,6 @@
 }
 
 @media only screen and (min-width: 640px){
-    .mobile-slider, .slider-button, .about-images button, .about-text button
+    .mobile-slider, #mobile-prod, .slider-button, .about-images button, .about-text button
     {display: none;}
 }

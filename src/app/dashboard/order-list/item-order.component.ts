@@ -17,17 +17,23 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
                 <div class="row">
                     <div *ngFor="let order of orders">
                      
-                    <h5> {{order.name}}</h5>
+                    <h5 style="color: #f48024" > {{order.name}}</h5>
                     <hr>
-                    <div class="col col-sm-6">
-                        <p>Price: {{order.price | currency: 'GBP': true}}</p>
-                        <p>Blend: {{order.type}}</p>
+
+                    <div class="col col-sm-4">
+                        <img [src]="order.image" style="width: 80px" alt="coffee pix">
                     </div>
-                    <div class="col col-sm-6">
-                        <p>Size: {{order.size}}</p>
-                        <p>Quantity: {{order.qty}}</p>
+                    <div class="col col-sm-4">
+                        <p><strong>Price:</strong> {{order.price | currency: 'GBP': true}}</p>
+                        <p><strong>Roast:</strong>  {{order.roast}}</p>
+                        
                     </div>
+                    <div class="col col-sm-4">
+                        <p><strong>Blend:</strong>  {{order.type}}</p>
+                        <p><strong>Qty:</strong>  {{order.qty}}</p>
+                        <p><strong>Size:</strong>  {{order.size}}</p>
                     </div>
+                </div>
                    
                 </div>
                 <button routerLink="/dashboard/orders-list" class="btn btn-primary">Back</button>
@@ -39,7 +45,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
      `,
      styles: [`
         #content{
-            max-width: 600px;
+            max-width: 700px;
         }
         .jumbotron{
             color: lightslategray;
@@ -57,7 +63,7 @@ export class ItemOrderComponent implements OnInit {
         let id = +this.route.snapshot.params['id'];
         this.cartService.getOrderItems().subscribe((items)=>{
             this.orders = items.filter((item)=>{
-               return item.id == id
+               return item.orderId == id
             })
            
         })

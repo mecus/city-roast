@@ -43,9 +43,9 @@ export class AuthService {
             })
         }
     }
-    createAccount(uId){
+    createAccount(uId, email){
          let dbRef = this.af.database.object('accounts/'+uId);
-         dbRef.set({isAdmin: false})
+         dbRef.set({isAdmin: false, email: email})
                 .then(success=>{console.log("User Account Created successfully "+success)})
                 .catch(error=>{console.log("something went wrong "+error)});
      }
@@ -63,12 +63,6 @@ export class AuthService {
     }
 
     logOut(){
-        
-        // let D = window.confirm("Do you want to empty your shopping basket?");
-        // if(D==true){
-        //     this.cartService.clear();
-        // }
-        
         this.af.auth.logout();
         localStorage.removeItem('userId');
         localStorage.removeItem('currentUser');
@@ -113,4 +107,29 @@ export class AuthService {
       return this.af.auth;
    }
 
+   //Password Resetting Function
+   resetPasswordLink(email){
+       var auth = firebase.auth();
+        var emailAddress = email;
+
+        auth.sendPasswordResetEmail(emailAddress).then(()=> {
+            console.log('password reset');
+        }, function(error) {
+            console.log(error);
+        });
+   }
+   resetPassword(email, password){
+        let user = firebase.auth().currentUser;
+        const credential = firebase.auth.EmailAuthProvider.credential(
+            email, password
+        )
+
+        // Prompt the user to re-provide their sign-in credentials
+
+        user.reauthenticate(credential).then(()=> {
+            // User re-authenticated.
+        }, (error)=> {
+            // An error happened.
+        });
+   }
 }

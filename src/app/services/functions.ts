@@ -135,5 +135,5 @@ export function SHA1 (msg) {
         H4 = (H4 + E) & 0x0ffffffff;
     }
     var temp1 = cvt_hex(H0) + cvt_hex(H1) + cvt_hex(H2) + cvt_hex(H3) + cvt_hex(H4);
-    return temp1.toLowerCase();
+    return temp1.toUpperCase();
 }

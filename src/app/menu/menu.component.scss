@@ -45,6 +45,10 @@
         // left: 10px;
         .brand-list{
             display: inline-flex;
+            display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */
+            display: -moz-box;      /* OLD: Firefox (buggy) */
+            display: -ms-flexbox;   /* MID: IE 10 */
+            display: -webkit-flex;  /* NEW, Chrome 21?28, Safari 6.1+ */
            .brand-item-text{
                padding: 30px 5px;
 
@@ -74,7 +78,7 @@
         
         .anonymous{
             position: absolute;
-            top: 5%;
+            top: 10%;
             left: 50%;
             width: 40%;
             margin-left: -20% ;

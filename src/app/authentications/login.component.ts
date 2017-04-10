@@ -17,6 +17,11 @@ export class LoginComponent implements OnInit {
     anoUser:boolean = false;
     user:FormGroup;
     errMsg;
+
+    //Resetting Pasword
+    showPassword:boolean = false;
+    successPassword:boolean = false;
+
     constructor(private fb:FormBuilder, private authService:AuthService, 
     private router:Router, private cartService:CartService ) {
 
@@ -29,6 +34,22 @@ export class LoginComponent implements OnInit {
      openDash(){
          this.dashboard = true;
      }
+     showPasswordPage(){
+         this.showPassword = true;
+     }
+     closePasswordPage(){
+         this.showPassword = false;
+     }
+     sendLink(email){
+         if(email.includes('@')){
+            this.authService.resetPasswordLink(email);
+            this.showPassword = false;
+            this.successPassword = true;
+         }
+         
+        
+     }
+
      loginUser(user:User){
          
          if(user){
@@ -38,6 +59,7 @@ export class LoginComponent implements OnInit {
                 console.log('Authentication Allowed');
                 // this.isAuthenticated = true;
                 this.router.navigate(['/']);
+                
                 // location.reload();
                 
             }).catch(err=>{
@@ -94,7 +116,6 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         this.userChange()
-
         // this.logUser = localStorage.getItem('currentUser');
      }
 

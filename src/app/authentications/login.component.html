@@ -7,15 +7,25 @@
     </div>
     <div class="container logged-in" *ngIf="!dashboard">
         <div class="jumbotron">
-            <h5>Please login as a guest or Login with email or Create a new account</h5>
+            <button (click)="logAnonymous()" class="btn btn-success mce-btn-small" type="button">Continue as Guest</button>
+            <p>OR</p>
+            <h5>Login with your email or Create a new account</h5>
             <div class="login-option">
-                <button (click)="logAnonymous()" class="btn btn-primary">Login as a Guest </button>
-                <button (click)="openDash()" class="btn btn-success">Login with email & password</button>
+                <button (click)="openDash()" routerLink="/login" class="btn btn-primary">Login </button>
+                <!--<button (click)="openDash()" class="btn btn-success">Login with email & password</button>-->
                  <button routerLink="/signup" class="btn btn-danger">Create account</button>
             </div>
         </div>
     </div>
 
+    <!--Password Reset section success message-->
+    <div class="container" *ngIf="successPassword">
+        <div style="max-width: 500px" class="alert alert-success container" role="alert">
+         <strong>Well done!</strong> Please check your email, and follow the link to password reset page!
+        </div>
+    </div>
+
+    <!--Login Dashboard-->
     <div class="container form-content" *ngIf="dashboard">
     <div class="container login-head">
         <i class="fa fa-lock" aria-hidden="true"></i>
@@ -39,10 +49,26 @@
             <div class="alert alert-danger" role="alert" *ngIf="errMsg">
                 <strong>{{errMsg.message}}</strong>
             </div>
+            <span>Reset>></span>
+            <a style="color: red" class="btn " (click)="showPasswordPage()">Forgotton Password</a>
+
             <div class="container but-ton">
                 <button type="submit" [disabled]="!user.valid" class="btn btn-primary">Login</button>
                 or <span > <a routerLink="/signup"> Sign up </a> here</span>
             </div>
         </form>
+    </div>
+</div>
+
+<!--Resetting password form section-->
+<div id="password-container" *ngIf="showPassword">
+    <div class="forgotten-password">
+        <div class="jumbotron container form-group">
+            <input #link type="email" class="form-control" name="password_reset" required placeholder="email@example.com"> <br>
+            <button class="btn btn-block  btn-primary" (click)="sendLink(link.value)" type="link">Reset Password</button>
+            <br>
+            <button (click)="closePasswordPage()" type="button" class="btn btn-danger">close</button>
+            
+        </div>
     </div>
 </div>

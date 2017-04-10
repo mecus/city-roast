@@ -1,10 +1,11 @@
 <section>
 
 
-  <table class="table">
+  <!--<table class="table">
     <thead class="thead-default">
       <tr>
-        <th>Order Date</th>
+        <th>Status</th>
+        <th>Date</th>
         <th>Order Id</th>
         <th>Amount</th>
         <th>Name</th>
@@ -13,15 +14,14 @@
         <th>Address</th>
         <th>Postcode</th>
         <th>City</th>
-        <th>Country</th>
-        <th></th>
-        
+        <th>Country</th>       
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let order of orders">
+        <td>{{order.status}}</td>
         <td>{{order.orDate | date}}</td>
-        <th >{{order.orderId}}</th>
+        <th class="btn" style="color: #f48024" (click)="seeItems(order.itemsId)" >{{order.orderId}}</th>
         <td>{{order.amount | currency: 'GBP':true}}</td>
         <td>{{order.customerName}}</td>
         <td>{{order.email}}</td>
@@ -30,9 +30,41 @@
         <td>{{order.postCode}}</td>
         <td>{{order.city}}</td>
         <td>{{order.country}}</td>
-        <td><button (click)="seeItems(order.id)" class="btn btn-default" type="button">See Items</button></td>
       </tr>
 
+    </tbody>
+  </table>-->
+
+  <table class="table">
+    <thead class="thead-default">
+      <tr>
+        <th>Status</th>
+        <th>Date</th>
+        <th>Order Id</th>
+        <th>Amount</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Telephone</th>
+        <th>Address</th>
+        <th>Postcode</th>
+        <th>City</th>
+        <th>Country</th>       
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of railsOrder | async">
+        <td>{{order.attributes.status}}</td>
+        <td>{{order.attributes.created_at | date}}</td>
+        <th class="btn" style="color: #f48024" (click)="seeItems(order.attributes.itemsid)" >{{order.attributes.orderid}}</th>
+        <td>{{order.attributes.amount | currency: 'GBP':true}}</td>
+        <td>{{order.attributes.name}}</td>
+        <td>{{order.attributes.email}}</td>
+        <td>{{order.attributes.telephone}}</td>
+        <td>{{order.attributes.address}}</td>
+        <td>{{order.attributes.postcode}}</td>
+        <td>{{order.attributes.city}}</td>
+        <td>{{order.attributes.country}}</td>
+      </tr>
     </tbody>
   </table>
 </section>

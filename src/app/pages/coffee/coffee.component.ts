@@ -20,7 +20,7 @@ export class CoffeeComponent implements OnInit {
     this.router.navigate(['/products', +$id]);
   }
   addToCart(item){
-    this.cartService.incrementQty(item, 250, 1);
+    this.cartService.incrementQty(item, 1);
     this.router.navigate(['/cart']);
   }
   ngOnInit() {

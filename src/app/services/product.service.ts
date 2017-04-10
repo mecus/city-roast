@@ -15,7 +15,7 @@ export class ProductService {
 
 
     //==Retrieving Products from the FireBase Database==//
-    getProduct(){
+    getProduct():Observable<Product[]>{
        return this.af.database.list('products');
 
     }

@@ -95,6 +95,27 @@ h1.head-1{
         }
         .card-type{
             padding: 10px 0px;
+            i{font-size: 32px;}
+            a img{padding-bottom: 10px; }
+        }
+    }
+}
+@media only screen and (min-width:250px) and (max-width:640px){
+    .jumbo-content{
+        padding: 20px 20px;
+        max-width: 600px;
+        .jumbotron{
+            padding: 20px;
+            h1{
+                font-size: 1.5rem;
+                color: lightslategrey;
+                margin-bottom: 20px;
+            }
+            .card-type{
+                padding: 10px 0px;
+                i{font-size: 20px;}
+                a img{padding-bottom: 5px; height: 28px; }
+            }
         }
     }
 }

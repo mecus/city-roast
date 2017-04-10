@@ -1,6 +1,6 @@
 
 export interface iCustomer {
-    customerId: string;
+    // customerId: string;
     firstName: string;
     lastName: string;
     email: string;
@@ -10,6 +10,7 @@ export interface iCustomer {
     postCode: string;
     city: string;
     country: string;
+    created_at: Date;
 
     deliveryOne: string;
     deliveryTwo: string;
@@ -20,7 +21,7 @@ export interface iCustomer {
 }
 
 export class Customer {
-    customerId: string;
+    // customerId: string;
     firstName: string;
     lastName: string;
     email: string;
@@ -30,6 +31,7 @@ export class Customer {
     postCode: string;
     city: string;
     country: string;
+    created_at: Date;
 
     deliveryOne: string;
     deliveryTwo: string;
@@ -39,7 +41,7 @@ export class Customer {
     deliveryTrue: string;
 
     constructor(){
-        this.customerId = "LCREF"+Math.floor((Math.random() * 1000) + 100);
+        // this.customerId = "LCREF"+Math.floor((Math.random() * 1000) + 100);
         this.firstName = "";
         this.lastName = "";
         this.email = "";
@@ -49,6 +51,7 @@ export class Customer {
         this.postCode = "";
         this.city = "";
         this.country = "Unite Kingdom";
+        this.created_at = new Date();
 
         this.deliveryOne = "";
         this.deliveryTwo = "";

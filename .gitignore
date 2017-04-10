@@ -3,6 +3,7 @@
 # compiled output
 /dist
 /tmp
+/src/ProdTrash
 
 # dependencies
 /node_modules

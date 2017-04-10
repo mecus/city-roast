@@ -6,5 +6,6 @@ export interface iCart {
     qty: number;
     size: string;
     type: string;
+    roast: string;
     imageUrl: string;
 }

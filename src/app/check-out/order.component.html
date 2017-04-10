@@ -1,6 +1,6 @@
 <section >
     <div class="fp-page-head">
-        <img src="assets/about-us.jpg"  alt="">
+        <!--<img src="assets/about-us.jpg"  alt="">-->
         <div class="fp-page-title">
         <h1>Order Review</h1>
         </div>
@@ -10,10 +10,12 @@
     <div id="e-order" class="container">
         <div class="jumbotron">
             <h3>You already have a pending.. order</h3>
-            <p>Please click on button below to proceed to payment methods</p>
+            <p>Please click on continue button below to proceed to payment methods</p>
             <!--<button (click)="modifyOrder()" class="btn btn-primary" type="button">see details</button> or click here to:  -->
-            <span class="btn btn-success"  routerLink="/payment-method">Next</span>
+            <span class="btn btn-success"  routerLink="/payment-method">Continue</span>
+            <!--<button class="btn mce-btn-large" (click)="deleteItem()" type="button">Back to Checkout</button>-->
         </div>
+        
     </div>
 </section>
 <section *ngIf="hidePage" class="order-content container">
@@ -119,10 +121,15 @@
                         <tr>
                             
                             <td><input (change)="onChange($event)" type="radio" defaultValue="checked" name="optradio" id="free" ></td>
-                            <td>Uk Standard(3-5 working days)</td>
+                            <td>Uk Standard(3-5 working days) (Min Order of £30)</td>
                             <td>Free</td>
                             
-                        
+                        </tr>
+                        <tr class="alert alert-danger" role="alert" *ngIf="freeAlert">
+                            <td></td>
+                            <td>Your total order have to equal £30 or more to qualify for free delivery</td>
+                            <td></td>
+                        </tr>
                         <tr>
                             <td><input (change)="onChange($event)" type="radio" name="optradio" id="express" ></td>
                             <td>UK Express (1-2 Working Days)</td>
@@ -182,7 +189,7 @@
             </div>
             
              <div class="place-order-btn">
-                <button (click)="createOrder()" class="btn btn-primary" routerLink="/payment-method"  type="button">Payment method</button>
+                <button [disabled]="freeAlert" (click)="createOrder()" class="btn btn-primary" routerLink="/payment-method"  type="button">Payment method</button>
                 
                 <!--<button (click)="newOrder()" class="btn btn-success" type="">Finish Payment</button>-->
             </div>

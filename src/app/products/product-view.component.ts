@@ -37,7 +37,7 @@ export class ProductViewComponent implements OnInit {
         
     }
 
-    addtoCart(size, val, type){
+    addtoCart(val){
         // console.log(val, size);
         if(!localStorage.getItem('idToken')){
             this.authService.logAnonymous()
@@ -45,13 +45,14 @@ export class ProductViewComponent implements OnInit {
                     this.authService.authChange();
                 })
                 .catch(err=>console.log(err));
+            // this.islogin = true;
 
             setTimeout(()=>{
                 if(localStorage.getItem('currentUser')){
                     if(val < 1){
                         this.positiveNum = true;
                     }else{
-                        this.cartService.incrementQty(this.dproduct, size, val, type);
+                        this.cartService.incrementQty(this.dproduct, val);
                         // this.cartService.addCart(this.dproduct);
                         this.router.navigate(['/cart']);
                     }
@@ -64,7 +65,7 @@ export class ProductViewComponent implements OnInit {
                 if(val < 1){
                     this.positiveNum = true;
                 }else{
-                    this.cartService.incrementQty(this.dproduct, size, val, type);
+                    this.cartService.incrementQty(this.dproduct, val);
                     // this.cartService.addCart(this.dproduct);
                     this.router.navigate(['/cart']);
                 }

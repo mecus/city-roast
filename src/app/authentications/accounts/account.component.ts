@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { Customer } from '../../models/customer-details.model';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'account',
@@ -10,7 +11,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class AccountComponent implements OnInit {
     title = 'Account Rocks';
-    customerInfo=[];
+    customerInfo;
     cusForm:FormGroup;
     customer = new Customer;
     constructor(private cartService:CartService, private _fb:FormBuilder) {
@@ -33,7 +34,7 @@ export class AccountComponent implements OnInit {
                         addressTwo: this.customerInfo[0].addressTwo,
                         postCode: this.customerInfo[0].postCode,
                         city: this.customerInfo[0].city,
-                        country: "Unite Kingdom"
+                        country: "United Kingdom"
                     
                 });
             });

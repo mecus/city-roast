@@ -63,19 +63,39 @@
                         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
                         padding: 10px;
                         .coffee-img{
+                            position: relative;
                             img{
                                 width: 200px;
+                            }
+                            .p-size{
+                                position: absolute;
+                                text-align: center;
+                                .badge{
+                                    h5{font-size: 14px; margin: 10; text-align: center; color: #f48024;}
+                                    margin: 0 auto; text-align: center;
+                                    align-content: center;
+                                    padding: 20px 0px;
+                                    border: 1.5px solid;
+                                    border-color: #f48024;
+                                    width: 60px;
+                                    height: 60px;
+                                    border-radius: 50%;
+                                    background-color: rgba(0, 0, 0, 0.9);
+                                    overflow: hidden;
+                                }
                             }
                         }
                         .coffee-title{
                             text-align: center;
                             padding: 10px 10px;
+                            h6{font-size: 14px; margin: 0px; color: gray;}
                             h1{
                                 font-size: 16px;
                                 color: lightslategray;
                             }
                             button{
                                 // color: lightslategray;
+                                margin-top: 5px;
                                 background-color: transparent !important;
                                 color: #f48024;
                                 border-color: #f48024;

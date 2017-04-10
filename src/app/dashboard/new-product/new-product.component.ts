@@ -28,8 +28,11 @@ export class NewProductComponent implements OnInit {
         this.newproduct = fb.group({
             id: "",
             name: ["", Validators.minLength(2) ],
-            price: ["",Validators.minLength(2)],
+            price: [""],
             code: ["", Validators.minLength(4)],
+            blend: "",
+            size: "",
+            roast: "",
             imageUrl: "",
             description: ["", Validators.minLength(20)]
         });

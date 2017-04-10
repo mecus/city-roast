@@ -10,16 +10,46 @@
         </div>
         <div class="form-group">
             <label for="Product Code">Price</label>
-            <input type="text" class="form-control" formControlName="price" required pattern="[0-9]+" placeholder="price">
+            <input type="text" class="form-control" formControlName="price" required pattern="[0-9]+\.?[0-9]+" placeholder="price">
         </div>
         <div class="form-group">
             <label for="code">Product Code</label>
             <input type="text" class="form-control" formControlName="code" required pattern="[0-9]+" placeholder="product code">
         </div>
-        <!--<div class="form-group">
-            <label for="name">Image</label>
-            <input type="text" (change)="onChange(e)" class="form-control" formControlName="imageUrl" placeholder="image url">
-        </div>-->
+        <!--Add Blend, Size, and Roast-->
+        <div class="row">
+            <div class="form-group col-lg-4">
+                <label for="blend">Blend</label>
+                <!--<input type="text" class="form-control" formControlName="blend" placeholder="Blend">-->
+                <select type="text" class="form-control" formControlName="blend" placeholder="Blend">
+                    <option value="Coffee beans">Coffee Beans</option>
+                    <option value="Espresso">Espresso</option>
+                    <option value="Paper Filter">Paper Filter</option>
+                    <option value="French Press">French Press</option>
+                    <option value="Metal Filter">Metal Filter</option>
+                    <option value="Turkish Fine">Turkish Fine</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-4">
+                <label for="size">Size</label>
+                <!--<input type="text"  class="form-control" formControlName="size" placeholder="Size">-->
+                <select type="text"  class="form-control" formControlName="size" placeholder="Size">
+                    <option value="1kg">1Kg</option>
+                    <option value="500gm">500gm</option>
+                    <option value="250gm">250gm</option>
+                </select>
+            </div>
+            <div class="form-group col-lg-4">
+                <label for="roast">Roast</label>
+                <!--<input type="text" class="form-control" formControlName="roast" placeholder="Roast">-->
+                <select type="text" class="form-control" formControlName="roast" placeholder="Roast">
+                    <option value="Light Roast">Light Roast</option>
+                    <option value="Medium Roast">Medium Roast</option>
+                    <option value="Dark Roast">Dark Roast</option>
+                </select>
+            </div>
+        </div>
+        
         <div class="form-group myinput">
             <label for="price">Description</label>
             <textarea rows="5" class="form-control" formControlName="description" required placeholder="description"></textarea>

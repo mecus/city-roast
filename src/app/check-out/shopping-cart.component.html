@@ -53,6 +53,7 @@
               <th>Qty</th>
               <th>Size</th>
               <th>Blend Type</th>
+              <th>Roast</th>
               <th>Unit Price</th>
               <th>Total</th>
               <th></th>
@@ -69,6 +70,7 @@
             <td>{{item.qty}}</td>
             <td>{{item.size}}</td>
             <td>{{item.type}}</td>
+            <td>{{item.roast}}</td>
             <td>{{item.price | currency: 'GBP': true}}</td>
             <td>{{item.qty * item.price | currency: 'GBP': true}}</td>
             <td><i (click)="removeItem(item.$key)" class="fa fa-times remove-cart-i" aria-hidden="true"></i>
@@ -81,12 +83,12 @@
                   </tr>
                 </tbody>
               </table>
-              <input *ngIf="cartproduct.length > 0" type="checkbox" name="" (change)="termsChange($event)"> <span *ngIf="cartproduct.length > 0" style="padding: 0; margin-bottom: 10; font-size: 12"> I agree to the terms and condition</span>
+              <input *ngIf="cartproduct.length > 0" type="checkbox" name="" (change)="termsChange($event)"> <span *ngIf="cartproduct.length > 0" style="padding: 0; margin-bottom: 10; font-size: 11"> I agree to the return policy! <span > <a routerLink="/return-policy" target="blank" style="text-decoration: underline; color: orangered" >Please read..</a> </span></span>
               <br>
           <div class="check-out right-nav">
             
               <button [disabled]="!accepTerms" id="btn-check" *ngIf="cartproduct.length > 0" (click)="moveTopayment()" class="btn btn-success" type="button">Proceed to Check Out</button>
-              <button routerLink="/" class="btn btn-success" type="button">Continue Shopping</button>
+              <button routerLink="/coffee" class="btn btn-success" type="button">Continue Shopping</button>
               
               
           </div>
@@ -102,4 +104,6 @@
         </div>
     
 </section>
+
+
 

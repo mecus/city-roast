@@ -35,7 +35,7 @@ export class SignUpComponent implements OnInit {
                 this.authService.authChange();
                 this.authService.authUserChange()
                     .subscribe(signUser=>{
-                        this.authService.createAccount(signUser.uid);
+                        this.authService.createAccount(signUser.uid, signUser.auth.email);
                     });
                 // console.log(success);
             }).catch(err=>{

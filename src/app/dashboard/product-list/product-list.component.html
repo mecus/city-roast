@@ -16,6 +16,7 @@
         <th>Photo</th>
         <th>Product</th>
         <th>Price</th>
+        <th>Size</th>
         <th>Description</th>
         <th colspan="1"><span class="badge badge-pill badge-success">{{products.length}} <span>items</span> </span></th>
         <th> <a ><button routerLink="/dashboard/new-product" class="btn btn-secondary">Add</button></a></th>
@@ -38,6 +39,7 @@
         
         <td (click)="seeProduct(product)"><h5 style="color: lightseagreen"><a  [style.font-size.px]="15" >{{product.name}} </a></h5> </td>
         <td>{{product.price | currency: 'GBP' :true}}</td>
+        <td>{{product.size}}</td>
         <td><p [style.font-size.px]="13">{{product.description}}</p></td>
         <td > <button class="btn btn-default" (click)="getValue(product)" type="">Edit</button></td>
         <td><button class="btn btn-danger" (click)="deleteProduct(product)" type="">Remove</button></td>

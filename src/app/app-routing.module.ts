@@ -7,10 +7,11 @@ import { AboutComponent } from './pages/about/about.component';
 import { BrewingComponent } from './pages/brewing/brewing.component';
 import { ContactsComponent } from './pages/contacts/contacts.component';
 import { TermsComponent } from './pages/terms/terms.component';
-import { PrivacyComponent } from './pages/privacy/privacy.component';
+import { ReturnComponent } from './pages/return/return.component';
 import { CoffeeComponent } from './pages/coffee/coffee.component';
 import { SignUpComponent } from './authentications/signup.component';
 import { LoginComponent } from './authentications/login.component';
+import { PasswordResetComponent } from './authentications/password-reset.component';
 import { AccountComponent } from './authentications/accounts/account.component';
 
 
@@ -54,12 +55,13 @@ const routes = [
     {path: 'products/:id', component: ProductViewComponent},
     {path: 'cart', component: ShoppingCartComponent},
     {path: 'terms', component: TermsComponent},
-    {path: 'privacy', component:PrivacyComponent},
+    {path: 'return-policy', component:ReturnComponent},
     {path: 'checkout', component: CheckOutComponent},
     {path: 'order', component: OrderComponent},
     {path: 'exception', component: ErrorComponent},
     {path: 'payment-confirmation', component: OrderSuccessComponent},
     {path: 'payment-method', component: PaymentMethodComponent},
+    {path: 'password-reset', component: PasswordResetComponent},
     root,
     fallBack
 ]

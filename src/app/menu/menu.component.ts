@@ -15,7 +15,7 @@ export class MenuComponent implements OnInit, OnChanges {
     isRedlogo:boolean = false;
     regUser:boolean = false;
     anoUser:boolean = false;
-    cartTotal = [];
+    cartTotal;
     totalItem;
     
 
@@ -28,7 +28,9 @@ export class MenuComponent implements OnInit, OnChanges {
     closeWind:boolean=false;
 
 
-    constructor(private authService:AuthService, private cartService:CartService, private router:Router) { }
+    constructor(private authService:AuthService, private cartService:CartService, private router:Router) {
+        this.cartTotal = [];
+     }
     openDrawer(){
         this.loginDraw = 150;
         this.closeWind = true;
@@ -88,19 +90,21 @@ export class MenuComponent implements OnInit, OnChanges {
                 .catch(error=>console.log(error));
             } 
         }
-
+ //Need to move the fuction to service component
     getCartTotal(){
         this.cartService.getCart()
             .subscribe(cart=>{
                 cart.forEach((cart)=>{
-                  this.cartTotal.push(cart.qty);
-                  this.totalItem = this.cartTotal.reduce((sum, num)=>{
-                      return sum + Math.ceil(num);
-                  }, 0)
-                });
-                
+                this.cartTotal.push(cart.qty);
+                this.totalItem = this.cartTotal.reduce((sum, num)=>{
+                    return sum + Math.ceil(num);
+                }, 0)
+            }); 
+                 
             });
+         
     }
+
     ngOnChanges(){
 
     }
@@ -127,11 +131,9 @@ export class MenuComponent implements OnInit, OnChanges {
 
     ngOnInit() { 
         this.userChange();
-        
+       
         this.getCartTotal();
-      
-        
-      
+     
         
         // this.authService.authChange();
         // this.regUser = localStorage.getItem('currentUser');

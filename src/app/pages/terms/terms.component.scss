@@ -32,10 +32,18 @@
     min-height: 500px;
     p{
         // text-align: center;
-        padding: 20px 0px;
+        margin: 0px;
+        padding: 10px 0px;
     }
-    h4{
+    h3, h4{
         padding-top: 20px;
-        
+        color: lightslategrey;
+    }
+    p#last{
+        margin-bottom: 50px;
+    }
+    p#importanT{
+        color: grey;
+        padding: 5px 10px;
     }
 }

@@ -26,6 +26,7 @@ import { CartService } from '../../services/cart.service';
 export class HomeComponent implements OnInit {
   image = WelcomeImage;
   products = [];
+  mProducts = [];
   displayImg = WelcomeImage[2];
   isHide:boolean = true;
   itemAdd:boolean = false;
@@ -69,6 +70,11 @@ export class HomeComponent implements OnInit {
   // }
 
   ngOnInit() {
+    this.productService.getProduct()
+        .subscribe(products=>{
+          this.mProducts = products.reverse();
+        });
+      
     this.productService.getProduct()
         .subscribe(products=>{
           let reverse = products.reverse();

@@ -6,11 +6,20 @@
         </div>
   </div>
 </section>
-<section class="container content-container">
-    <button (click)="back()" class="btn btn-default small-screen" type="button"> <<back </button>
-    <div *ngIf="positiveNum" class="alert alert-danger small-screen" role="alert">
-        please enter a valid number in the box!.
+<div *ngIf="positiveNum" class="alert alert-danger big-screen" role="alert">
+    please enter a valid number in the "Qty" box! to proceed.
+</div>
+<div class="user-login-msg" *ngIf="islogin">
+    <div class="alert alert-danger alert-p" role="alert">
+        <strong>Oh no!</strong> please login to add this product to your basket. <span><button routerLink="/login" class="btn btn-primary">please login here</button></span>
     </div>
+</div>
+
+<section class="container content-container">
+    <div *ngIf="positiveNum" class="alert alert-danger small-screen" role="alert">
+        please enter a valid number in the "Qty" box! to proceed.
+    </div>
+    <button (click)="back()" class="btn btn-default small-screen" type="button"> <<back </button>
     <div *ngIf="!dproduct.name" class="progress container load-item">
         <div class="progress-loading">
             <strong> 
@@ -30,29 +39,22 @@
             <div class="cart-select">
                 <span> <strong>Qty: </strong></span>
                 <input #val type="number" class="form-control s-input" name="count" value="1" pattern="[0-9]+" >
-                <div *ngIf="positiveNum" class="alert alert-danger big-screen" role="alert">
-                    please enter a valid number in the box!.
-                </div>
+                
             </div>
             <div class="pick-type">
-                <span> <strong>Blend: </strong> </span>
-                <select #type name="type" class="form-control" placeholder="Select">
-                    <option value="Standard Coffee">Select blend</option>
-                    <option value="Coffee beans">Coffee Beans</option>
-                    <option value="Espresso">Espresso</option>
-                    <option value="Paper Filter">Paper Filter</option>
-                    <option value="French Press">French Press</option>
-                    <option value="Metal Filter">Metal Filter</option>
-                    <option value="Turkish Fine">Turkish Fine</option>
-                </select>
+                <label for="blend"> <strong>Blend: </strong> </label>
+                <span>{{dproduct.blend}}</span>
+       
             </div>
-            <div class="pick-size">
-                <span> <strong>Size: </strong> </span>
-                <select #size name="size" class="form-control">
-                    <option value="250mg">250mg</option>
-                    <option value="500mg">500mg</option>
-                    <option value="1kg">1kg</option>
-                </select>
+            <div class="pick-type">
+                <label for="size"><strong>Size:</strong> </label>
+                <span>{{dproduct.size}}</span>
+           
+            </div>
+            <div class="pick-type">
+                <label for="roast"><strong>Roast:</strong> </label>
+                <span>{{dproduct.roast}}</span>
+           
             </div>
             <br>
             <div class="big-screen">
@@ -60,14 +62,9 @@
                 <p>{{dproduct.description}}</p>
             </div>
             <div class="add-to">
-                <h6> <button (click)="addtoCart( size.value, val.value, type.value )" class="btn btn-success" type="button">Add to cart</button></h6>
-                <div *ngIf="islogin" class="alert alert-danger alert-p" role="alert">
-                    <strong>Oh snap!</strong> please login to add this product to your basket. <span><button routerLink="/login" class="btn btn-default">login here</button></span>
-                </div>
+                <h6> <button (click)="addtoCart( val.value )" class="btn btn-success" type="button">Add to cart</button></h6>
             </div>
         </div>
-       
-        
     </div>
      <div class="description-small small-screen" *ngIf="dproduct.name">
             <h6>Product Descriptions:</h6>
