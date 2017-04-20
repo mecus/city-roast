@@ -15,7 +15,7 @@ export class ErrorComponent implements OnInit {
     this.router.navigate(['/payment-method']);
   }
   ngOnInit() {
-    if(!localStorage.getItem('currentUser')){
+    if(!localStorage.getItem('idToken')){
             this.router.navigate(["/login"])
             return
         }

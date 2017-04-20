@@ -36,7 +36,8 @@ export class OrderSuccessComponent implements OnInit {
     }
 
     ngOnInit() {
-        if(!localStorage.getItem('currentUser')){
+        //use idToken to check for current user
+        if(!localStorage.getItem('idToken')){
             this.router.navigate(["/login"])
             return
         }

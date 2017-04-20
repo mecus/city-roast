@@ -147,7 +147,7 @@ export class PaymentMethodComponent implements OnInit, AfterViewInit {
         let subFormHolder = document.getElementById('payForm');
         let form = document.getElementById('form10');
         let subForm = document.createElement('form');
-        subForm.action = "https://secure-test.worldpay.com/wcc/purchase";
+        subForm.action = "https://secure.worldpay.com/wcc/purchase";
         subForm.name = "BuyForm";
         subForm.method = "POST"
         subForm.appendChild(form);

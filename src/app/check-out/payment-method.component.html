@@ -60,7 +60,7 @@
             <div id="payForm">
             </div>
             <div id="form10" *ngFor="let order of orders">
-                <input type="hidden" name="testMode" value="100">
+                <input type="hidden" name="testMode" value="0">
                 <!-- These first four elements are mandatory. -->
                 <input type="hidden" name="instId" value="1189962">
                 <input type="hidden" name="cartId" value="{{order.orderId}}">
@@ -68,7 +68,7 @@
                 <input type="hidden" name="amount" value="{{order.amount}}">
 
                 <!-- These elements below are optional. -->
-                <input type="hidden" name="desc" value="Coffee">
+                <input type="hidden" name="desc" value="Coffees">
                 <input type="hidden" name="name" value="{{order.customerName}}">
                 <input type="hidden" name="address1" value="{{order.address}}">
                 <input type="hidden" name="town" value="{{order.city}}">

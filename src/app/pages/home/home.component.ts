@@ -4,6 +4,7 @@ import { Images, WelcomeImage } from '../../shared/images/images';
 import { ProductService } from '../../services/product.service';
 import { Router } from '@angular/router';
 import { CartService } from '../../services/cart.service';
+import { Observable } from 'rxjs/Observable';
 
 
 @Component({

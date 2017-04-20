@@ -14,7 +14,7 @@ import { Customer } from '../models/customer-details.model';
 export class CartService {
     productArr = [];
     userId;
-    // apiUrl2 = "http://localhost:3000/orders"; 
+    apiUrl2 = "http://localhost:3000/orders"; 
     apiUrl = "https://mailer-server.herokuapp.com/orders";
     apiCoffe = "https://mailer-server.herokuapp.com/coffees";
     
@@ -350,24 +350,27 @@ export class CartService {
     finalOrder(body){
         let headers = new Headers();
         headers.append("Content-Type", "application/vnd.api+json");
-        return this._http.post(this.apiUrl, body, {headers: headers}).map((res:Response)=> res.json());
+        // headers.append("Authorisation", "bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0OTIwNzQ1MDIsInN1YiI6M30.nC3jG2gXHsYZc4b6PdUZ0YQOpD54okXRwBER7o2VS0o")
+        return this._http.post(this.apiUrl, body, {headers: this.requestHeaders()}).map((res:Response)=> res.json());
     }
     //Creating Coffee items 
     makeCoffee(coffee){
-        let headers = new Headers();
-        headers.append("Content-Type", "application/vnd.api+json");
-        this._http.post(this.apiCoffe, coffee, {headers:headers}).map((res:Response)=>res.json())
+        this._http.post(this.apiCoffe, coffee, {headers:this.requestHeaders()}).map((res:Response)=>res.json())
             .subscribe(res=> console.log(res));
     }
     getFinalOrder(){
-        return this._http.get(this.apiUrl).map((res:Response)=> res.json().data);
+        return this._http.get(this.apiUrl, {headers: this.requestHeaders()}).map((res:Response)=> res.json().data);
     }
     patchFinalOrder(key){
-        let headers = new Headers();
-        let update = {"data":{"type": "orders", "id": key, "attributes":{"status":"completed"}}}
-        headers.append("Content-Type", "application/vnd.api+json");
-        return this._http.patch(this.apiUrl+'/'+key, update, {headers:headers})
+        let update = {"data":{"type": "orders", "id": key, "attributes":{"status":"completed"}}};
+        return this._http.patch(this.apiUrl+'/'+key, update, {headers:this.requestHeaders()})
                 .map((res:Response)=>res.json());
+    }
+    public requestHeaders(){
+        let headers = new Headers();
+        headers.append("Content-Type", "application/vnd.api+json");
+        headers.append("Authorization", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjF9.eyQ9jfdECQ74pPyA8LDjXr-4NUt36lSAcdDNn16vnEQ");
+        return headers;
     }
     
 }
