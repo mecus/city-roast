@@ -1,7 +1,8 @@
 import { AngularFireModule, AuthMethods, AuthProviders, FIREBASE_PROVIDERS } from 'angularfire2';
+import { FIREBASEAPI } from './shared/secret';
   // Initialize Firebase
   export const firebaseConfig = {
-    apiKey: "AIzaSyBZYu-le-v0_1NuB0exuYJmJcsZqSJ-EKM",
+    apiKey: FIREBASEAPI,
     authDomain: "city-roast.firebaseapp.com",
     databaseURL: "https://city-roast.firebaseio.com",
     storageBucket: "city-roast.appspot.com",

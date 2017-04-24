@@ -34,5 +34,10 @@ export class AppService {
     getContacts(){
         return this.af.database.list('/contacts');
     }
+    deleteContact(key){
+        let db = this.af.database.list('/contacts/'+key);
+            db.remove().then((res)=>{console.log(res)})
+                        .catch(error=>console.log(error));
+    }
 
 }

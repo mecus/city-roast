@@ -4,8 +4,8 @@
 .cus-details{
     margin: 0px;
     padding: 0px;
-    border: 1.5px solid;
-    border-color: lightslategrey;
+    border: 1px solid;
+    border-color: lightgrey;
     .main-form{
        padding: 10px 20px;
     }
@@ -26,10 +26,10 @@
     .order-detail{
         margin: 0px;
         padding: 0px;
-        border: 1.5px solid;
-        border-color: lightslategrey;
+        border: 1px solid;
+        border-color: lightgrey;
         table{
-           
+           tr td img{margin-left: 10px;}
              p{
                 font-size: 14px;
                 padding: 0px 10px;
@@ -116,7 +116,40 @@
         margin: 50px;
     }
 }
-
+#search-customer{
+    position: relative;
+    .close-s{
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
+    // margin: 20px 5px;
+    .search-box{
+        text-align: center;
+        .btn{margin:10px; background-color: lightslategrey; border-color:lightslategrey;}
+        input{
+            margin: 0 auto;
+            margin-top: 5px;
+            width: 50%;
+            text-align: center;
+        }
+    }
+}
+#yfound{
+    position: relative;
+    height: 40px;
+    padding: 0px;
+    margin: 0px;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    p{font-size: 12px;}
+    width: 100%;
+    i{
+        position: absolute;
+        right: 10px;
+        cursor: pointer;
+    }
+}
 
 @media only screen and (min-width:250px) and (max-width:640px){
     .card-input{
@@ -138,5 +171,28 @@
         .jumbotron{
             margin: 20px 0px;;
         }
+    }
+    #search-customer{
+    margin: 10px 10px;
+    // padding: 0px;
+        .search-box{
+            text-align: center;
+            .btn{margin:10px; background-color: lightslategrey; border-color:lightslategrey;}
+            input{
+                margin: 0 auto;
+                margin-top: 5px;
+                width: 100%;
+                text-align: center;
+            }
+        }
+    }
+    #yfound{
+        height: 40px;
+        padding: 0px;
+        margin: 0px;
+        padding: 5px 10px;
+        margin-bottom: 10px;
+        p{font-size: 12px;}
+        width: 100%;
     }
 }

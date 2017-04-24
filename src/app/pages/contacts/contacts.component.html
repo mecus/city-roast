@@ -18,7 +18,7 @@
       </div>
     </div>
   <section class="container page-content">
-    <div class="contact-address">
+    <div class="contact-address jumbotron">
         <h4>Our Office</h4>
         <p>Unit B3 Crabtree Manorway North</p>
         <p>DA17 6AX</p>
@@ -26,6 +26,17 @@
         <p>Email: info@londoncityroast.com</p>
         <p>Tel: 0208 310 8517</p>
         <p>Mobile: 07878959635</p>
+        <div [style.margin-top.px]="20" class="row">
+          <div class="col col-lg-4">
+            <img style="width:80px" class="rounded" src="{{contactImage[4]}}" alt="Contact-Image-1">
+          </div>
+          <div class="col col-lg-4">
+            <img style="width:80px" class="rounded" src="{{contactImage[1]}}" alt="Contact-Image-1">
+          </div>
+          <div class="col col-lg-4">
+            <img style="width:80px" class="rounded" src="{{contactImage[3]}}" alt="Contact-Image-1">
+          </div>
+        </div>
      </div>
     <div class="contact-form">
       <form novalidate [class.has-success]="cForm.valid" [formGroup]="cForm" (ngSubmit)="saveContact(cForm.value)">
@@ -57,7 +68,7 @@
           </div>
       </form>
     </div>
-    <div class="contact-address-mobile">
+    <div class="contact-address-mobile jumbotron">
         <h4>Our Office</h4>
         <p>Unit B3 Crabtree Manorway North</p>
         <p>DA17 6AX</p>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { AppService } from '../services/app.service';
@@ -22,6 +22,11 @@ export class CheckOutComponent implements OnInit {
     customerInput = new Customer;
     hideForm:boolean = false;
     customers=[];
+    lastCus;
+    showErr: boolean = false;
+    emptyErr: boolean = false;
+    hideSearch: boolean = true;
+    foundyou:string = "";
    
     constructor(private appService:AppService, private cartService:CartService, 
     private _elementRef:ElementRef, private _fb:FormBuilder, private _router:Router) { 
@@ -36,7 +41,7 @@ export class CheckOutComponent implements OnInit {
             }else{
                 this.cusForm.patchValue({
 
-                email: "enter your email"
+                email: ""
             });
             }
         }
@@ -82,7 +87,51 @@ export class CheckOutComponent implements OnInit {
     sumTotal(sum, num){
         return sum + num;
     }
+    
+    public findCustomer(email, telephone, postcode){
+        if(!email){
+            this.emptyErr = true;
+            setTimeout(()=>{
+                this.emptyErr = false;
+            },8000);
 
+            return;
+        }
+        
+        this.lastCus = this.customers.find((customer)=>{
+            return customer.email == email.toString();
+        })
+
+        // console.log(this.lastCus);
+        if((this.lastCus.email === email.toString().toLowerCase()) && (this.lastCus.telephone === telephone.toString()) && (this.lastCus.postCode === postcode.toString().toUpperCase()) ){
+            this.cusForm.patchValue({
+                firstName:  this.lastCus.firstName,
+                lastName:  this.lastCus.lastName,
+                email:  this.lastCus.email,
+                gender: this.lastCus.gender,
+                telephone:  this.lastCus.telephone,
+                addressOne:  this.lastCus.addressOne,
+                addressTwo:  this.lastCus.addressTwo,
+                postCode:  this.lastCus.postCode,
+                city:  this.lastCus.city,
+                country:  "United Kingdom"
+            })
+            this.hideSearch = false;
+            this.foundyou = this.lastCus.firstName;
+        }else{
+            this.showErr = true; 
+        }
+        
+        // let input = document.getElementById('search-box');
+        // input.value = "";
+            
+    }
+    public removeSearch(){
+        this.hideSearch = false;
+    }
+    public removeFound(){
+        this.foundyou = "";
+    }
     ngOnInit() {
         //Only allowed user if they logged in
         if(!localStorage.getItem('currentUser')){
@@ -92,6 +141,7 @@ export class CheckOutComponent implements OnInit {
 
         this.cartService.getAllCustomerDetails().subscribe((customers)=>{
                 this.customers = customers;
+                // console.log(customers);
             });
       
         
@@ -109,7 +159,8 @@ export class CheckOutComponent implements OnInit {
                 this.cusForm.patchValue({
                     firstName:  customer.firstName,
                     lastName:  customer.lastName,
-                    // email:  "",
+                    email:  customer.email,
+                    gender: customer.gender,
                     telephone:  customer.telephone,
                     addressOne:  customer.addressOne,
                     addressTwo:  customer.addressTwo,
@@ -117,6 +168,8 @@ export class CheckOutComponent implements OnInit {
                     city:  customer.city,
                     country:  "United Kingdom"
                 })
+                if(customer.email){this.hideSearch = false;}
+                
             });
     }
 

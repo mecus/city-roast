@@ -148,8 +148,8 @@
         </div>
         <div class="col col-lg-4 item-order">
             <div class="order-detail-container">
-                <div class="order-detail">
-                    <h1>Your Basket</h1>
+                <div class="order-detail jumbotron">
+                    <h1><i class="fa fa-shopping-basket" aria-hidden="true"></i> Your Basket</h1>
                     <table>
                         <thead>
                             <tr>
@@ -176,9 +176,9 @@
                                     <td><h6>{{deliveryFee | currency: 'GBP': true}}</h6></td>
                                 </tr>
                                 <tr>
-                                    <td>Total:</td>
+                                    <td><strong>Total:</strong></td>
                                     <td colspan="2"></td>
-                                    <td><h6> {{sumCart + deliveryFee | currency: 'GBP': true}}</h6></td>
+                                    <td><h6 style="text-decoration:underline"> <strong>{{sumCart + deliveryFee | currency: 'GBP': true}}</strong> </h6></td>
                                 </tr>
                                 <br>
                             </tbody>

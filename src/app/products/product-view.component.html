@@ -27,34 +27,54 @@
             </strong>
         </div>
     </div>
-    <div *ngIf="dproduct.name" class="product-disply">
-        <div class="product-img">
+    <div *ngIf="dproduct.name" class="row product-disply">
+        <div class="col col-xs-12 col-sm-12 col-md-6 col-lg-6 product-img">
             <img [src]="dproduct.imageUrl" alt="product image">
-            <button (click)="back()" class="btn btn-secondary big-screen" type="button"> <<back </button>
+            <!--<button (click)="back()" class="btn btn-secondary big-screen" type="button"> <<back </button>-->
         </div>
-        <div class="product-details">
-            <h3>{{dproduct.name}}</h3>
-            <br>
+        <div class="col col-xs-12 col-sm-12 col-md-6 col-lg-6 product-details jumbotron">
+            <h1>{{dproduct.name}}</h1>
             <h5><span>Price: </span>{{dproduct.price | currency: 'GBP' :true}}</h5>
             <div class="cart-select">
                 <span> <strong>Qty: </strong></span>
                 <input #val type="number" class="form-control s-input" name="count" value="1" pattern="[0-9]+" >
                 
             </div>
-            <div class="pick-type">
-                <label for="blend"> <strong>Blend: </strong> </label>
-                <span>{{dproduct.blend}}</span>
-       
-            </div>
-            <div class="pick-type">
-                <label for="size"><strong>Size:</strong> </label>
-                <span>{{dproduct.size}}</span>
-           
-            </div>
-            <div class="pick-type">
-                <label for="roast"><strong>Roast:</strong> </label>
-                <span>{{dproduct.roast}}</span>
-           
+
+            <div class="">
+                <div class="pick-type">
+                    <label for="size"><strong>Size:</strong> </label>
+                    <select class="form-control custom-select" #size>
+                        <option value="500gm" selected>{{dproduct.size}}</option>
+                        <!--<option value="250gm">250gm</option>
+                        <option value="1kg">1kg</option>-->
+                    </select>
+                    <!--<span>{{dproduct.size}}</span>-->
+            
+                </div>
+                <div class="pick-type">
+                    <span><label for="blend"> <strong>Blend: </strong> </label></span>
+                    <select class="form-control custom-select" #blend>
+                        <option value="Expresso" selected>Espresso</option>
+                        <option value="Coffee beans">Coffee Beans</option>
+                        <option value="Paper filter">Paper Filter</option>
+                        <option value="French filter">French Filter</option>
+                        <option value="Metal filter">Metal Filter</option>
+                        <option value="Turkish fine">Turkish Fine</option>
+                    </select>
+                    <!--<span>{{dproduct.blend}}</span>-->
+                </div>
+                
+                <div class="pick-type">
+                    <!--<span><label for="roast"><strong>Roast:</strong> </label></span>
+                    <select class="form-control custom-select" #roast>
+                        <option value="Light roast" selected>Light Roast</option>
+                        <option value="Medium roast">Medium Roast</option>
+                        <option value="Dark roast">Dark Roast</option>
+                    </select>-->
+                    <!--<span>{{dproduct.roast}}</span>-->
+            
+                </div>
             </div>
             <br>
             <div class="big-screen">
@@ -62,7 +82,7 @@
                 <p>{{dproduct.description}}</p>
             </div>
             <div class="add-to">
-                <h6> <button (click)="addtoCart( val.value )" class="btn btn-success" type="button">Add to cart</button></h6>
+                <h6> <button (click)="addtoCart( val.value, blend.value )" class="btn btn-success" type="button"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Add to Basket</button></h6>
             </div>
         </div>
     </div>

@@ -4,6 +4,7 @@ export interface iCustomer {
     firstName: string;
     lastName: string;
     email: string;
+    gender: string;
     telephone: string;
     addressOne: string;
     addressTwo: string;
@@ -25,6 +26,7 @@ export class Customer {
     firstName: string;
     lastName: string;
     email: string;
+    gender: string;
     telephone: string;
     addressOne: string;
     addressTwo: string;
@@ -45,6 +47,7 @@ export class Customer {
         this.firstName = "";
         this.lastName = "";
         this.email = "";
+        this.gender = "";
         this.telephone = "";
         this.addressOne = "";
         this.addressTwo = "";

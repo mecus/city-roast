@@ -7,8 +7,8 @@
 }
 .about-container-cover{
     // background-image: url(b77a2f1ef7c430aa-worldmap_withborders.png);
-    background-color: $secondary-color;
-    background: -moz-linear-gradient($secondary-color);
+    // background-color: $secondary-color;
+    background: #fff; //-moz-linear-gradient($secondary-color);
     padding: 50px 0px;
     position: relative;
     .about-container{
@@ -51,8 +51,8 @@
         margin-left: -400px;
         padding: 50px 0px;
         button:hover{
-            background-color: darken(lightgreen,  40%) !important;
-            color: #fff;
+            background-color: lightgrey !important;
+            color: slategray;
         }
         .shop-item{
             padding: 10px;
@@ -71,6 +71,7 @@
                 color: #ff0000;
                 margin: 10px;
                 font-size: 12px;
+                button{background-color: slategray; color:#fff;}
             }
            
             .item-img{
@@ -221,6 +222,7 @@
                 color: #f48024;
                 font-weight: 800;
             }
+            i{color: #f48024;}
             h2{
                 font-size: 18px;
                 color: lightslategray;

@@ -5,7 +5,7 @@
         <h1>Login</h1>
         </div>
     </div>
-    <div class="container logged-in" *ngIf="!dashboard">
+    <div class="container logged-in" *ngIf="dashboard">
         <div class="jumbotron">
             <button (click)="logAnonymous()" class="btn btn-success mce-btn-small" type="button">Continue as Guest</button>
             <p>OR</p>
@@ -26,7 +26,7 @@
     </div>
 
     <!--Login Dashboard-->
-    <div class="container form-content" *ngIf="dashboard">
+    <div class="container form-content" *ngIf="!dashboard">
     <div class="container login-head">
         <i class="fa fa-lock" aria-hidden="true"></i>
         <p>Please login with your email and password</p>
@@ -49,7 +49,7 @@
             <div class="alert alert-danger" role="alert" *ngIf="errMsg">
                 <strong>{{errMsg.message}}</strong>
             </div>
-            <span>Reset>></span>
+            <!--<span>Reset>></span>-->
             <a style="color: red" class="btn " (click)="showPasswordPage()">Forgotton Password</a>
 
             <div class="container but-ton">
@@ -64,6 +64,8 @@
 <div id="password-container" *ngIf="showPassword">
     <div class="forgotten-password">
         <div class="jumbotron container form-group">
+            <i style="text-align:center; font-size: 28px;" class="fa fa-recycle" aria-hidden="true"></i>
+            <p style="text-align:center">Please enter youy email.</p>
             <input #link type="email" class="form-control" name="password_reset" required placeholder="email@example.com"> <br>
             <button class="btn btn-block  btn-primary" (click)="sendLink(link.value)" type="link">Reset Password</button>
             <br>

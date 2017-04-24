@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AppService } from '../../services/app.service';
 import { Contact, iContact } from '../../models/contact.model';
+import { AboutImage } from '../../shared/images/images';
 
 @Component({
   selector: 'app-contacts',
@@ -13,6 +14,7 @@ export class ContactsComponent implements OnInit {
   sentNotification: boolean = false;
   infoMsg:boolean = true;
   errMsg;
+  contactImage=AboutImage;
   constructor(private fb:FormBuilder, private appService:AppService) {
       let contact = new Contact;
       this.cForm = fb.group(contact);

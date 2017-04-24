@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Images } from '../shared/images/images';
+import { Images, WelcomeImage } from '../shared/images/images';
 
 @Component({
   selector: 'app-header',
@@ -8,8 +8,8 @@ import { Images } from '../shared/images/images';
 })
 export class HeaderComponent implements OnInit {
   isBanner:boolean = false;
-  puringCoffee = Images[0]; ourCoffee = Images[1];
-  
+  puringCoffee = Images[0]; ourCoffee = WelcomeImage[3];
+  margin:number = 0;
   constructor() { }
 
   toggleBanner1(){
@@ -28,6 +28,11 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    // setInterval(()=>{
+    //   this.margin = 20;
+    // }, 100);
+    
   }
 
 }

@@ -12,13 +12,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./customers.component.scss']
 })
 export class CustomersComponent implements OnInit {
-  customers:Observable<any[]>;
+  customers = [];
 
   constructor(private cartService:CartService) { }
-
+  remoteCustomer($key){
+    let D = confirm("Are you sure you want to permanently delete this customer?");
+    if(D==true){
+      this.cartService.deleteCustomerDetails($key);
+    }
+    
+  }
   ngOnInit() {
-    this.customers = this.cartService.getAllCustomerDetails();
-        
+    this.cartService.getAllCustomerDetails().subscribe((customer)=>{
+      this.customers = customer;
+    }); 
   }
 
 }

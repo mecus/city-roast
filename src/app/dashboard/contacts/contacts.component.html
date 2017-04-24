@@ -13,14 +13,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let contact of contacts | async">
+      <tr *ngFor="let contact of contacts">
         <td>{{contact.firstName}}</td>
         <td>{{contact.lastName}}</td>
         <td>{{contact.email}}</td>
         <td>{{contact.telephone}}</td>
         
-        <td><a style="color: orangered" (click)="seeContact(contact)" >read message</a></td>
-        <td><i  class="fa fa-times remove-cart-i" aria-hidden="true"></i></td>
+        <td><a style="color: orangered; cursor:poi" (click)="seeContact(contact)" >read message</a></td>
+        <td><i (click)="removeContact(contact.$key)" class="btn fa fa-times remove-cart-i" aria-hidden="true"></i></td>
       </tr>
 
     </tbody>
@@ -36,3 +36,11 @@
     </div>
   </div>
 </section>
+
+<div *ngIf="contacts.length < 1" class="progress container load-item">
+      <div class="progress-loading" >
+          <strong>
+              <h3><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></h3>
+          </strong>
+      </div>
+  </div>

@@ -43,12 +43,56 @@
 .Shopping-container{
     min-height: 700px;
     // max-width: 800px;
-    padding: 50px;
+    padding: 10px 30px 50px 30px;
+    
+}
+.check-out-container{
+    @extend .Shopping-container;
+}
+h1.head-1{
+    font-size: 28px;
+    margin-left: 20px;
+}
+.cart-table{
+    margin: 0px;
+    padding: 0px;
+    border: 1px solid;
+    border-color: lightgray;
+
+    tr th{
+        color: lightslategrey;
+    }
+    td{font-size: 13px;}
+    td i:hover{
+        color: red;
+        cursor: pointer;
+    }
+}
+.sum-container{
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+    .cartSum{
+        margin: 0px;
+        padding: 0px;
+        position: absolute;
+        right: 0px;
+        border-top: 0px solid;
+        border-right: 1px solid;
+        border-left: 1px solid;
+        border-bottom: 2px solid;
+        border-color: lightgray;
+        padding: 40px 20px 10px 20px;
+       
+    }
+}
+.check-button{
+    margin-top: 20px;
     .check-out{
-        // position: relative;
+        position: relative;
         // right: 150px;
-        text-align: right;
-        display: flex;
+        // text-align: right;
+        // display: flex;
         button{
             margin: 0px 4px;
             height: 30px;
@@ -63,25 +107,7 @@
             padding: 0 10px;
         }
     }
-}
-.check-out-container{
-    @extend .Shopping-container;
-}
-h1.head-1{
-    font-size: 28px;
-    margin-left: 20px;
-}
-.cart-table{
-    border: 1px solid;
-    border-color: lightgray;
 
-    tr th{
-        color: lightslategrey;
-    }
-    td i:hover{
-        color: red;
-        cursor: pointer;
-    }
 }
 
 

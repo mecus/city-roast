@@ -7,6 +7,7 @@
         <tr>
           <th>Id</th>
           <th>Name</th>
+          <th>Sex</th>
           <th>Email</th>
           <th>Telephone</th>
           <th>Address</th>
@@ -18,9 +19,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let customer of customers | async">
+        <tr *ngFor="let customer of customers">
           <td>{{customer.id}}</td>
           <td>{{customer.firstName+" "+customer.lastName}}</td>
+          <td>{{customer.gender}}</td>
           <td>{{customer.email}}</td>
           <td>{{customer.telephone}}</td>
           <td>{{customer.addressOne+" "+customer.addressTwo}}</td>
@@ -28,10 +30,17 @@
           <td>{{customer.city}}</td>
           <td>{{customer.country}}</td>
           <td>{{customer.created_at | date}}</td>
-          <td><i  class="fa fa-times remove-cart-i" aria-hidden="true"></i></td>
+          <td><i (click)="remoteCustomer(customer.$key)" style="cursor:pointer"  class="fa fa-times remove-cart-i" aria-hidden="true"></i></td>
         </tr>
 
       </tbody>
     </table>
   </div>
 </section>
+<div *ngIf="customers.length < 1" class="progress container load-item">
+      <div class="progress-loading" >
+          <strong>
+              <h3><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></h3>
+          </strong>
+      </div>
+  </div>

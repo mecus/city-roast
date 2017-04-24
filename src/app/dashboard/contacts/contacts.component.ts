@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./contacts.component.scss']
 })
 export class ContactsComponent implements OnInit {
-  contacts:Observable<any[]>;
+  contacts = [];
   singlecontact={};
   showMsg:boolean = false;
   constructor(private appService:AppService) { }
@@ -23,9 +23,18 @@ export class ContactsComponent implements OnInit {
   closeMsg(){
     this.showMsg = false;
   }
+  removeContact(key){
+    let D = confirm("Are you sure?");
+    if(D==true){
+      this.appService.deleteContact(key);
+    }
+    
+  }
 
   ngOnInit() {
-    this.contacts = this.appService.getContacts();
+    this.appService.getContacts().subscribe((contact)=>{
+      this.contacts = contact;
+    })
   }
 
 }

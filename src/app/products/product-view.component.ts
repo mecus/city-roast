@@ -37,8 +37,8 @@ export class ProductViewComponent implements OnInit {
         
     }
 
-    addtoCart(val){
-        // console.log(val, size);
+    addtoCart(qty, blend){
+        // console.log(qty, blend);
         if(!localStorage.getItem('idToken')){
             this.authService.logAnonymous()
                 .then(res=>{
@@ -49,10 +49,10 @@ export class ProductViewComponent implements OnInit {
 
             setTimeout(()=>{
                 if(localStorage.getItem('currentUser')){
-                    if(val < 1){
+                    if(qty < 1){
                         this.positiveNum = true;
                     }else{
-                        this.cartService.incrementQty(this.dproduct, val);
+                        this.cartService.incrementQty(this.dproduct, qty, blend);
                         // this.cartService.addCart(this.dproduct);
                         this.router.navigate(['/cart']);
                     }
@@ -62,10 +62,10 @@ export class ProductViewComponent implements OnInit {
             
         }else
             if(localStorage.getItem('currentUser')){
-                if(val < 1){
+                if(qty < 1){
                     this.positiveNum = true;
                 }else{
-                    this.cartService.incrementQty(this.dproduct, val);
+                    this.cartService.incrementQty(this.dproduct, qty, blend);
                     // this.cartService.addCart(this.dproduct);
                     this.router.navigate(['/cart']);
                 }

@@ -25,11 +25,11 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
                     </div>
                     <div class="col col-sm-4">
                         <p><strong>Price:</strong> {{order.price | currency: 'GBP': true}}</p>
-                        <p><strong>Roast:</strong>  {{order.roast}}</p>
+                        <p><strong>Blend:</strong>  {{order.type}}</p>
                         
                     </div>
                     <div class="col col-sm-4">
-                        <p><strong>Blend:</strong>  {{order.type}}</p>
+                        
                         <p><strong>Qty:</strong>  {{order.qty}}</p>
                         <p><strong>Size:</strong>  {{order.size}}</p>
                     </div>
@@ -50,6 +50,9 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
         .jumbotron{
             color: lightslategray;
             margin: 50px;
+        }
+        .jumbotron button{
+            margin-top:10px;
         }
      `]
 

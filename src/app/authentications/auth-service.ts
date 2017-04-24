@@ -128,8 +128,10 @@ export class AuthService {
 
         user.reauthenticate(credential).then(()=> {
             // User re-authenticated.
+            console.log("Password Reset successfully")
         }, (error)=> {
             // An error happened.
+            console.log("Something went wrong");
         });
    }
 }

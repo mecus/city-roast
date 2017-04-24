@@ -1,6 +1,16 @@
-
+.table-content{
+    background-color: lightgrey;
+}
 table{
     tbody{
-        td{font-size: 12px;}
+        td{font-size: 11px;}
+    }
+}
+.load-item{
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 150px;
+    .progress-loading{
+        text-align: center;
     }
 }

@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase';
+import { AUTHORIZATION } from '../shared/secret';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -30,7 +31,7 @@ export class CartService {
          });
         }  
     }
-    addCart(product, num){
+    addCart(product, num, blend){
         this.getUser();
         if(this.userId){
             let cart:iCart = {
@@ -39,8 +40,8 @@ export class CartService {
                 price: product.price,
                 qty: num,
                 size: product.size,
-                type: product.blend,
-                roast: product.roast,
+                type: blend,
+                // roast: roast,
                 imageUrl: product.imageUrl
             }
             let db = this.af.database.list('/cart/'+this.userId);
@@ -52,27 +53,29 @@ export class CartService {
         }
 
     }
-    incrementQty(cartItem, num?){
+    incrementQty(cartItem, num?, blend?){
         let key = cartItem.$key;
         let qty = parseInt(cartItem.qty);
-        let cart;
+        let cart, thisblend;
         this.getCart().subscribe(cartArr=>{
             cartArr;
             cart = cartArr.find((cart)=> cart.id === cartItem.id);
+            thisblend = cartArr.find((cart)=> cart.type === blend);
         });
-        if(cart){
-            if(num){
-               this.getUser();
-                firebase.database().ref().child('/cart/'+this.userId+'/'+cart.$key)
-                .update({qty: parseInt(cart.qty) + parseInt(num)}).then(res=>{res}).catch(err=>{err}); 
-            }else{
-                this.getUser();
-                firebase.database().ref().child('/cart/'+this.userId+'/'+cart.$key)
-                .update({qty: cart.qty + 1}).then(res=>{res}).catch(err=>{err});
-            }
-        }else{
-           this.addCart(cartItem, num);
-        }
+        this.addCart(cartItem, num, blend);
+        // if(thisblend !== blend){
+        //     if(num){
+        //        this.getUser();
+        //         firebase.database().ref().child('/cart/'+this.userId+'/'+cart.$key)
+        //         .update({qty: parseInt(cart.qty) + parseInt(num)}).then(res=>{res}).catch(err=>{err}); 
+        //     }else{
+        //         this.getUser();
+        //         firebase.database().ref().child('/cart/'+this.userId+'/'+cart.$key)
+        //         .update({qty: cart.qty + 1}).then(res=>{res}).catch(err=>{err});
+        //     }
+        // }else{
+        //    this.addCart(cartItem, num, blend, roast);
+        // }
     }
     removeItem(key){
         this.getUser();
@@ -117,7 +120,6 @@ export class CartService {
         return sum + Math.round(num);
     }
 
-
     //Saving Customer Details
     saveCustomerDetails(customer, lastId){
         this.getUser();
@@ -128,11 +130,12 @@ export class CartService {
                 // customerId: customer.customerId,
                 firstName: customer.firstName,
                 lastName: customer.lastName,
-                email: customer.email,
+                email: customer.email.toLowerCase(),
+                gender: customer.gender,
                 telephone: customer.telephone,
                 addressOne: customer.addressOne,
                 addressTwo: customer.addressTwo,
-                postCode: customer.postCode,
+                postCode: customer.postCode.toUpperCase(),
                 city: customer.city,
                 country: "United Kingdom",
                 created_at: createdDate,
@@ -176,7 +179,6 @@ export class CartService {
 
     }
 
-
     getCustomerDetails(){
         this.getUser();
         return this.af.database.object('customers/'+this.userId);
@@ -185,9 +187,9 @@ export class CartService {
         return this.af.database.list('customers/');
     }
 
-    deleteCustomerDetails(){
+    deleteCustomerDetails(id){
         this.getUser();
-        let cusDb = this.af.database.list('customers/'+this.userId);
+        let cusDb = this.af.database.list('customers/'+id);
         cusDb.remove().then(res=> res).catch(err=> console.log(err))
     }
 
@@ -264,7 +266,7 @@ export class CartService {
                             type: item.type,
                             qty: item.qty,
                             size: item.size,
-                            roast: item.roast,
+                            // roast: item.roast,
                             price: item.price,
                             image: item.imageUrl
                         }).then(res=> res).catch(err=>console.log(err));
@@ -298,7 +300,6 @@ export class CartService {
             //Adding rails patch update function here
     }
 
-
     //Clearing all Order for the Customer
     clearOrders(key1, key2){
         let udb = this.af.database.list('/allorders/userorders/'+this.userId);
@@ -330,8 +331,6 @@ export class CartService {
         let oRdb = this.af.database.list('/allorders/orders/'+key);
         oRdb.remove().then((res)=>console.log(res)).catch((error)=>console.log(error));
     }
-
-
 
     //Retrieving Order Items and Deleting them
     getOrderItems(){
@@ -366,10 +365,14 @@ export class CartService {
         return this._http.patch(this.apiUrl+'/'+key, update, {headers:this.requestHeaders()})
                 .map((res:Response)=>res.json());
     }
+    //Deleting a single Order
+    deleteFinalOrder(id){
+        return this._http.delete(this.apiUrl+"/"+id, {headers: this.requestHeaders()}).map((res:Response)=> res.json());
+    }
     public requestHeaders(){
         let headers = new Headers();
         headers.append("Content-Type", "application/vnd.api+json");
-        headers.append("Authorization", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjF9.eyQ9jfdECQ74pPyA8LDjXr-4NUt36lSAcdDNn16vnEQ");
+        headers.append("Authorization", AUTHORIZATION);
         return headers;
     }
     

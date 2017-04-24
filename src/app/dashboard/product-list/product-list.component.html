@@ -11,22 +11,23 @@
     <table *ngIf="products.length" class="table table-striped">
     <thead class="thead-inverse">
         <tr>
-        <th>Id</th>
+        <!--<th>Id</th>-->
         <th>Code</th>
         <th>Photo</th>
         <th>Product</th>
         <th>Price</th>
         <th>Size</th>
         <th>Description</th>
-        <th colspan="1"><span class="badge badge-pill badge-success">{{products.length}} <span>items</span> </span></th>
-        <th> <a ><button routerLink="/dashboard/new-product" class="btn btn-secondary">Add</button></a></th>
+        <th><i class="fa fa-coffee" aria-hidden="true"></i></th>
+        <!--<th> <a ><button routerLink="/dashboard/new-product" class="btn btn-secondary">Add</button></a></th>-->
+        <th><i style="cursor:pointer; font-size:18px;" routerLink="/dashboard/new-product" class="fa fa-plus" aria-hidden="true"></i></th>
 
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let product of products">
-        <th scope="row">{{product.id}}</th>
-        <th scope="row">{{product.code}}</th>
+        <!--<th scope="row">{{product.id}}</th>-->
+        <th style="font-size:14px;" scope="row">{{product.code}}</th>
         <td>
             <div class="display-image">
                 <img [src]="product.imageUrl" style="width:50px" alt="">
@@ -37,12 +38,14 @@
             </div>
         </td>
         
-        <td (click)="seeProduct(product)"><h5 style="color: lightseagreen"><a  [style.font-size.px]="15" >{{product.name}} </a></h5> </td>
+        <td (click)="seeProduct(product)"><h5 style="color: #f48024"><a  [style.font-size.px]="12" >{{product.name}} </a></h5> </td>
         <td>{{product.price | currency: 'GBP' :true}}</td>
         <td>{{product.size}}</td>
         <td><p [style.font-size.px]="13">{{product.description}}</p></td>
-        <td > <button class="btn btn-default" (click)="getValue(product)" type="">Edit</button></td>
-        <td><button class="btn btn-danger" (click)="deleteProduct(product)" type="">Remove</button></td>
+        <!--<td > <button class="btn btn-default" (click)="getValue(product)" type="">Edit</button></td>-->
+        <td><i style="cursor:pointer; font-size:18px;" (click)="getValue(product)" class="fa fa-pencil-square-o" aria-hidden="true"></i></td>
+        <td><i style="cursor:pointer; font-size:14px; color:#f48024" (click)="deleteProduct(product)" class="fa fa-times remove-cart-i" aria-hidden="true"></i></td>
+        <!--<td><button class="btn btn-danger" (click)="deleteProduct(product)" type="">Remove</button></td>-->
         </tr>
         
     </tbody>

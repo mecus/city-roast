@@ -6,60 +6,96 @@
         </div>
   </div>
 </section>
-<section class="check-out-container container">
+<div *ngIf="hideSearch" class="jumbotron" id="search-customer">
+    <div class="close-s">
+        <button class="btn btn-default" (click)="removeSearch()" type=""><i class="fa fa-times" aria-hidden="true"></i></button>
+    </div>
     
+        <div class="search-box">
+            <h3>Find Your Account</h3>
+            <p>Enter your info in the box below and search for your details if you have used our service before!</p>
+            <p *ngIf="showErr" style="color:red" >No details found</p>
+            <p *ngIf="emptyErr" style="color:red">Please enter a valid information!</p>
+            <input id="search-box" #email class="form-control" type="text" name="email" placeholder="email">
+            <input id="search-box" #phone class="form-control" type="text" name="telephone" placeholder="telephone">
+            <input id="search-box" #postcode class="form-control" type="text" name="postcode" placeholder="Post Code eg SE12 6KL">
+            <button class="btn btn-primary" (click)="findCustomer(email.value, phone.value, postcode.value)" type="button">Search</button>
+        </div>
+ </div>
+<section class="check-out-container container">
+    <div *ngIf="foundyou" class="alert alert-success" id="yfound">
+        <p ><strong>Yes!</strong>  we found you <strong>{{foundyou}}</strong>
+           <i style="font-size:18px" (click)="removeFound()" class="fa fa-times" aria-hidden="true"></i>
+        </p>
+    </div>
     <div class="row customer-info">
-        <div class="col col-lg-9 cus-details">
+        <div class="col col-lg-9 cus-details jumbotron">
             <h1>Customer Details</h1>
 
             <form novalidate [class.has-success]="cusForm.valid" [formGroup]="cusForm" (ngSubmit)="saveCustomer(cusForm.value)" class="main-form" >
                
                 <div class="row name-section">
-                    <div class="col col-xs-6 col-lg-6 form-group">
+                    <div class="col col-xs-12 col-lg-6 form-group">
                         <label for="formGroupExampleInput">First Name <span style="color: red">*</span></label>
                         <input type="text" class="form-control" formControlName="firstName" required placeholder="first name">
                     </div>
-                    <div class="col col-xs-6 col-lg-6 form-group">
+                    <div class="col col-xs-12 col-lg-6 form-group">
                         <label for="formGroupExampleInput2">Last Name <span style="color: red">*</span></label>
                         <input type="text" class="form-control" formControlName="lastName" required placeholder="last name">
                     </div>
-                     <div class="col col-xs-6 col-lg-6 form-group">
+                     <div class="col col-xs-12 col-lg-6 form-group">
                         <label for="formGroupExampleInput">Email <span style="color: red">*</span></label>
                         <input type="text" class="form-control" formControlName="email" required pattern="[A-Za-z]+\.?-?[A-Za-z]+@[A-Za-z]+\.(com|co.uk|net|org)" placeholder="example@email.com">
                     </div>
-                    <div class="col col-xs-6 col-lg-6 form-group">
+                    <div class="col col-xs-12 col-lg-6 form-group">
                         <label for="formGroupExampleInput2">Telephone <span style="color: red">*</span></label>
                         <input type="text" class="form-control" formControlName="telephone" required pattern="^0\d{10}" placeholder="e.g 02078946526">
+                    </div>
+                    <div class="col col-xs-12 col-lg-6 form-group">
+                        <label for="formGroupExampleInput2">Gender <span style="color: red">*</span></label>
+                        <select class="form-control" required formControlName="gender">
+                            <option value="Male" selected>Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                        <!--<input type="text" class="form-control" formControlName="telephone" required  placeholder="sex">-->
                     </div>
                 </div>
                 <br><br>
                 <div class="row address-section">
-                    
+                    <h6 style="margin-left:20px">Billing/Delivery Address</h6>
                     <div class="col col-xs-12 col-lg-6 address-input">
-                        <h6>Billing/Delivery Address</h6>
                         <hr>
-                        <div class="col col-xs-6 col-lg-6 form-group">
-                            <label for="formGroupExampleInput">Address 1 <span style="color: red">*</span></label>
+                        <div class="col col-xs-12 col-lg-12 form-group">
+                            <label for="formGroupExampleInput">Address line 1 <span style="color: red">*</span></label>
                             <input type="text" class="form-control" formControlName="addressOne" required placeholder="House/Flat no.">
                         </div>
-                        <div class="col col-xs-6 col-lg-6 form-group">
-                            <label for="formGroupExampleInput2">Address 2 <span style="color: red">*</span></label>
+
+                        <div class="col col-xs-12 col-lg-12 form-group">
+                            <label for="formGroupExampleInput2">Address line 2 <span style="color: red">*</span></label>
                             <input type="text" class="form-control" formControlName="addressTwo" required placeholder="Street/Road name">
                         </div>
-                        <div class="col col-xs-6 col-lg-6 form-group">
+
+                        <div class="col col-xs-12 col-lg-12 form-group">
                             <label for="formGroupExampleInput">Post Code <span style="color: red">*</span></label>
                             <input type="text" class="form-control" formControlName="postCode" pattern="^[A-Za-z]{2}\d\d?\s?\d[A-Za-z]{2}" required placeholder="e.g SE12 7KL">
                         </div>
-                        <div class="col col-xs-6 col-lg-6 form-group">
+
+                    </div>
+
+                    <div class="col col-xs-12 col-lg-6 address-input">
+                        <hr>
+                        
+                        <div class="col col-xs-12 col-lg-12 form-group">
                             <label for="formGroupExampleInput2">City <span style="color: red">*</span></label>
                             <input type="text" class="form-control" formControlName="city" required placeholder="city">
                         </div>
-
-                        <div class="col col-xs-12 col-lg-6 form-group">
+                        <div class="col col-xs-12 col-lg-12 form-group">
                             <label for="formGroupExampleInput2">Country</label>
                             <input type="text" class="form-control" formControlName="country" value="United Kingdom" placeholder="United Kingdom">
                         </div>
+
                     </div>
+
                     <!--<div class="col col-xs-12  col-lg-6 address-input">
                         <h6  (click)="hideMyform()"><input type="checkbox" > Add Delivery Address if different</h6>
                         <hr>
@@ -103,9 +139,9 @@
             </form>
         </div>
         <div class="col col-xs-12 col-sm-12 col-md-6 col-lg-3 order-detail-container">
-            <div class="order-detail">
-                <h1>Your Basket</h1>
-                <table>
+            <div class="order-detail jumbotron">
+                <h1><i class="fa fa-shopping-basket" aria-hidden="true"></i> Your Basket</h1>
+                <table >
                     <thead>
                         <tr>
                             <th colspan="3"></th>
@@ -124,16 +160,17 @@
                     <h6>Total: {{sumCart | currency: 'GBP': true}}</h6>
             </div>
             <!--<input class="btn btn-default" type="submit" value="Continue to Order" onclick="Worldpay.submitTemplateForm()" />-->
+            <!--<div class="jumbotron" id="search-customer">
+                <div class="search-box">
+                    <h3>Find Account</h3>
+                    <p>Enter your email in the box below and search for your details if you have use our service before!</p>
+                    <p *ngIf="showErr" class="alert alert-danger" role="alert">No details found</p>
+                    <p *ngIf="emptyErr" class="alert alert-danger" role="alert">Please enter a valid email!</p>
+                    <input #email class="form-control" type="text" name="email" placeholder="search with email">
+                    <button class="btn btn-primary" (click)="findCustomer(email.value)" type="button">Search</button>
+                </div>
+            </div>-->
         </div>
     </div>
-    <div class="order-items">
-        <div>
 
-        </div>
-        <div>
-
-
-        </div>
-    </div>
-  
 </section>

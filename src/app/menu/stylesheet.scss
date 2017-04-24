@@ -13,7 +13,7 @@
             background-size: cover;
             width: 100%;
             min-height: 700px;
-            opacity: 0.5;
+            opacity: 0.2;
         }
     }
 }
@@ -34,13 +34,27 @@
         font-family: 'Caveat', cursive;
         letter-spacing: 1px;
     }
-    .banner-link button{
-        background: transparent;
-        color: lightslategrey;
-        border-color: lightslategrey;
-        &:hover{
-            color: lightgray;
-            border-color: lightgray;
+    .banner-link{
+        button{
+            background: transparent;
+            color: lightgray; //lightslategrey;
+            border-color: lightgray; //lightslategrey;
+            &:hover{
+                color: lightslategrey;//lightgray;
+                border-color: lightslategrey;//lightgray;
+            }
+            i{font-size:22px;}
+        //    margin-buttom: 30px;
+        }
+         .arrow i{
+            margin-top: 20px;
+            color: #f48024;
+            font-size: 22px;
+            transition: 1s;
+            &:hover{
+                margin-top: 30px;
+                cursor: pointer;
+            }
         }
     }
 }

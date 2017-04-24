@@ -1,8 +1,6 @@
-<section>
-
-
-  <!--<table class="table">
-    <thead class="thead-default">
+<section class="table-content">
+  <table class="table table-striped">
+    <thead class="thead-inverse">
       <tr>
         <th>Status</th>
         <th>Date</th>
@@ -14,48 +12,16 @@
         <th>Address</th>
         <th>Postcode</th>
         <th>City</th>
-        <th>Country</th>       
+        <th>Country</th>
+        <th colspan="1"></th>      
       </tr>
     </thead>
-    <tbody>
-      <tr *ngFor="let order of orders">
-        <td>{{order.status}}</td>
-        <td>{{order.orDate | date}}</td>
-        <th class="btn" style="color: #f48024" (click)="seeItems(order.itemsId)" >{{order.orderId}}</th>
-        <td>{{order.amount | currency: 'GBP':true}}</td>
-        <td>{{order.customerName}}</td>
-        <td>{{order.email}}</td>
-        <td>{{order.telephone}}</td>
-        <td>{{order.address}}</td>
-        <td>{{order.postCode}}</td>
-        <td>{{order.city}}</td>
-        <td>{{order.country}}</td>
-      </tr>
-
-    </tbody>
-  </table>-->
-
-  <table class="table">
-    <thead class="thead-default">
-      <tr>
-        <th>Status</th>
-        <th>Date</th>
-        <th>Order Id</th>
-        <th>Amount</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Telephone</th>
-        <th>Address</th>
-        <th>Postcode</th>
-        <th>City</th>
-        <th>Country</th>       
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let order of railsOrder | async">
-        <td>{{order.attributes.status}}</td>
+    <tbody *ngIf="railsOrder">
+      <tr *ngFor="let order of railsOrder">
+        <td *ngIf="order.attributes.status == 'completed'" style="color:green;">{{order.attributes.status}}</td>
+        <td *ngIf="order.attributes.status == 'Pending'" style="color:red;">{{order.attributes.status}}..</td>
         <td>{{order.attributes.created_at | date}}</td>
-        <th class="btn" style="color: #f48024" (click)="seeItems(order.attributes.itemsid)" >{{order.attributes.orderid}}</th>
+        <th style="color: lightslategray; cursor:pointer" (click)="seeItems(order.attributes.itemsid)" >{{order.attributes.orderid}}</th>
         <td>{{order.attributes.amount | currency: 'GBP':true}}</td>
         <td>{{order.attributes.name}}</td>
         <td>{{order.attributes.email}}</td>
@@ -64,7 +30,19 @@
         <td>{{order.attributes.postcode}}</td>
         <td>{{order.attributes.city}}</td>
         <td>{{order.attributes.country}}</td>
+        <td><i style="cursor:pointer" (click)="removeOrder(order.id)" class="fa fa-times remove-cart-i" aria-hidden="true"></i></td>
       </tr>
     </tbody>
   </table>
 </section>
+
+  <div *ngIf="railsOrder.length < 1" class="progress container load-item">
+      <div class="progress-loading" >
+          <strong>
+              <h3><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></h3>
+          </strong>
+      </div>
+  </div>
+    
+
+

@@ -79,9 +79,9 @@
 
 <section class="cta">
   <div class="cta-content">
-    <h1>Like Our Products?</h1>
+    <h1><i class="fa fa-heart-o" aria-hidden="true"></i> Like Our Products?</h1>
     <h2>please order below or contact us for enquiry </h2>
-    <button routerLink="/contacts" class="btn btn-success" type="button">send message</button>
+    <button routerLink="/contacts" class="btn btn-success" type="button"><i class="fa fa-envelope-o" aria-hidden="true"></i> send message</button>
   </div>
 </section>
 
@@ -104,11 +104,11 @@
           <div class="item-title">
             <h2>{{item.name}}</h2>
             <h5>{{item.blend}}</h5>
-            <h5>{{item.roast}}</h5>
+            <!--<h5>{{item.roast}}</h5>-->
             <h6>{{item.price | currency: 'GBP' :true}}</h6>
           </div>
           <p>
-            <a><button (click)="viewProduct(item)" class="btn btn-default" type="">Order Now</button></a>
+            <a><button (click)="viewProduct(item)" class="btn btn-default" type=""><i class="fa fa-cart-plus" aria-hidden="true"></i> Order Now</button></a>
           </p>
         </div> 
       </div> 
@@ -135,11 +135,11 @@
           <div class="item-title">
             <h2>{{item.name}}</h2>
             <h5>{{item.blend}}</h5>
-            <h5>{{item.roast}}</h5>
+            <!--<h5>{{item.roast}}</h5>-->
             <h6>{{item.price | currency: 'GBP' :true}}</h6>
           </div>
           <p>
-            <a><button (click)="viewProduct(item)" class="btn btn-default" type="">Order Now</button></a>
+            <a><button (click)="viewProduct(item)" class="btn btn-default" type=""><i class="fa fa-cart-plus" aria-hidden="true"></i> Order Now</button></a>
           </p>
         </div> 
       </div> 

@@ -9,11 +9,12 @@
   </div>
 </section>
 <section class="container Shopping-container">
-  <p *ngIf="currentuser.includes('@')">Your email: {{currentuser}}</p>
+  <!--<p *ngIf="currentuser.includes('@')">Your email: {{currentuser}}</p>-->
   <div class="empty-basket" *ngIf="cartproduct.length > 0">
     <button (click)="clearCart()" class="btn btn-danger" type="button">Empty</button>
   </div>
-  <h1 class="head-1">Your Basket</h1>
+  <h1 class="head-1">Your Basket <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+</h1>
     <div class="empty-cart" *ngIf="cartproduct.length < 1">
       <h5>You have no item in your Basket</h5>
     </div>
@@ -39,22 +40,23 @@
         </div>
       </div>
       <hr>
-      <div class="total-cart">
-        <h5>Total:</h5>
-        <span><p>{{sumCart | currency: 'GBP': true}}</p></span>
+      <div class="row total-cart">
+        <div class="col col-xs-6"><h5>Total:</h5></div>
+        <div class="col col-xs-6"><p><strong>{{sumCart | currency: 'GBP': true}}</strong></p></div>
+ 
       </div>
     </div>
     <div class="container ">
-      <table class="table cart-table" *ngIf="cartproduct.length > 0">
-        <thead class="thead-default">
+      <table class="table table-striped cart-table" *ngIf="cartproduct.length > 0">
+        <thead class="thead-inverse">
           <tr>
               <th></th>
               <th>Product</th>
               <th>Qty</th>
               <th>Size</th>
-              <th>Blend Type</th>
-              <th>Roast</th>
-              <th>Unit Price</th>
+              <th>Blend</th>
+              <!--<th>Roast</th>-->
+              <th>Price</th>
               <th>Total</th>
               <th></th>
               <!--<th><button (click)="clearCart()" class="btn btn-danger" type="button">Empty your basket</button></th>-->
@@ -70,36 +72,43 @@
             <td>{{item.qty}}</td>
             <td>{{item.size}}</td>
             <td>{{item.type}}</td>
-            <td>{{item.roast}}</td>
+            <!--<td>{{item.roast}}</td>-->
             <td>{{item.price | currency: 'GBP': true}}</td>
-            <td>{{item.qty * item.price | currency: 'GBP': true}}</td>
+            <td><strong>{{item.qty * item.price | currency: 'GBP': true}}</strong></td>
             <td><i (click)="removeItem(item.$key)" class="fa fa-times remove-cart-i" aria-hidden="true"></i>
           </td>
-                  </tr>
-                  <tr>
-                    <td colspan="5"></td>
-                    <td> <h5>Total:</h5> </td>
-                    <td><h4>{{sumCart | currency: 'GBP': true}}</h4></td>
-                  </tr>
-                </tbody>
-              </table>
-              <input *ngIf="cartproduct.length > 0" type="checkbox" name="" (change)="termsChange($event)"> <span *ngIf="cartproduct.length > 0" style="padding: 0; margin-bottom: 10; font-size: 11"> I agree to the return policy! <span > <a routerLink="/return-policy" target="blank" style="text-decoration: underline; color: orangered" >Please read..</a> </span></span>
+            </tr>
+          </tbody>
+        </table>
+        <div class="sum-container" *ngIf="cartproduct.length > 0">
+          <div class="row cartSum">
+            <div class="col col-lg-6">
+              <h5>Net Total:</h5>
+            </div>
+            <div class="col col-lg-6">
+              <h4 style="letter-spacing:2px;"><strong>{{sumCart | currency: 'GBP': true}}</strong>p</h4>
+            </div>
+     
+          </div>
+         
+        </div>
+        <div class="check-button">
+              <input *ngIf="cartproduct.length > 0" type="checkbox" name="" (change)="termsChange($event)"> <span *ngIf="cartproduct.length > 0" style="padding: 0; margin-bottom: 10; font-size: 11"> I agree to the return policy! <span > <a routerLink="/return-policy" target="blank" style=" color: orangered" >read..</a> </span></span>
               <br>
-          <div class="check-out right-nav">
-            
-              <button [disabled]="!accepTerms" id="btn-check" *ngIf="cartproduct.length > 0" (click)="moveTopayment()" class="btn btn-success" type="button">Proceed to Check Out</button>
-              <button routerLink="/coffee" class="btn btn-success" type="button">Continue Shopping</button>
-              
-              
+              <div class="check-out right-nav">
+                
+                  <button [disabled]="!accepTerms" id="btn-check" *ngIf="cartproduct.length > 0" (click)="moveTopayment()" class="btn btn-success" type="button">Check Out <i  class="fa fa-shopping-basket" aria-hidden="true"></i></button>
+                  <button routerLink="/coffee" class="btn btn-success" type="button">Keep Shopping <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
+              </div>
           </div>
           
-          <div class="cart-login-alert" *ngIf="liginAlert">
+          <!--<div class="cart-login-alert" *ngIf="liginAlert">
             <div>
               <p>Please register or login with email and password before check out</p>
             </div>
             <button class="btn btn-danger" type="button">Register</button> Or
               <button class="btn btn-primary" type="button">login</button>
-          </div>
+          </div>-->
           
         </div>
     

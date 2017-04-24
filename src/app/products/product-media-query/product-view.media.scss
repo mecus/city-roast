@@ -22,64 +22,34 @@
         min-height: 500px;
         margin-bottom: 50px;
         .product-disply{
-            max-width: 700px;
+            width: 100%;
             margin: 0 auto;
-            padding: 50px 0px;
-            display: flex;
-            display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */
-            display: -moz-box;      /* OLD: Firefox (buggy) */
-            display: -ms-flexbox;   /* MID: IE 10 */
-            display: -webkit-flex;  /* NEW, Chrome 21?28, Safari 6.1+ */
-            align-content: space-between;
+            margin-top: 10px;
 
             .product-img{
-                flex: 1;
-                img{width:150px;}
+                margin-top: 10px;
             }
             .product-details{
-                padding-left: 20px;
-                flex: 2;
-                .cart-select{ 
-                    display: flex;
-                    display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */
-                    display: -moz-box;      /* OLD: Firefox (buggy) */
-                    display: -ms-flexbox;   /* MID: IE 10 */
-                    display: -webkit-flex;  /* NEW, Chrome 21?28, Safari 6.1+ */
-                    width: 100%;
-                    margin-right: 10px;
-                    span{
-                        // flex: 1;
-                        margin: 10px 0px 0px 0px;
-                    }
-                    input{
-                        margin: 5px;
-                        width: 100px;
-                        
-                    }
-                }
-                .pick-size{
-                    display: flex;
-                    display: -webkit-box;   /* OLD: Safari,  iOS, Android browser, older WebKit browsers.  */
-                    display: -moz-box;      /* OLD: Firefox (buggy) */
-                    display: -ms-flexbox;   /* MID: IE 10 */
-                    display: -webkit-flex;  /* NEW, Chrome 21?28, Safari 6.1+ */
-                    width: 100%;
-                    margin-right: 10px;
-                    span{
-                        // flex: 1;
-                        margin: 10px 5px 0px 0px;
-                        
-                    }
-                    select{
-                        // flex: 2;
-                        width: 110px;
-                        
-                    }
-                }
-                .add-to{
+                h1{
+                    margin: 0px;
                     padding: 0px;
-                    margin-left: 10px;
+                    color:slategray;
+                    margin-bottom: 5px;
+                    text-align: center;
+                    font-size: 26px;
+                    }
+                h5{
+                    margin: 0px;
+                    padding: 0px;
+                    color:#f48024;
+                    margin-bottom: 10px;
+                    text-align: center;
+                    }
+                .add-to{ 
+                    text-align: center;
+                    margin-bottom: 10px;
                 }
+               
             }
         }
     }

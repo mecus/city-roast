@@ -16,7 +16,7 @@ export class OrderListComponent implements OnInit {
 
   orders=[];
   sinOrder={};
-  railsOrder;
+  railsOrder = [];
 
   constructor(private cartService:CartService, private router:Router) { }
 
@@ -24,13 +24,28 @@ export class OrderListComponent implements OnInit {
     // this.sinOrder = order;
     this.router.navigate(["/dashboard/items/"+id])
   }
+  removeOrder(id){
+    let D = confirm("Are you sure you want to permanently delete this Order?");
+    if(D==true){
+      this.cartService.deleteFinalOrder(id)
+      .subscribe((res)=>{console.log(res)});
+      this.router.navigate(["/dashboard/orders-list"]);
+    }else{
+      this.router.navigate(["/dashboard/orders-list"]);
+    }
+    
+    
+  }
 
   ngOnInit() {
     this.cartService.getOrder().subscribe((orders)=>{
       this.orders = orders
     })
    
-    this.railsOrder = this.cartService.getFinalOrder();
+    this.cartService.getFinalOrder().subscribe((order)=>{
+      this.railsOrder = order;
+    });
+
   }
 
 }

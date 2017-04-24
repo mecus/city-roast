@@ -154,7 +154,7 @@
 #form-content{
     margin: 50px;
     .jumbotron{
-        max-width: 600px;
+        width: 50%;
         
     }
 }
@@ -200,6 +200,13 @@
             }
         }
 
+    }
+    #form-content{
+        margin: 10px;
+        .jumbotron{
+            width: 100%;
+            
+        }
     }
 
 }
