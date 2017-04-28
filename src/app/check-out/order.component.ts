@@ -199,6 +199,7 @@ export class OrderComponent implements OnInit {
                     firstName: customers.firstName,
                     lastName: customers.lastName,
                     email: customers.email,
+                    
                     telephone: customers.telephone,
                     addressOne: customers.addressOne,
                     addressTwo: customers.addressTwo,

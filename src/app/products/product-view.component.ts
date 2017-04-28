@@ -17,6 +17,8 @@ export class ProductViewComponent implements OnInit {
     positiveNum:boolean = false;
     product;
     products=[];
+    simVee:boolean = false;
+    similaProd;
     dproduct = {
         id: 9,
         // name: 'Italian Coffee Beans',
@@ -74,6 +76,11 @@ export class ProductViewComponent implements OnInit {
         
         
     }
+    simpView(simp){
+        this.router.navigate(["products/"+simp.id]);
+        this.simVee = true;
+        
+    }
     ngOnInit() { 
          this.productService.getProduct()
             .subscribe((products)=>{
@@ -84,11 +91,28 @@ export class ProductViewComponent implements OnInit {
                 
                 
             });
-            let id = +this.route.snapshot.params['id'];
-            this.productService.getProduct().subscribe(products=>{
-                this.dproduct = products.find((product)=> product.id == id)
-            });
-            
+            // let id = +this.route.snapshot.params['id'];
+            // this.productService.getProduct().subscribe(products=>{
+            //     this.dproduct = products.find((product)=> product.id == id);
+            //     if(this.dproduct){
+            //         let simProd = products.find((product)=> product.id == id);
+            //         this.similaProd = products.filter((product)=>{
+            //             return product.name === simProd.name;
+            //         })
+            //     }
+            // });
+            this.route.params.forEach((param)=>{
+                // console.log(+param["id"]);
+                this.productService.getProduct().subscribe((products)=>{
+                    this.dproduct = products.find((product)=> product.id == +param['id']);
+                    if(this.dproduct){
+                        let simProd = products.find((product)=> product.id == +param['id']);
+                        this.similaProd = products.filter((product)=>{
+                            return product.name === simProd.name;
+                        })
+                    }
+                }, (error)=>{console.log(error)}, ()=>{console.log("Observer completed all!")} );
+            })
             
             
     }

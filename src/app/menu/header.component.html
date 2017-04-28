@@ -1,11 +1,8 @@
-<div class="app-header">
-
+<div class="app-header" id="app-header">
   <div class="header-container">
     <img (click)="toggleBanner1()" *ngIf="!isBanner" [src]="ourCoffee" alt="Header image">
     <img (click)="toggleBanner2()" *ngIf="isBanner" [src]="puringCoffee" alt="Header image">
     <div class="banner-text">
-
-
       <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
         <!--<ol class="carousel-indicators">
           <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
@@ -31,7 +28,7 @@
         <div class="banner-link">
           <button routerLink="/coffee" class="btn btn-success" type=""><i class="fa fa-eye" aria-hidden="true"></i> See Our Coffee</button>
           <div class="arrow">
-            <i  class="fa fa-angle-double-down" aria-hidden="true"></i>
+           <a href="#next-sec"> <i (click)="slideUp()" class="fa fa-angle-double-down" aria-hidden="true"></i></a>
           </div>
         </div>
       
@@ -44,9 +41,8 @@
           <span class="sr-only">Next</span>
         </a>-->
       </div>
-
-
-      
     </div>
   </div>
+</div>
+<div id="next-sec">
 </div>

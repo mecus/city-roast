@@ -92,9 +92,41 @@ span.add{
         margin: 0 auto;
         margin-top: 20px;
         .product-img{
-            margin-top: 50px;
-     
+            margin: 0 auto;
+            margin-top: 40px;
+            img{width: 60%; margin: 0 auto;}
+            .similar-prod{
+                padding-top: 20px;
+                margin-bottom: 10px;
+                p{
+                    padding: 0px;
+                    margin: 0px;
+                    margin-left: 15px;
+                    margin-bottom: 10px;
+                }
+                .jumbotron{
+                    // background-color: slategray;
+                    text-align: center;
+                    margin: 0px;
+                    padding: 0px;
+                    margin: 0 auto;
+                    padding-bottom: 5px;
+                    p{
+                        margin: 0px;
+                        padding: 0px;
+                    }
+                    img{
+                        width: 80px;
+                        margin: 10px 0px;
+                        border-radius: 4px;
+                        &:hover{
+                            opacity: 0.5;
+                        }
+                    }
+                }
+            }
         }
+
         .product-details{
             
             h1{
@@ -194,6 +226,41 @@ span.add{
                 font-size: 1.5rem;
                 margin-right: 10px;
 
+            }
+        }
+    }
+    .content-container{
+        min-height: 600px;
+
+        .product-disply{
+            width: 80%;
+            margin: 0 auto;
+            margin-top: 20px;
+            .product-img{
+                margin: 0 auto;
+                margin-top: 10px;
+                img{width: 80%;}
+                .similar-prod{
+                    padding-top: 20px;
+                    margin-bottom: 10px;
+                    .jumbotron{
+                        // background-color: slategray;
+                        text-align: center;
+                        margin: 0px;
+                        padding: 0px;
+                        margin: 0 auto;
+                        padding-bottom: 5px;
+                        p{
+                            margin: 0px;
+                            padding: 0px;
+                        }
+                        img{
+                            width: 60px;
+                            margin: 10px 0px;
+                            border-radius: 4px;
+                        }
+                    }
+                }
             }
         }
     }

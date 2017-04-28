@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class CoffeeComponent implements OnInit {
   products = [];
+  togInfo:boolean = true;
   constructor(private producService:ProductService, 
   private cartService:CartService,
   private router:Router
@@ -19,9 +20,8 @@ export class CoffeeComponent implements OnInit {
   viewProduct($id){
     this.router.navigate(['/products', +$id]);
   }
-  addToCart(item){
-    this.cartService.incrementQty(item, 1);
-    this.router.navigate(['/cart']);
+  toggleInfo(){
+    this.togInfo = this.togInfo? false : true;
   }
   ngOnInit() {
     this.producService.getProduct()

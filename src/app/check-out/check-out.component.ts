@@ -62,17 +62,19 @@ export class CheckOutComponent implements OnInit {
             this._router.navigate(['/order']);
             return
         }
+        
         let lastId = this.customers.reverse();
         if(lastId.length > 0){
             let id = parseInt(lastId[0].id)
             
-            this.cartService.saveCustomerDetails(details, id+1);
+            this.cartService.saveCustomerDetails(details, id += 1);
         }else{
             this.cartService.saveCustomerDetails(details, 1); 
         }
-           
+        
         // console.log(this.lastId);
         this._router.navigate(['/order']);
+        
     }
      sumCartPrice(cart){
         let priceArr = [];

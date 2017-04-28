@@ -11,10 +11,25 @@
   <section class="container cf-page-content">
     <div class="coffee-text">
       <h1>Our Great Coffee</h1>
-       <h6>At London City Roast, we are very particular about our coffee. We know what it takes to build a loyal customer base, and how providing a great-tasting coffee improves your bottom line.</h6>
-     <p> We source our coffees from all over the world, and roast them at our London Headquarters, to guarantee freshness and great taste. With over 5 years of roasting and blending experience, we pride ourselves on bringing you some of the finest coffees available.
-
-    Working with our experienced roaster on a daily basis, we ensure our coffees are rarely older than a few days, by the time they reach our customers across the country.</p>
+      <p style="margin:0px; padding:0px; opacity:0.4;">toggle switch to hide/show text</p>
+      <a (click)="toggleInfo()" type="">
+        <i *ngIf="!togInfo" class="fa fa-toggle-off" aria-hidden="true"></i>
+        <i *ngIf="togInfo" class="fa fa-toggle-on" aria-hidden="true"></i>
+        <!--<i *ngIf="togInfo" class="fa fa-caret-square-o-down" aria-hidden="true"></i>-->
+        <!--<i *ngIf="!togInfo" class="fa fa-caret-square-o-up" aria-hidden="true"></i>-->
+      </a>
+      <div class="togInfo" *ngIf="togInfo">
+        <h6>At London City Roast, we are very particular about our coffee. We know what it takes to build a loyal customer base, and how providing a great-tasting coffee improves your bottom line.</h6>
+        <p> We source our coffees from all over the world, and roast them at our 
+            London Headquarters, to guarantee freshness and great taste. With over 
+            5 years of roasting and blending experience, we pride ourselves on 
+            bringing you some of the finest coffees available.
+          Working with our experienced roaster on a daily basis, we ensure our 
+          coffees are rarely older than a few days, by the time they reach our 
+          customers across the country.
+         </p>
+      </div>
+       
     </div>
       <section class="coffees container">
         <div class="row content-wrapper">

@@ -67,6 +67,14 @@
                         <label for="formGroupExampleInput2">Telephone <span style="color: red">*</span></label>
                         <input type="text" class="form-control" formControlName="telephone" required pattern="^0\d{10}" placeholder="e.g 02078946526">
                     </div>
+                    <div class="col col-xs-12 col-lg-6 form-group">
+                        <label for="formGroupExampleInput2">Gender <span style="color: red">*</span></label>
+                        <select class="form-control" required formControlName="gender">
+                            <option value="Male" selected>Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                        <!--<input type="text" class="form-control" formControlName="telephone" required  placeholder="sex">-->
+                    </div>
                 </div>
                 <br><br>
                 <div class="row address-section">

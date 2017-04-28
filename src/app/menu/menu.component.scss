@@ -74,6 +74,7 @@
         position: fixed;
         width: 100%;
         height: 100vmax;
+        z-index: 10000;
         background-color: rgba(0,0,0, 0.5);
         
         .anonymous{
@@ -85,9 +86,18 @@
             text-align: center;
             @include transition(0.2s);
             .ano-content{
+                position: relative;
                 background-color: #fff;
                 opacity: 0.99;
                 width: 100%;
+                button.ano-b{background-color: slategray; color: #fff;}
+                i.fa-close{
+                    position: absolute;
+                    right: 10px;
+                    top: 10px;
+                    font-size: 20px;
+                    &:hover{color: red; cursor: pointer;}
+                }
                 h2{
                     // color: black;
                 }

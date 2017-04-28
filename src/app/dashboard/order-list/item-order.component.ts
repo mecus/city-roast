@@ -17,18 +17,19 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
                 <div class="row">
                     <div *ngFor="let order of orders">
                      
-                    <h5 style="color: #f48024" > {{order.name}}</h5>
+                    <div class="row"></div>
                     <hr>
 
                     <div class="col col-sm-4">
+                        <h5 style="color: #f48024" > {{order.name}}</h5>
                         <img [src]="order.image" style="width: 80px" alt="coffee pix">
                     </div>
-                    <div class="col col-sm-4">
+                    <div class="col col-sm-4 items">
                         <p><strong>Price:</strong> {{order.price | currency: 'GBP': true}}</p>
                         <p><strong>Blend:</strong>  {{order.type}}</p>
                         
                     </div>
-                    <div class="col col-sm-4">
+                    <div class="col col-sm-4 items">
                         
                         <p><strong>Qty:</strong>  {{order.qty}}</p>
                         <p><strong>Size:</strong>  {{order.size}}</p>
@@ -53,7 +54,10 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
         }
         .jumbotron button{
             margin-top:10px;
+            background-color:slategray;
+            border-color: slategray;
         }
+        .items{margin-top:30px;}
      `]
 
 })

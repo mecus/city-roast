@@ -10,7 +10,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AppService {
 
-    apiUrl = "http://localhost:3000/posts";
+    // apiUrl = "http://localhost:3000/posts";
 
     constructor(private af:AngularFire, private _http:Http) { }
 
@@ -19,14 +19,14 @@ export class AppService {
         let imageUrl = storage.child('/images/');
         // return imageUrl.getDownloadURL();
     }
-    getApiData():Observable<any[]>{
-        let header = new Headers();
-            header.append("Content-Type", "application/vnd.api+json");
+    // getApiData():Observable<any[]>{
+    //     let header = new Headers();
+    //         header.append("Content-Type", "application/vnd.api+json");
 
-        return this._http.get(this.apiUrl)
-            .map((res:Response)=>  res.json());
+    //     return this._http.get(this.apiUrl)
+    //         .map((res:Response)=>  res.json());
             
-    }
+    // }
     addContact(){
         return this.af.database.list('/contacts');
         

@@ -1,7 +1,17 @@
 export interface iOrder {
-    customerId: string;
-    orderId: string;
-    customerName: string;
+    // customerId: string;
+    // orderId: string;
+    // customerName: string;
+    // email: string;
+    // telephone: string;
+    // address: string;
+    // postcode: string;
+    // city: string;
+    // country: string;
+    // amount: string;
+    // orDate: Date;
+
+    name: string;
     email: string;
     telephone: string;
     address: string;
@@ -9,7 +19,9 @@ export interface iOrder {
     city: string;
     country: string;
     amount: string;
-    orDate: Date;
+    orderid: string;
+    status: string;
+    itemsid: string;
 }
 
 export class CustomerOrder {

@@ -10,6 +10,7 @@ import 'rxjs/add/operator/catch';
 
 import { iCart } from '../models/cart.model';
 import { Customer } from '../models/customer-details.model';
+import { iOrder } from '../models/order.model';
 
 @Injectable()
 export class CartService {
@@ -17,7 +18,7 @@ export class CartService {
     userId;
     apiUrl2 = "http://localhost:3000/orders"; 
     apiUrl = "https://mailer-server.herokuapp.com/orders";
-    apiCoffe = "https://mailer-server.herokuapp.com/coffees";
+    apiCoffee = "https://mailer-server.herokuapp.com/coffees";
     
     constructor(private af:AngularFire, private router:Router, private _http:Http) { 
        
@@ -140,22 +141,42 @@ export class CartService {
                 country: "United Kingdom",
                 created_at: createdDate,
 
-                deliveryOne: customer.deliveryOne,
-                deliveryTwo: customer.deliveryTwo,
-                deliveryCode: customer.deliveryCode,
-                deliveryCity: customer.deliveryCity,
-                deliveryCountry: "United Kingdom",
-                deliveryTrue: customer.deliveryTrue, //check if billing address is the same as delivery
+                // deliveryOne: customer.deliveryOne,
+                // deliveryTwo: customer.deliveryTwo,
+                // deliveryCode: customer.deliveryCode,
+                // deliveryCity: customer.deliveryCity,
+                // deliveryCountry: "United Kingdom",
+                // deliveryTrue: customer.deliveryTrue, //check if billing address is the same as delivery
 
             }
             let db = this.af.database.object('/customers/'+this.userId);
                 db.set(customerDetails)
-                    .then(res=>{console.log("Customer Saved")})
+                    .then((res)=>{
+                        console.log("Customer Saved");
+                    })
                     .catch(error=>{console.log(error)});
 
+            setTimeout(()=>{this.sortCustomer(customer)},500);
+            
         }
         
     }
+    sortCustomer(customer){
+        //check if customer exist?
+        let selectedCustomer
+        this.getAllCustomerDetails().subscribe((customers)=>{
+            selectedCustomer = customers.filter((xcustomer)=> {return xcustomer.email == customer.email});
+            
+        });
+        if(selectedCustomer.length > 1){
+            let key = selectedCustomer[0].$key;
+            // console.log(selectedCustomer);
+            // console.log(key);
+            let db = this.af.database.object('/customers/'+key);
+                db.remove().then(res=>console.log(res)).catch(error=>console.log(error));
+        }
+    }
+  
     updateCustomerDetails(customer){
         this.getUser();
         if(!customer){return}
@@ -164,6 +185,7 @@ export class CartService {
             firstName: customer.firstName,
             lastName: customer.lastName,
             email: customer.email,
+            gender: customer.gender,
             telephone: customer.telephone,
             addressOne: customer.addressOne,
             addressTwo: customer.addressTwo,
@@ -178,6 +200,7 @@ export class CartService {
                 .catch(error=>{console.log(error)});
 
     }
+
 
     getCustomerDetails(){
         this.getUser();
@@ -354,10 +377,10 @@ export class CartService {
     }
     //Creating Coffee items 
     makeCoffee(coffee){
-        this._http.post(this.apiCoffe, coffee, {headers:this.requestHeaders()}).map((res:Response)=>res.json())
+        this._http.post(this.apiCoffee, coffee, {headers:this.requestHeaders()}).map((res:Response)=>res.json())
             .subscribe(res=> console.log(res));
     }
-    getFinalOrder(){
+    getFinalOrder():Observable<iOrder[]>{
         return this._http.get(this.apiUrl, {headers: this.requestHeaders()}).map((res:Response)=> res.json().data);
     }
     patchFinalOrder(key){

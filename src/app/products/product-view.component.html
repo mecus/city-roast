@@ -19,7 +19,7 @@
     <div *ngIf="positiveNum" class="alert alert-danger small-screen" role="alert">
         please enter a valid number in the "Qty" box! to proceed.
     </div>
-    <button (click)="back()" class="btn btn-default small-screen" type="button"> <<back </button>
+    <button style="color:slategray;" (click)="back()" class="btn btn-default " type="button"> <i class="fa fa-arrow-left" aria-hidden="true"></i> back </button>
     <div *ngIf="!dproduct.name" class="progress container load-item">
         <div class="progress-loading">
             <strong> 
@@ -31,6 +31,17 @@
         <div class="col col-xs-12 col-sm-12 col-md-6 col-lg-6 product-img">
             <img [src]="dproduct.imageUrl" alt="product image">
             <!--<button (click)="back()" class="btn btn-secondary big-screen" type="button"> <<back </button>-->
+            <div class="row similar-prod">
+                <p><i class="fa fa-coffee" aria-hidden="true"></i> Similar Items <i class="fa fa-arrow-down" aria-hidden="true"></i></p>
+                <div class="col col-xs-4 col-lg-4" *ngFor="let simp of similaProd">
+                    <div class="jumbotron">
+                       <img (click)="simpView(simp)" [src]="simp.imageUrl" alt="Sim prod">
+                        <p>{{simp.size}}</p>
+                        <p><strong>{{simp.price | currency: 'GBP' :true}}</strong></p> 
+                    </div>
+                </div>
+                
+            </div>
         </div>
         <div class="col col-xs-12 col-sm-12 col-md-6 col-lg-6 product-details jumbotron">
             <h1>{{dproduct.name}}</h1>

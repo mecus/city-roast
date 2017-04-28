@@ -18,15 +18,18 @@
     <!--Anonymous login continue-->
     <div class="anonymous-wrapper" *ngIf="loginAlert">
       <div class="anonymous ">
+        
         <div class="ano-content jumbotron">
-          <button (click)="logAnonymous()" class="btn btn-default mce-btn-small" type="button">Continue as Guest</button>
+          <i (click)="closeWindow()" class="fa fa-close" aria-hidden="true"></i>
+          <button (click)="logAnonymous()" class="ano-b btn btn-default mce-btn-small" type="button"><i class="fa fa-user-circle-o" aria-hidden="true"></i> Be Our Guest</button>
           <p style="margin: 0px; padding: 0px;">OR</p>
           <p>Login with your email to benefit from the best experience our website can offer </p>
-          <button (click)="closeWindow()" routerLink="/login" class="btn mce-btn-small btn-primary" type="button">Login</button>
+          <button (click)="closeWindow()" routerLink="/login" class="btn mce-btn-small btn-success" type="button"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</button>
+          <button (click)="closeWindow()" routerLink="/signup" class="btn mce-btn-small btn-primary" type="button"><i class="fa fa-registered" aria-hidden="true"></i> Register</button>
           <br>
           <!--<h4 style="margin-top: 10px;">OR</h4>-->
-          <p>You may also want to <span class="btn" id="span" style="text-decoration: underline; color: lightslategrey" (click)="registerUser()">register</span> here </p>
-          <button (click)="closeWindow()" class="btn mce-btn-large btn-danger" type="">close</button>
+          <!--<p>You may also want to <span class="btn" id="span" style="text-decoration: underline; color: lightslategrey" (click)="registerUser()">register</span> here </p>
+          <button (click)="closeWindow()" class="btn mce-btn-large btn-danger" type="">close</button>-->
         </div>
       </div>
     </div>
@@ -52,7 +55,7 @@
       <li class="nav-item" >
         <a class="nav-link" routerLink="/dashboard" *ngIf="previlege" routerLinkActive="activated">cPanel</a>
       </li>
-      <li class="nav-item" routerLink="/cart" *ngIf="totalItem">
+      <li class="nav-item" routerLink="/cart" >
         <a class="nav-link cartSum" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-shopping-cart" aria-hidden="true"></i>
         <!--<span class="badge badge-primary">{{totalItem}}</span>-->
         </a>
