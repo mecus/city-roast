@@ -4,7 +4,7 @@ import { AngularFire, FirebaseAuthState,
     FIREBASE_PROVIDERS } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-// import * as firebase from 'firebase';
+import * as firebase from 'firebase';
 
 import { Router } from '@angular/router';
 import { User } from '../models/user.model';
@@ -63,11 +63,15 @@ export class AuthService {
     }
 
     logOut(){
-        this.af.auth.logout();
+        
         localStorage.removeItem('userId');
         localStorage.removeItem('currentUser');
         localStorage.removeItem('idToken');
-        location.reload();
+        if(localStorage.getItem('returnId')){
+            localStorage.removeItem('returnId');
+        }
+        return this.af.auth.logout();
+        // location.reload();
         
         // this.router.navigate(['/login']);
     }

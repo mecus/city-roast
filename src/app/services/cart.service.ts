@@ -371,32 +371,38 @@ export class CartService {
     //Creating final Order in the Rails Server
     finalOrder(body){
         let headers = new Headers();
-        headers.append("Content-Type", "application/vnd.api+json");
+        // headers.append("Content-Type", "application/vnd.api+json");
         // headers.append("Authorisation", "bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0OTIwNzQ1MDIsInN1YiI6M30.nC3jG2gXHsYZc4b6PdUZ0YQOpD54okXRwBER7o2VS0o")
-        return this._http.post(this.apiUrl, body, {headers: this.requestHeaders()}).map((res:Response)=> res.json());
+        return this._http.post(this.apiUrl, body, this.postRequestHeaders()).map((res:Response)=> res.json());
     }
     //Creating Coffee items 
     makeCoffee(coffee){
-        this._http.post(this.apiCoffee, coffee, {headers:this.requestHeaders()}).map((res:Response)=>res.json())
+        this._http.post(this.apiCoffee, coffee, this.postRequestHeaders()).map((res:Response)=>res.json())
             .subscribe(res=> console.log(res));
     }
     getFinalOrder():Observable<iOrder[]>{
-        return this._http.get(this.apiUrl, {headers: this.requestHeaders()}).map((res:Response)=> res.json().data);
+        return this._http.get(this.apiUrl, this.getRequestHeaders()).map((res:Response)=> res.json().data);
     }
     patchFinalOrder(key){
         let update = {"data":{"type": "orders", "id": key, "attributes":{"status":"completed"}}};
-        return this._http.patch(this.apiUrl+'/'+key, update, {headers:this.requestHeaders()})
+        return this._http.patch(this.apiUrl+'/'+key, update, this.postRequestHeaders())
                 .map((res:Response)=>res.json());
     }
     //Deleting a single Order
     deleteFinalOrder(id){
-        return this._http.delete(this.apiUrl+"/"+id, {headers: this.requestHeaders()}).map((res:Response)=> res.json());
+        return this._http.delete(this.apiUrl+"/"+id,  this.postRequestHeaders()).map((res:Response)=> res.json());
     }
-    public requestHeaders(){
-        let headers = new Headers();
-        headers.append("Content-Type", "application/vnd.api+json");
-        headers.append("Authorization", AUTHORIZATION);
-        return headers;
+    public getRequestHeaders(){
+        // let authTest = 'bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE0OTIwNzQ1MDIsInN1YiI6M30.nC3jG2gXHsYZc4b6PdUZ0YQOpD54okXRwBER7o2VS0o';
+        let headers = new Headers({'Authorization':AUTHORIZATION, 'Content-Type': 'application/vnd.api+json', 'Accept':'application/vnd.api+json'});
+        let options = new RequestOptions({headers:headers});
+        return options;
+
+    }
+    public postRequestHeaders(){
+        let headers = new Headers({'Authorization':AUTHORIZATION, 'Content-Type': 'application/vnd.api+json', 'Accept':'application/vnd.api+json'});
+        let options = new RequestOptions({headers:headers});
+        return options;
     }
     
 }

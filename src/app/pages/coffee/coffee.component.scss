@@ -37,6 +37,8 @@
         position: relative;
         min-height: 500px;
         background-color: #fff;
+        transition: 2s;
+        transition-timing-function: ease;
         // width: 100%;
         .coffee-text{
             margin: 0 auto;
@@ -62,6 +64,8 @@
         .coffees{
             margin: auto;
             text-align: center;
+            transition: 2s;
+            transition-timing-function: ease;
             .content-wrapper{
                 margin: 5px;
                 .coffee {

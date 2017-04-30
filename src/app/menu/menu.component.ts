@@ -6,15 +6,17 @@ import { CartService } from '../services/cart.service';
 import { Router } from '@angular/router';
 
 
+
 @Component({
     selector: 'app-menu',
     templateUrl: 'menu.component.html',
     styleUrls: ['menu.component.scss', 'media-query/menu.query.scss']
 })
-export class MenuComponent implements OnInit, OnChanges {
+export class MenuComponent implements OnInit {
     isRedlogo:boolean = false;
     regUser:boolean = false;
     anoUser:boolean = false;
+    currentuser;
     cartTotal;
     totalItem;
     
@@ -72,12 +74,15 @@ export class MenuComponent implements OnInit, OnChanges {
           this.cartService.clear();
         //   this.cartService.deleteCustomerDetails(); 
         }
-        this.authService.logOut();
-        
+        this.authService.logOut().then((res)=>{
+            // this.router.navigate(["/"]);
+            // this.router.navigate(['/login']);
+        }).catch(error=>console.log(error));
+        location.reload();
     }
-    notifyLogin(){
-        
-    }
+    // notifyLogin(){
+
+    // }
     logAnonymous(){
         if(!localStorage.getItem('idToken')){
             this.authService.logAnonymous()
@@ -105,10 +110,6 @@ export class MenuComponent implements OnInit, OnChanges {
          
     }
 
-    ngOnChanges(){
-
-    }
-  
     userChange(){
          this.authService.authUserChange().subscribe(
              user=>{
@@ -127,6 +128,10 @@ export class MenuComponent implements OnInit, OnChanges {
     timer;
     clearTimer(){
         clearInterval(this.timer)
+    }
+    stripMail(email){
+        let regx = /[A-Za-z]+\.?-?[A-Za-z]/
+        return email = regx;
     }
 
     ngOnInit() { 
@@ -163,6 +168,8 @@ export class MenuComponent implements OnInit, OnChanges {
                 this.loginAlert = true;
             }
         }, 50000);
+
+        this.currentuser = this.stripMail(localStorage.getItem('currentUser'));
     }
 
 }

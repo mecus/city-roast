@@ -1,5 +1,6 @@
 import { AngularFireModule, AuthMethods, AuthProviders, FIREBASE_PROVIDERS } from 'angularfire2';
 import { FIREBASEAPI } from './shared/secret';
+// declare let firebase: any;
   // Initialize Firebase
   export const firebaseConfig = {
     apiKey: FIREBASEAPI,

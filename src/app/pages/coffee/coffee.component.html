@@ -18,7 +18,7 @@
         <!--<i *ngIf="togInfo" class="fa fa-caret-square-o-down" aria-hidden="true"></i>-->
         <!--<i *ngIf="!togInfo" class="fa fa-caret-square-o-up" aria-hidden="true"></i>-->
       </a>
-      <div class="togInfo" *ngIf="togInfo">
+      <div class="togInfo" [@coffeState]="togtxt">
         <h6>At London City Roast, we are very particular about our coffee. We know what it takes to build a loyal customer base, and how providing a great-tasting coffee improves your bottom line.</h6>
         <p> We source our coffees from all over the world, and roast them at our 
             London Headquarters, to guarantee freshness and great taste. With over 
