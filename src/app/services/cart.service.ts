@@ -39,6 +39,7 @@ export class CartService {
                 id: product.id,
                 name: product.name,
                 price: product.price,
+                oldprice: product.oldprice,
                 qty: num,
                 size: product.size,
                 type: blend,
@@ -54,14 +55,14 @@ export class CartService {
         }
 
     }
-    incrementQty(cartItem, num?, blend?){
+    incrementQty(cartItem, num, blend?){
         let key = cartItem.$key;
         let qty = parseInt(cartItem.qty);
         let cart, thisblend;
         this.getCart().subscribe(cartArr=>{
             cartArr;
-            cart = cartArr.find((cart)=> cart.id === cartItem.id);
-            thisblend = cartArr.find((cart)=> cart.type === blend);
+            // cart = cartArr.find((cart)=> cart.id === cartItem.id);
+            // thisblend = cartArr.find((cart)=> cart.type === blend);
         });
         this.addCart(cartItem, num, blend);
         // if(thisblend !== blend){
@@ -241,6 +242,7 @@ export class CartService {
         let body = {"data": {"type":"orders",
                     "attributes":{
                     "name": customer.customerName,
+                    "customerid": customer.customerId,
                     "email": customer.email,
                     "telephone": customer.telephone,
                     "address": customer.address,
@@ -353,6 +355,16 @@ export class CartService {
     deleteAllOrder(key){
         let oRdb = this.af.database.list('/allorders/orders/'+key);
         oRdb.remove().then((res)=>console.log(res)).catch((error)=>console.log(error));
+    }
+    //Creating Admin control delete function
+    deleteAdminOrder(uid, key){
+        let oRdb = this.af.database.list('/allorders/orders/'+key);
+        oRdb.remove().then((res)=>console.log(res)).catch((error)=>console.log(error));
+
+        let dlDb = this.af.database.list('/allorders/userorders/'+uid);
+            dlDb.remove().then(response=> console.log(response))
+                        .catch(error=>console.log(error));
+
     }
 
     //Retrieving Order Items and Deleting them

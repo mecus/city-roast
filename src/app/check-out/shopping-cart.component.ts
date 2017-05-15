@@ -20,6 +20,7 @@ export class ShoppingCartComponent implements OnInit {
     user = "kam";
     cartproduct = [];
     sumCart;
+    sumOldCart;
     accepTerms:boolean = false;
     liginAlert:boolean = false;
     currentuser;
@@ -48,11 +49,14 @@ export class ShoppingCartComponent implements OnInit {
     }
      sumCartPrice(cart){
         let priceArr = [];
+        let oldPrice = [];
              cart.forEach(element=>{
             priceArr.push(element.price * element.qty);
+            oldPrice.push(element.oldprice * element.qty);
         });
         
         this.sumCart = priceArr.reduce(this.sumTotal, 0);
+        this.sumOldCart = oldPrice.reduce(this.sumTotal, 0);
         
     }
 

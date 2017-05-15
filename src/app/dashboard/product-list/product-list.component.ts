@@ -35,7 +35,7 @@ export class ProductListComponent implements OnInit {
      }
      seeProduct(product){
          let id = product.id;
-         this.router.navigate(['products/'+id]);
+         this.router.navigate(['coffees/'+id]);
 
      }
    

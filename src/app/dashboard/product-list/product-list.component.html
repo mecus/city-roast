@@ -17,6 +17,7 @@
         <th>Product</th>
         <th>Price</th>
         <th>Size</th>
+        <th>Cat</th>
         <th>Description</th>
         <th><i class="fa fa-coffee" aria-hidden="true"></i></th>
         <!--<th> <a ><button routerLink="/dashboard/new-product" class="btn btn-secondary">Add</button></a></th>-->
@@ -41,6 +42,7 @@
         <td (click)="seeProduct(product)"><h5 style="color: #f48024"><a  [style.font-size.px]="12" >{{product.name}} </a></h5> </td>
         <td>{{product.price | currency: 'GBP' :true}}</td>
         <td>{{product.size}}</td>
+        <td>{{product.category}}</td>
         <td><p [style.font-size.px]="13">{{product.description}}</p></td>
         <!--<td > <button class="btn btn-default" (click)="getValue(product)" type="">Edit</button></td>-->
         <td><i style="cursor:pointer; font-size:18px;" (click)="getValue(product)" class="fa fa-pencil-square-o" aria-hidden="true"></i></td>

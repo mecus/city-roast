@@ -9,12 +9,24 @@
             <input  type="text" class="form-control" formControlName="name" required placeholder="product name">
         </div>
         <div class="form-group">
-            <label for="Product Code">Price</label>
-            <input type="text" class="form-control" formControlName="price" required pattern="[0-9]+\.?[0-9]+" placeholder="price">
+            <div class="col col-lg-6">
+               <label for="Product Price">Old Price</label>
+                <input type="text" class="form-control" formControlName="oldprice" required pattern="[0-9]+\.?[0-9]+" placeholder="old price"> 
+            </div>
+            <div class="col col-lg-6">
+                <label for="Product Price">Now Price</label>
+                <input type="text" class="form-control" formControlName="price" required pattern="[0-9]+\.?[0-9]+" placeholder="now price">
+            </div>
         </div>
         <div class="form-group">
-            <label for="code">Product Code</label>
-            <input type="text" class="form-control" formControlName="code" required pattern="[0-9]+" placeholder="product code">
+            <div class=" col col-lg-6">
+                <label for="code">Product Code</label>
+                <input type="text" class="form-control" formControlName="code" required pattern="[0-9]+" placeholder="product code">
+            </div>
+            <div class=" col col-lg-6">
+                <label for="category">Product Category</label>
+                <input type="text" class="form-control" formControlName="category" required placeholder="product category">
+            </div>
         </div>
         <!--Add Blend, Size, and Roast-->
         <div class="row">
@@ -24,6 +36,7 @@
                 <select type="text" class="form-control" formControlName="blend" placeholder="Blend">
                     <option value="Coffee beans">Coffee Beans</option>
                     <option value="Espresso">Espresso</option>
+                    <option value="Nespresso">Nespresso</option>
                     <option value="Paper Filter">Paper Filter</option>
                     <option value="French Press">French Press</option>
                     <option value="Metal Filter">Metal Filter</option>

@@ -14,6 +14,14 @@ export class AppService {
 
     constructor(private af:AngularFire, private _http:Http) { }
 
+    public subscription(subscribe){
+        let fb_ref = this.af.database.list("/subscriptions");
+            fb_ref.push(subscribe).then((res)=>{
+                console.log(res);
+            }).catch(error=>console.log(error));
+        return fb_ref;
+    }
+
     getImages(){
         let storage = firebase.storage().ref();
         let imageUrl = storage.child('/images/');

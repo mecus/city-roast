@@ -12,6 +12,9 @@ import { UpdateProductComponent } from './update-product/update-product.componen
 import { ContactsComponent } from './contacts/contacts.component';
 import { CustomersComponent } from './customers/customers.component';
 import { ItemOrderComponent } from './order-list/item-order.component';
+import { NewBlog } from './blogs/newblog/newblog.component';
+import { BlogPost } from './blogs/newblog/blog.component';
+import { BlogService } from '../services/blog.service';
 
 @NgModule({
   imports: [
@@ -24,7 +27,8 @@ import { ItemOrderComponent } from './order-list/item-order.component';
     OrderListComponent, NewProductComponent, 
     UpdateProductComponent, 
     ContactsComponent, CustomersComponent,
-    ItemOrderComponent
-  ]
+    ItemOrderComponent, NewBlog, BlogPost
+  ],
+  providers: [BlogService]
 })
 export class DashboardModule { }

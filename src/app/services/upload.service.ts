@@ -12,7 +12,7 @@ export class UploadService {
 
     uploadImage(selectedFile){
         let filename = selectedFile.name;
-        let storageRef = firebase.storage().ref('/images/' + filename);
+        let storageRef = firebase.storage().ref('/blogimages/' + filename);
         let uploadTask = storageRef.put(selectedFile);
         uploadTask.on('state_changed', (snapshot)=>{
 
@@ -33,6 +33,7 @@ export class UploadService {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         let downloadURL = uploadTask.snapshot.downloadURL;
+       
         // localStorage.setItem('downloadURL', (downloadURL) );
         
         

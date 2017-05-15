@@ -29,15 +29,20 @@
     </div>
     <div *ngIf="dproduct.name" class="row product-disply">
         <div class="col col-xs-12 col-sm-12 col-md-6 col-lg-6 product-img">
+            <div *ngIf="dproduct.size" class="p-size">
+                <div class="badge">
+                    <h5>{{dproduct.size}}</h5>
+                </div>
+            </div>
             <img [src]="dproduct.imageUrl" alt="product image">
             <!--<button (click)="back()" class="btn btn-secondary big-screen" type="button"> <<back </button>-->
             <div class="row similar-prod">
                 <p><i class="fa fa-coffee" aria-hidden="true"></i> Similar Items <i class="fa fa-arrow-down" aria-hidden="true"></i></p>
                 <div class="col col-xs-4 col-lg-4" *ngFor="let simp of similaProd">
-                    <div class="jumbotron">
+                    <div [class.selected]="simp.id === active" class="jumbotron">
                        <img (click)="simpView(simp)" [src]="simp.imageUrl" alt="Sim prod">
                         <p>{{simp.size}}</p>
-                        <p><strong>{{simp.price | currency: 'GBP' :true}}</strong></p> 
+                        <p style="color:#f48024"><strong>{{simp.price | currency: 'GBP' :true}}</strong></p> 
                     </div>
                 </div>
                 
@@ -45,7 +50,9 @@
         </div>
         <div class="col col-xs-12 col-sm-12 col-md-6 col-lg-6 product-details jumbotron">
             <h1>{{dproduct.name}}</h1>
-            <h5><span>Price: </span>{{dproduct.price | currency: 'GBP' :true}}</h5>
+            <!--<h5 id="oldprice"><small>was</small> {{dproduct.oldprice | currency: 'GBP' :true}}</h5>-->
+            <h5 *ngIf="dproduct.oldprice"><span>Price: </span> <small style="text-decoration: line-through; color:red">was {{dproduct.oldprice | currency: 'GBP' :true}}</small> <small>now</small>  {{dproduct.price | currency: 'GBP' :true}}</h5>
+            <h5 *ngIf="!dproduct.oldprice"><span>Price: </span>{{dproduct.price | currency: 'GBP' :true}}</h5>
             <div class="cart-select">
                 <span> <strong>Qty: </strong></span>
                 <input #val type="number" class="form-control s-input" name="count" value="1" pattern="[0-9]+" >
@@ -53,7 +60,7 @@
             </div>
 
             <div class="">
-                <div class="pick-type">
+                <div *ngIf="dproduct.size" class="pick-type">
                     <label for="size"><strong>Size:</strong> </label>
                     <select class="form-control custom-select" #size>
                         <option value="500gm" selected>{{dproduct.size}}</option>
@@ -66,6 +73,7 @@
                 <div class="pick-type">
                     <span><label for="blend"> <strong>Blend: </strong> </label></span>
                     <select class="form-control custom-select" #blend>
+                        <option *ngIf="dproduct.name.includes('Nespresso')" value="Nespresso" selected>Nespresso</option>
                         <option value="Expresso" selected>Espresso</option>
                         <option value="Coffee beans">Coffee Beans</option>
                         <option value="Paper filter">Paper Filter</option>

@@ -28,12 +28,14 @@ export class NewProductComponent implements OnInit {
         this.newproduct = fb.group({
             id: "",
             name: ["", Validators.minLength(2) ],
+            oldprice:"",
             price: [""],
             code: ["", Validators.minLength(4)],
             blend: "",
             size: "",
             roast: "",
             imageUrl: "",
+            category: "",
             description: ["", Validators.minLength(20)]
         });
      }
@@ -50,7 +52,7 @@ export class NewProductComponent implements OnInit {
      createProd(product:Product){
         this.productService.addProduct(product);
        
-         this.router.navigate(['/products']);
+         this.router.navigate(['/dashboard/products-list']);
      }
      getLastProdId(){
         this.productService.getProduct().subscribe((data)=>{

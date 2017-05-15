@@ -1,10 +1,15 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
+import { FormGroup, FormControl, Validator, FormBuilder } from '@angular/forms';
 import { Images, WelcomeImage } from '../../shared/images/images';
 import { ProductService } from '../../services/product.service';
 import { Router } from '@angular/router';
 import { CartService } from '../../services/cart.service';
+import { AppService } from '../../services/app.service';
+import { BlogService } from '../../services/blog.service';
 import { Observable } from 'rxjs/Observable';
 import { animate, state, trigger, transition, style } from '@angular/animations';
+
+
 
 
 @Component({
@@ -28,9 +33,11 @@ import { animate, state, trigger, transition, style } from '@angular/animations'
   ]
 })
 export class HomeComponent implements OnInit {
+  title = "Welcome";
   image = WelcomeImage;
   products = [];
   mProducts = [];
+  blogs;
   displayImg = WelcomeImage[2];
   isHide:boolean = true;
   itemAdd:boolean = false;
@@ -38,8 +45,17 @@ export class HomeComponent implements OnInit {
   isSlider:boolean = false;
 
   state = "small";
+  subForm:FormGroup;
+  subscib:boolean = true;
 
-  constructor(private productService:ProductService, private router:Router, private cartService:CartService) { }
+  subsuccess:boolean = false;
+  constructor(private productService:ProductService, 
+              private router:Router, private appService:AppService,
+              private cartService:CartService, private _fb:FormBuilder,
+              private blogService:BlogService
+              ) { }
+  
+  
 
   seeSlidepic(){
     this.isSlider = true;
@@ -50,7 +66,7 @@ export class HomeComponent implements OnInit {
 
   viewProduct(data):void{
     let param = data.id;
-    this.router.navigate(['products/'+param]);
+    this.router.navigate(['coffees/'+param]);
 
   }
   selectImg(image){
@@ -60,45 +76,61 @@ export class HomeComponent implements OnInit {
   closeImage(){
     this.isHide = true;
   }
-  // addToCart(item){
-  //  if(localStorage.getItem('currentUser')){
-  //     this.itemAdd = true;
-  //     setTimeout(()=>{this.itemAdd = false;}, 6000);
-    
-  //     this.cartService.incrementQty(item, 250, 1);
-  //  }else{
-
-  //    this.isLogin = true;
-  //    setTimeout(()=>{this.isLogin = false;}, 6000)
-  //  }
-    
-    
-  // }
   toggleState(){
     this.state = this.state? "large" : "small";
   }
 
+  subscription(subscribe){
+    // console.log(subscribe);
+    this.appService.subscription(subscribe).subscribe((res)=>{
+      setTimeout(()=>{
+        this.subsuccess = true;
+      }, 500)
+      
+    })
+    this.subForm = this._fb.group({
+        subscriber: ""
+      });
+    
+  }
+  private closeSub(){
+    this.subscib = false;
+  }
   ngOnInit() {
+    this.subForm = this._fb.group({
+      subscriber: [""]
+    });
+
     this.productService.getProduct()
         .subscribe(products=>{
-          this.mProducts = products.reverse();
+          this.mProducts = products.filter((product)=>{
+            return product.category === "Sales";
+          })
+          // this.mProducts = products.reverse();
         });
       
     this.productService.getProduct()
-        .subscribe(products=>{
-          let reverse = products.reverse();
-    
-          if (reverse.length > 1){
-            reverse.length = 5
-            this.products = reverse;
+        .subscribe(product=>{
+          let products = product.filter((product)=>{
+            return product.category === "Sales";
+          })
+          
+          products.reverse();
+          
+          if (products.length > 1){
+            products.length = 5
+            this.products = products;
           }else{
-            if(reverse.length >= 3){
-              reverse.length = 3
-              this.products = reverse
+            if(products.length >= 3){
+              products.length = 3
+              this.products = products
             }
           }
         });
       
+      this.blogService.getBlog().subscribe((blogs)=>{
+        this.blogs = blogs;
+      })
   }
 
 }

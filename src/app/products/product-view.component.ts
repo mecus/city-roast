@@ -14,6 +14,7 @@ import { AuthService } from '../authentications/auth-service';
 })
 export class ProductViewComponent implements OnInit {
     islogin:boolean = false;
+    active;
     positiveNum:boolean = false;
     product;
     products=[];
@@ -77,8 +78,9 @@ export class ProductViewComponent implements OnInit {
         
     }
     simpView(simp){
-        this.router.navigate(["products/"+simp.id]);
+        this.router.navigate(["coffees/"+simp.id]);
         this.simVee = true;
+        this.active = simp.id;
         
     }
     ngOnInit() { 

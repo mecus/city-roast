@@ -42,7 +42,7 @@ export class CoffeeComponent implements OnInit {
 
 
   viewProduct($id){
-    this.router.navigate(['/products', +$id]);
+    this.router.navigate(['/coffees', +$id]);
   }
   toggleInfo(){
     this.togInfo = this.togInfo? false : true;

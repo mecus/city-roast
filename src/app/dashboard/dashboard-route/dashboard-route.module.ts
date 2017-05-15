@@ -9,6 +9,8 @@ import { UpdateProductComponent } from '../update-product/update-product.compone
 import { ContactsComponent } from '../contacts/contacts.component';
 import { CustomersComponent } from '../customers/customers.component';
 import { ItemOrderComponent } from '../order-list/item-order.component';
+import { NewBlog } from '../blogs/newblog/newblog.component';
+import { BlogPost } from '../blogs/newblog/blog.component';
 
 import { AuthGuard } from '../../app-auth-guard.service';
 
@@ -24,7 +26,9 @@ const dashRoutes:Routes = [
       {path: 'update-product', component: UpdateProductComponent},
       {path: 'contacts', component: ContactsComponent},
       {path: 'customers', component: CustomersComponent},
-      {path: 'items/:id', component: ItemOrderComponent}
+      {path: 'items/:id', component: ItemOrderComponent},
+      {path: 'blogs', component: BlogPost},
+      {path: 'newblog', component:NewBlog}
     ]
   }
 ]

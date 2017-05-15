@@ -37,7 +37,7 @@
               <div class="coffee-wrapper">
                 <div class="coffee-img">
                   <div class="p-size">
-                    <div class="badge">
+                    <div *ngIf="product.size" class="badge">
                       <h5 >{{product.size}}</h5>
                     </div>
                   </div>
@@ -46,6 +46,8 @@
                   <div class="coffee-title">
                     <h1>{{product.name}}</h1>
                     <h6>{{product.blend}}</h6>
+                    <h5 *ngIf="product.oldprice" id="oldprice"><small>was</small> {{product.oldprice | currency: 'GBP' :true}}</h5>
+                    <h6 style="color:red"><small>now</small> {{product.price | currency: 'GBP' :true}}</h6>
                     <!--<h6>{{product.roast}}</h6>-->
                     <a><button (click)="viewProduct(product.id)" class="btn btn-default" type=""><i class="fa fa-cart-plus" aria-hidden="true"></i> Order Now</button></a>
                   </div>

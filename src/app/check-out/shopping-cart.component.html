@@ -38,11 +38,15 @@
         <div class="cart-5">
           <p><i (click)="removeItem(item.$key)" class="fa fa-times remove-cart-i" aria-hidden="true"></i></p>
         </div>
+       
       </div>
       <hr>
+       <p style="padding:0px; margin:0px; font-size:12px; margin-left: 20px;">You just Saved:
+         <span style="color:red;">- {{sumOldCart - sumCart | currency:'GBP':true}}</span>
+       </p>
       <div class="row total-cart">
         <div class="col col-xs-6"><h5>Total:</h5></div>
-        <div class="col col-xs-6"><p><strong>{{sumCart | currency: 'GBP': true}}</strong></p></div>
+        <div class="col col-xs-6"><p style="color:#f48024"><strong>{{sumCart | currency: 'GBP': true}}</strong></p></div>
  
       </div>
     </div>
@@ -82,11 +86,20 @@
         </table>
         <div class="sum-container" *ngIf="cartproduct.length > 0">
           <div class="row cartSum">
-            <div class="col col-lg-6">
-              <h5>Net Total:</h5>
+            
+            <div style="padding: 10px;" class="col col-lg-12">
+              <h6 style="color:slategray"><small>You Just Saved yourself</small>
+                <span style="color:red;">- {{sumOldCart - sumCart | currency:'GBP':true}}</span>
+              </h6>
+              
             </div>
-            <div class="col col-lg-6">
-              <h4 style="letter-spacing:2px;"><strong>{{sumCart | currency: 'GBP': true}}</strong>p</h4>
+            <div  class="col col-lg-12" style="background-color:#000; padding: 10px;">
+              <div class="col col-lg-6">
+                <h5 style="color:#fff">Net Total:</h5>
+              </div>
+              <div class="col col-lg-6">
+                <h4 style="letter-spacing:2px; color:#f48024"><strong>{{sumCart | currency: 'GBP': true}}</strong></h4>
+              </div>
             </div>
      
           </div>
@@ -98,7 +111,7 @@
               <div class="check-out right-nav">
                 
                   <button [disabled]="!accepTerms" id="btn-check" *ngIf="cartproduct.length > 0" (click)="moveTopayment()" class="btn btn-success" type="button">Check Out <i  class="fa fa-shopping-basket" aria-hidden="true"></i></button>
-                  <button routerLink="/coffee" class="btn btn-success" type="button">Keep Shopping <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
+                  <button routerLink="/coffees" class="btn btn-success" type="button">Keep Shopping <i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
               </div>
           </div>
           

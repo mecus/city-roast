@@ -18,8 +18,10 @@ export class UpdateProductComponent implements OnInit {
             private router:Router, private _location:Location) { 
         this.updateVal = fb.group({
             name: ["", ],
+            oldprice:"",
             price: ["", ],
             code: ["", ],
+            category: "",
             blend: "",
             size: "",
             roast: "",
@@ -46,8 +48,10 @@ export class UpdateProductComponent implements OnInit {
         if(this.productService.rdata){
             this.updateVal.patchValue({
                 name: this.patchdata.name,
+                oldprice: this.patchdata.oldprice,
                 price: this.patchdata.price,
                 code: this.patchdata.code,
+                category: this.patchdata.category,
                 //  <!--Add Blend, Size, and Roast-->
                 blend: this.patchdata.blend,
                 size: this.patchdata.size,

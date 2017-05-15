@@ -1,0 +1,37 @@
+<section>
+
+  <div>
+ 
+    <table class="table table-striped">
+      <thead class="thead-inverse">
+        <tr>
+          <th>Image</th>
+          <th>Title</th>
+          <th>Header</th>
+          <th>Post Date</th>
+        
+          <th><i style="cursor:pointer; font-size:18px;" routerLink="/dashboard/newblog" class="fa fa-plus" aria-hidden="true"></i></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let blog of blogs">
+          <td>
+            <img style="width:80px;" [src]="blog.blogImage" alt="">
+          </td>
+          <td>{{blog.title}}</td>
+          <!--<td>{{blog.blogImage}}</td>-->
+          <td *ngFor="let body of blog.body">
+            <p>
+              {{body.header}}
+            </p>
+            <!--<p>{{body.paragraph}}</p>-->
+
+          </td>
+          <td>{{blog.postdate | date}}</td>
+         <td> <i (click)="removeBlog(blog.$key)" class="fa fa-times" aria-hidden="true"></i> </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</section>

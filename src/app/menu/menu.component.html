@@ -43,7 +43,7 @@
         <a class="nav-link" routerLink="/about" routerLinkActive="activated">About </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/coffee" routerLinkActive="activated">Buy Coffee</a>
+        <a class="nav-link" routerLink="/coffees" routerLinkActive="activated">Buy Coffee</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" routerLink="/brewing" routerLinkActive="activated">Brewing Method</a>
@@ -128,8 +128,8 @@
         <i (click)="closeMenu()" class="fa fa-long-arrow-right" aria-hidden="true"></i>
     </div>
     <div class="col-xs-6 user-ac">
-      <i (click)="closeMenu()" routerLink="/account" class="fa fa-user" *ngIf="previlege && regUser" aria-hidden="true"></i><span (click)="closeMenu()" routerLink="/account" *ngIf="previlege && regUser">Admin</span>
-      <i (click)="closeMenu()" routerLink="/account" class="fa fa-user" *ngIf="!previlege && regUser" aria-hidden="true"></i><span (click)="closeMenu()" routerLink="/account" *ngIf="!previlege && regUser">User</span>
+      <i (click)="closeMenu()" routerLink="/checkout" class="fa fa-user" *ngIf="previlege && regUser" aria-hidden="true"></i><span (click)="closeMenu()" routerLink="/checkout" *ngIf="previlege && regUser">Admin</span>
+      <i (click)="closeMenu()" routerLink="/checkout" class="fa fa-user" *ngIf="!previlege && regUser" aria-hidden="true"></i><span (click)="closeMenu()" routerLink="/checkout" *ngIf="!previlege && regUser">User</span>
       <i class="fa fa-user" *ngIf="anoUser" aria-hidden="true"></i><span *ngIf="anoUser">Guest</span>
       <i class="fa fa-user" *ngIf="!anoUser && !regUser"  aria-hidden="true"></i><span *ngIf="!anoUser && !regUser">No user?</span>
     </div>
@@ -147,7 +147,7 @@
       </li>
       <li class="nav-item aside">
         <i class="fa fa-coffee" aria-hidden="true"></i>
-        <a class="nav-link" (click)="closeMenu()" routerLink="/coffee" routerLinkActive="activated">Our Coffee</a>
+        <a class="nav-link" (click)="closeMenu()" routerLink="/coffees" routerLinkActive="activated">Buy Coffee</a>
       </li>
       <li class="nav-item aside">
         <i class="fa fa-ravelry" aria-hidden="true"></i>
