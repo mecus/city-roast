@@ -1,0 +1,66 @@
+<div class="container" id="content">
+    <div *ngIf="order" class="order-info card white">
+        <div class="card-content gray-text">
+            <span class="card-title">{{order.customerName}}</span>
+            <p>{{order.address}}</p>
+            <p>{{order.city}}</p>
+            <p>{{order.postcode}}</p>
+            <p>{{order.country}}</p>
+        </div>
+        <div class="card-action">
+            <a>Print Label</a>
+        </div>
+    </div>
+    <div class="items">
+        <table class="centered striped" *ngIf="order && order.basket">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Item Name</th>
+                    <th>Item Price</th>
+                    <th>Qty</th>
+                    <th>Size</th>
+                </tr>
+            </thead>
+    
+            <tbody>
+                <tr *ngFor="let order of (order.basket)">
+                <td>
+                    <img style="width: 50px;" [src]="order.imageUrl" alt="">
+                </td>
+                <td>{{order.name}}</td>
+                <td>{{order.price | currency: 'GBP':true}}</td>
+                <td>{{order.qty}}</td>
+                <td>{{order.size}}</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- <div class="row" *ngIf="order && order.basket">
+            <div *ngFor="let order of (order.basket)">
+                
+            <div class="row"></div>
+            <hr>
+
+            <div class="col col-sm-4">
+                <h5 style="color: #f48024" > {{order.name}}</h5>
+                <img [src]="order.image" style="width: 80px" alt="coffee pix">
+            </div>
+            <div class="col col-sm-4 items">
+                <p><strong>Price:</strong> {{order.price | currency: 'GBP': true}}</p>
+                <p><strong>Blend:</strong>  {{order.type}}</p>
+                
+            </div>
+            <div class="col col-sm-4 items">
+                
+                <p><strong>Qty:</strong>  {{order.qty}}</p>
+                <p><strong>Size:</strong>  {{order.size}}</p>
+            </div>
+        </div>
+            
+        </div> -->
+        <button routerLink="/dashboard/orders-list" class="btn btn-primary">Back</button>
+        <br>
+    </div>
+
+</div>

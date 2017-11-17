@@ -1,6 +1,5 @@
 
 
-
 .cus-details{
     margin: 0px;
     padding: 0px;
@@ -63,6 +62,14 @@
 
     .shipping-address{
         position: relative;
+
+            width: 100%;
+            h4{
+                font-size: 1.5em;
+            }
+        .jumbotron{
+            background-color: #ffffff;
+        }
         // border: 1px solid;
         // border-color: lightslategrey;
         // background-color: lightslategrey;
@@ -194,5 +201,34 @@
         margin-bottom: 10px;
         p{font-size: 12px;}
         width: 100%;
+    }
+    .page-wrapper{
+        margin: 0px;
+        padding: 0px;
+        width: 100%;
+        padding: 20px;
+        .order-content{
+            .shipping-address{
+                width: 100%;
+                h4{
+                    font-size: 1.5em;
+                }
+            }
+            .jumbotron{
+                width: 100%;
+            }
+        }
+        form{
+            width: 100%;
+            .form-group{
+                width: 100% !important;
+                input{
+                    width: 100%;
+                }
+            }
+            button{
+                margin: 10px;
+            }
+        }
     }
 }

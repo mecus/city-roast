@@ -1,12 +1,14 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { CartService } from '../services/cart.service';
+import { CheckOutService } from '../services/check-out.service';
 import { CustomerOrder } from '../models/order.model';
 import { Customer, iCustomer } from '../models/customer-details.model';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MailService } from '../services/mail.service';
 import { Router } from '@angular/router';
-import { Md5 } from 'ts-md5/dist/md5';
-import { SHA1 } from '../services/functions';
+import { CartService } from '../services/cart.service';
+import { AuthService } from '../authentications/auth-service';
+import { OrderService } from '../services/order.service';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'order',
@@ -15,9 +17,10 @@ import { SHA1 } from '../services/functions';
 })
 export class OrderComponent implements OnInit {
     itemKeys; orderKeys;
+    spinner:boolean = true;
     lsOrder;
-    orders=[];
-    customer=[];
+    basket$=[];
+    customer;
     customerkey;
     sumCart:number = 0;
     cusOrder;
@@ -37,8 +40,10 @@ export class OrderComponent implements OnInit {
     ordelivery:number = 0;
     shippingMethod:string = "Free Delivery";
 
-    constructor(private cartService:CartService, private _fb:FormBuilder, private _router:Router,
-    private _mailService:MailService) {
+    constructor(private checkoutService:CheckOutService, private _fb:FormBuilder, private _router:Router,
+    private _mailService:MailService, private cartService:CartService, private authService:AuthService,
+    private orderService:OrderService, private meta:Meta, private title:Title) {
+        title.setTitle('Order Review');
         this.orderForm = _fb.group(this.newOrder);
 
         this.editForm = _fb.group(this.editValue);
@@ -47,6 +52,7 @@ export class OrderComponent implements OnInit {
      }
 
     @HostListener('change', ['$event']) onChange($event) {
+        $event.stopPropagation();
             if($event.target.id == 'free' && $event.target.checked == true){
                 if(this.sumCart < 30){
                     this.freeAlert = true;
@@ -91,7 +97,7 @@ export class OrderComponent implements OnInit {
     }
 
     saveCustomerUpdate(value){
-        this.cartService.updateCustomerDetails(value);
+        this.authService.updateAccount(value);
         this.isEdit = false;
     }
 
@@ -104,86 +110,95 @@ export class OrderComponent implements OnInit {
 
     
     createOrder(){
-         
-        if(this.lsOrder.length > 0){
-            this.cartService.createOrder(
-            this.orderForm.value, 
-            this.shippingMethod, this.orders,
-            this.sumCart+this.deliveryFee, this.lsOrder[0].id);
-        }else{
-            this.cartService.createOrder(
-            this.orderForm.value, 
-            this.shippingMethod, this.orders, 
-            this.sumCart+this.deliveryFee, this.lsOrder[0].id);
+        // console.log(this.orderForm.value);
+        if(this.orderForm.value){
+            this.orderService.createOrder(
+                this.orderForm.value, 
+                this.shippingMethod, this.basket$,
+                this.sumCart+this.deliveryFee);
         }
+        this._router.navigate(["/payment-method"]);
+        // else{
+        //     this.orderService.createOrder(
+        //     this.orderForm.value,
+        //     this.shippingMethod, this.basket$, 
+        //     this.sumCart+this.deliveryFee, this.lsOrder[0].id);
+        // }
     //Send Email to the customer
-    this.sendOrderEmail(this.orderForm.value.customerName, this.orderForm.value.email);
+    // this.sendOrderEmail(this.orderForm.value.customerName, this.orderForm.value.email);
     }
-    sendOrderEmail(name, email){
-        this._mailService.sendMail(name, email)
-            .subscribe(res=> res);
-    }
+    // sendOrderEmail(name, email){
+    //     this._mailService.sendMail(name, email)
+    //         .subscribe(res=> res);
+    // }
     deleteItem(){       
         this.itemKeys.forEach((item)=>{ 
-            this.cartService.deleteOrderItems(item.$key);
+            this.checkoutService.deleteOrderItems(item.$key);
         });
-        this.cartService.deleteAllOrder(this.orderKeys.$key);
-        this.cartService.deleteOrder();
+        this.checkoutService.deleteAllOrder(this.orderKeys.$key);
+        this.checkoutService.deleteOrder();
         this._router.navigate(["/checkout"]);
     }
 
     ngOnInit() {
+        this.cartService.createDb();
         //Only allowed user if they logged in
         if(!localStorage.getItem('currentUser')){
             this._router.navigate(["/login"])
             return
         }
-        this.cartService.getFinalOrder().subscribe((orders)=>{
-            this.lsOrder = orders.reverse();
-            // console.log(orders[0].id || 1);
+        // this.checkoutService.getFinalOrder().subscribe((orders)=>{
+        //     this.lsOrder = orders.reverse();
+        //     // console.log(orders[0].id || 1);
             
-        });
-         this.cartService.getOrderItems().subscribe((items)=>{
-            this.itemKeys = items.filter((item)=>{
-                return item.customerId == localStorage.getItem("userId");
-            });
+        // });
+        //  this.checkoutService.getOrderItems().subscribe((items)=>{
+        //     this.itemKeys = items.filter((item)=>{
+        //         // return item.customerId == localStorage.getItem("userId");
+        //     });
         
-        });
-        this.cartService.getOrder().subscribe((orders)=>{
-             this.orderKeys = orders.find((order)=>{
-                return order.customerId == localStorage.getItem("userId");
-            });
-        });
+        // });
+        // this.checkoutService.getOrder().subscribe((orders)=>{
+        //     //  this.orderKeys = orders.find((order)=>{
+        //     //     return order.customerId == localStorage.getItem("userId");
+        //     // });
+        // });
 
-        this.cartService.getUserOrder().subscribe((orders)=>{
-            // console.log(orders);
-            this.cusOrder = orders;
-            // console.log(this.cusOrder);
-            if(orders.length > 0){
-                this.hidePage = false;
-            }else{this.hidePage = true;}
+        // this.checkoutService.getUserOrder().subscribe((orders)=>{
+        //     // console.log(orders);
+        //     this.cusOrder = orders;
+        //     // console.log(this.cusOrder);
+        //     if(orders.length > 0){
+        //         this.hidePage = false;
+        //     }else{this.hidePage = true;}
             
-        });
+        // });
      
-        this.cartService.getCustomerDetails()
-            .subscribe(customers=>{
-                this.customer = customers;
-                this.customerkey = customers;
-            });
-
-        this.cartService.getCart()
+        // this.checkoutService.getCustomerDetails()
+        //     .subscribe(customers=>{
+        //         this.customer = customers;
+        //         this.customerkey = customers;
+        //     });
+        //Get carts items
+        setTimeout(()=>{
+            this.cartService.retrieveCart()
             .subscribe(carts=>{
-                this.orders = carts
-                this.sumCartPrice(carts);
+                this.basket$ = carts[0];
+                console.log(carts[1]);
+                this.sumCart = carts[1];
+                // this.sumCartPrice(carts);
             });
 
-
-        this.cartService.getCustomerDetails()
-            .subscribe(customers=>{
-                this.customer = customers;
+            this.authService.getAccountWithId()
+            .subscribe(snapshot=>{
+                console.log(snapshot);
+                this.customer = snapshot.payload.val();
+                let customers = snapshot.payload.val();
+                this.hidePage = true;
+                this.spinner = false;
                 // console.log(customers.$key);
                 this.orderForm.patchValue({
-                        customerId: customers.$key,
+                        customerId: snapshot.key,
                         // orderId: customers.customerId,
                         customerName: customers.firstName + " " + customers.lastName,
                         address:customers.addressOne + ", " +customers.addressTwo, 
@@ -192,6 +207,7 @@ export class OrderComponent implements OnInit {
                         country: customers.country,
                         email: customers.email,
                         telephone: customers.telephone
+                        
 
                 });
 
@@ -199,7 +215,7 @@ export class OrderComponent implements OnInit {
                     firstName: customers.firstName,
                     lastName: customers.lastName,
                     email: customers.email,
-                    
+                    gender: customers.gender,
                     telephone: customers.telephone,
                     addressOne: customers.addressOne,
                     addressTwo: customers.addressTwo,
@@ -210,6 +226,12 @@ export class OrderComponent implements OnInit {
             });
 
             // console.log(this.orderForm.value);
+        }, 1000);
+
+
+ 
+
+        
 
             
     }

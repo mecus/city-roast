@@ -4,10 +4,10 @@
             <div class="">
                 
                 <div class="imageup jumbotron">
-                    <div *ngIf="!progress" class="progress">
-                        <!--<i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i>-->
+                    <!-- <div *ngIf="!progress" class="progress">
+                        <i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i>
                         <div class="progress-bar"  style="width: 25%;" ><h3 style="color:lightslategrey; opacity:0.5">BLOG IMAGE</h3></div>
-                    </div>
+                    </div> -->
                     <div *ngIf="progress" class="progress">
                         <i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i>
                         <div class="progress-bar"  style="width: 25%;" >{{progress}}% done..</div>
@@ -23,41 +23,42 @@
                 
               
             </div>
-            <div class="form-group">
-                <div class="formTitle">
-                    <h3>Title</h3>
-                    <div class="">
-                        <input class="form-control" formControlName="title" type="text" required placeholder="Title">
-                    </div>
-                </div>
+      
+
+            <div class="input-field">
+                <label for="title">Blog Title</label>
+                <input id="title" formControlName="title" type="text" required>
+            </div>
+            <div class="input-field">
+                <label for="snipet">Snippet</label>
+                <input id="snipet" formControlName="snippet" type="text" required>
+            </div>
                 
+            <div class="input-field">
+                <textarea id="body" formControlName="body"  class="materialize-textarea"></textarea>
+                <label for="body">Body</label>
             </div>
             
-            
-            <div class="container formBody">
+            <!-- <div class="container formBody">
             
                 <div class="form-group row " formArrayName="body">
-                    <div class="singleP" *ngFor="let paragraph of blogForm.controls.body.controls; let i=index">
+                    <div class="singleP" *ngFor="let paragraph of blogForm.control.body.control; let i=index">
     
                         <div [formGroupName]="i">
                             
-                            <span *ngIf="blogForm.controls.body.controls.length > 1">
+                            <span *ngIf="blogForm.control.body.control.length > 1">
                                 <i  style="cursor:pointer" (click)="removeParagraph(i)" class="fa fa-times remove-cart-i" aria-hidden="true"></i>
                             </span>
                             <div class="col-lg-12">
-                                <!--<h5>Blog Body</h5>-->
-                                
-                                <!--<label for="" class="col-lg-2">Header</label>-->
+                            
                                 <div style="margin: 5px 0px;" class="col-lg-12">
                                     <input class="form-control" type="text" placeholder="Optional header" formControlName="header">
                                 </div>
-                                <!--<div class="col-lg-3">
-                                    <button class="btn btn-success" type=""> <i class="fa fa-times remove-cart-i"></i> </button>
-                                </div>-->
+                              
                             </div>
                             
                             <div class="col-lg-12">
-                                <!--<label for="" class="col-lg-6">Paragraph 1</label>-->
+                         
                                 <div class="col-lg-12">
                                     <textarea rows="2"class="form-control" type="text" placeholder="This is a paragraph" formControlName="paragraph"></textarea>
                                 </div>
@@ -66,11 +67,11 @@
                     </div>
                     
                 </div>
-            </div>
+            </div> -->
 
-            <div class="addP">
+            <!-- <div class="addP">
                 <span><i (click)="addParagraph()" style="cursor:pointer; font-size:18px;" class="fa fa-plus" aria-hidden="true"></i></span>
-            </div>
+            </div> -->
             <div class="form-group submitBtn" >
                 <button class="btn btn-primary" type="submit">Submit</button>
                 <button routerLink="/dashboard/blogs" class="btn btn-primary" >Cancel</button>

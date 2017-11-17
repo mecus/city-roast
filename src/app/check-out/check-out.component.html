@@ -2,7 +2,7 @@
     <div class="fp-page-head">
         <!--<img src="assets/about-us.jpg"  alt="">-->
         <div class="fp-page-title">
-        <h1>Check Out</h1>
+        <!-- <h1>Check Out</h1> -->
         </div>
   </div>
 </section>
@@ -22,155 +22,175 @@
             <button class="btn btn-primary" (click)="findCustomer(email.value, phone.value, postcode.value)" type="button">Search</button>
         </div>
  </div>
-<section class="check-out-container container">
-    <div *ngIf="foundyou" class="alert alert-success" id="yfound">
-        <p ><strong>Yes!</strong>  we found you <strong>{{foundyou}}</strong>
-           <i style="font-size:18px" (click)="removeFound()" class="fa fa-times" aria-hidden="true"></i>
-        </p>
-    </div>
-    <div class="row customer-info">
-        <div class="col col-lg-9 cus-details jumbotron">
-            <h1>Customer Details</h1>
-
-            <form novalidate [class.has-success]="cusForm.valid" [formGroup]="cusForm" (ngSubmit)="saveCustomer(cusForm.value)" class="main-form" >
-               
-                <div class="row name-section">
-                    <div class="col col-xs-12 col-lg-6 form-group">
-                        <label for="formGroupExampleInput">First Name <span style="color: red">*</span></label>
-                        <input type="text" class="form-control" formControlName="firstName" required placeholder="first name">
-                    </div>
-                    <div class="col col-xs-12 col-lg-6 form-group">
-                        <label for="formGroupExampleInput2">Last Name <span style="color: red">*</span></label>
-                        <input type="text" class="form-control" formControlName="lastName" required placeholder="last name">
-                    </div>
-                     <div class="col col-xs-12 col-lg-6 form-group">
-                        <label for="formGroupExampleInput">Email <span style="color: red">*</span></label>
-                        <input type="text" class="form-control" formControlName="email" required pattern="[A-Za-z]+\.?-?[A-Za-z]+@[A-Za-z]+\.(com|co.uk|net|org)" placeholder="example@email.com">
-                    </div>
-                    <div class="col col-xs-12 col-lg-6 form-group">
-                        <label for="formGroupExampleInput2">Telephone <span style="color: red">*</span></label>
-                        <input type="text" class="form-control" formControlName="telephone" required pattern="^0\d{10}" placeholder="e.g 02078946526">
-                    </div>
-                    <div class="col col-xs-12 col-lg-6 form-group">
-                        <label for="formGroupExampleInput2">Gender <span style="color: red">*</span></label>
-                        <select class="form-control" required formControlName="gender">
-                            <option value="Male" selected>Male</option>
-                            <option value="Female">Female</option>
-                        </select>
-                        <!--<input type="text" class="form-control" formControlName="telephone" required  placeholder="sex">-->
-                    </div>
-                </div>
-                <br><br>
-                <div class="row address-section">
-                    <h6 style="margin-left:20px">Billing/Delivery Address</h6>
-                    <div class="col col-xs-12 col-lg-6 address-input">
-                        <hr>
-                        <div class="col col-xs-12 col-lg-12 form-group">
-                            <label for="formGroupExampleInput">Address line 1 <span style="color: red">*</span></label>
-                            <input type="text" class="form-control" formControlName="addressOne" required placeholder="House/Flat no.">
-                        </div>
-
-                        <div class="col col-xs-12 col-lg-12 form-group">
-                            <label for="formGroupExampleInput2">Address line 2 <span style="color: red">*</span></label>
-                            <input type="text" class="form-control" formControlName="addressTwo" required placeholder="Street/Road name">
-                        </div>
-
-                        <div class="col col-xs-12 col-lg-12 form-group">
-                            <label for="formGroupExampleInput">Post Code <span style="color: red">*</span></label>
-                            <input type="text" class="form-control" formControlName="postCode" pattern="^[A-Za-z]{2}\d\d?\s?\d[A-Za-z]{2}" required placeholder="e.g SE12 7KL">
-                        </div>
-
-                    </div>
-
-                    <div class="col col-xs-12 col-lg-6 address-input">
-                        <hr>
-                        
-                        <div class="col col-xs-12 col-lg-12 form-group">
-                            <label for="formGroupExampleInput2">City <span style="color: red">*</span></label>
-                            <input type="text" class="form-control" formControlName="city" required placeholder="city">
-                        </div>
-                        <div class="col col-xs-12 col-lg-12 form-group">
-                            <label for="formGroupExampleInput2">Country</label>
-                            <input type="text" class="form-control" formControlName="country" value="United Kingdom" placeholder="United Kingdom">
-                        </div>
-
-                    </div>
-
-                    <!--<div class="col col-xs-12  col-lg-6 address-input">
-                        <h6  (click)="hideMyform()"><input type="checkbox" > Add Delivery Address if different</h6>
-                        <hr>
-                        <div id="delivery-form" *ngIf="hideForm">
-                            <div class="col col-xs-6 col-lg-6 form-group">
-                                <label for="formGroupExampleInput">Address 1</label>
-                                <input type="text" class="form-control" formControlName="deliveryOne" placeholder="first line address">
-                            </div>
-                            <div class="col col-xs-6 col-lg-6 form-group">
-                                <label for="formGroupExampleInput2">Address 2</label>
-                                <input type="text" class="form-control" formControlName="deliveryTwo" placeholder="second line address">
-                            </div>
-                            <div class="col col-xs-6 col-lg-6 form-group">
-                                <label for="formGroupExampleInput">Post Code</label>
-                                <input type="text" class="form-control" formControlName="deliveryCode" placeholder="post code">
-                            </div>
-                            <div class="col col-xs-6 col-lg-6 form-group">
-                                <label for="formGroupExampleInput2">City</label>
-                                <input type="text" class="form-control" formControlName="deliveryCity" placeholder="city">
-                            </div>
-
-                            <div class="col col-xs-12 col-lg-6 form-group">
-                                <label for="formGroupExampleInput2">Country</label>
-                                <input type="text" class="form-control" formControlName="deliveryCountry" value="United Kingdom" placeholder="United Kingdom">
-                            </div>
-                            <br><br><br>
-                            <div class="col col-xs-12 col-lg-12 form-group">
-                                <span>
-                                    <label for="formGroupExampleInput2">Select box if billing address is the same as delivery address</label>
-                                </span>
-                                <input type="checkbox" class="form-control" formControlName="deliveryTrue" value="" >
-                            </div>
-                        </div>
-                    </div>-->
-                    
-                </div>
+ <section class="main-container-load">
+    <section class="container page-wrapper">
+        <div *ngIf="updateFlag" class="alert alert-success" id="yfound">
+            <p ><strong>{{updateFlag}}</strong>
+            <!-- <i style="font-size:18px" (click)="removeFound()" class="fa fa-times" aria-hidden="true"></i> -->
+            </p>
+        </div>
+        <div class="row customer-info">
+            <div class="col l12 cus-details jumbotron">
+                <h1>Customer Details</h1>
+                <small *ngIf="invalidForm" style="color:red; margin-left:20px;">Please check your details and try again!</small>
+                <form [class.invalid]="invalidForm" novalidate [class.has-success]="cusForm.valid" [formGroup]="cusForm" (ngSubmit)="saveCustomer(cusForm.value)" class="main-form" >
                 
-                <br><br>
-                <button [class.btn-success]="cusForm.valid" id="pay-btn" class="btn btn-default" [disabled]="!cusForm.valid" type="submit" value="Proceed to Payment"  >Proceed to Order</button>
-                <span *ngIf="!cusForm.valid" style="font-size: 12px">please fill all required field <span style="color: red">*</span></span>
-            </form>
-        </div>
-        <div class="col col-xs-12 col-sm-12 col-md-6 col-lg-3 order-detail-container">
-            <div class="order-detail jumbotron">
-                <h1><i class="fa fa-shopping-basket" aria-hidden="true"></i> Your Basket</h1>
-                <table >
-                    <thead>
-                        <tr>
-                            <th colspan="3"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let cart of carts">
-                            <td><img [src]="cart.imageUrl" style="width: 30px" alt=""></td>
-                            <td><p>{{cart.qty}}x </p></td>
-                            <td><p>{{cart.name}}</p></td>
-                            <td><p>{{cart.qty * cart.price | currency:'GBP':true}}</p></td>
-                        </tr>
-                    </tbody>
-                </table>
-                    <hr>
-                    <h6>Total: {{sumCart | currency: 'GBP': true}}</h6>
-            </div>
-            <!--<input class="btn btn-default" type="submit" value="Continue to Order" onclick="Worldpay.submitTemplateForm()" />-->
-            <!--<div class="jumbotron" id="search-customer">
-                <div class="search-box">
-                    <h3>Find Account</h3>
-                    <p>Enter your email in the box below and search for your details if you have use our service before!</p>
-                    <p *ngIf="showErr" class="alert alert-danger" role="alert">No details found</p>
-                    <p *ngIf="emptyErr" class="alert alert-danger" role="alert">Please enter a valid email!</p>
-                    <input #email class="form-control" type="text" name="email" placeholder="search with email">
-                    <button class="btn btn-primary" (click)="findCustomer(email.value)" type="button">Search</button>
-                </div>
-            </div>-->
-        </div>
-    </div>
+                    <div class="row name-section">
+                        <div class="col xs12 s12 l6 input-field">
+                            <label for="first_name">First Name <span style="color: red">*</span></label>
+                            <input id="first_name" type="text" class="form-control" formControlName="firstName" required>
+                        </div>
+                        <div class="col xs12 s12 l6 input-field">
+                            <label for="last_name">Last Name <span style="color: red">*</span></label>
+                            <input id="last_name" type="text" class="form-control" formControlName="lastName" required>
+                        </div>
+                        <div class="col xs12 s12 l6 input-field">
+                            <label for="email">Email <span style="color: red">*</span></label>
+                            <input id="email" type="text" class="form-control" formControlName="email" required pattern="[A-Za-z]+\.?-?[A-Za-z]+@[A-Za-z]+\.(com|co.uk|net|org)">
+                        </div>
+                        <div class="col xs12 s12 l6 input-field">
+                            <label for="formGroupExampleInput2">Telephone <span style="color: red">*</span></label>
+                            <input type="text" class="form-control" formControlName="telephone" required pattern="^0\d{10}">
+                        </div>
+                        <div class="col xs12 s12 l6 form-group">
+                            <label for="gender">Gender <span style="color: red">*</span></label>
+                            <select class="custom-select" id="gender" required formControlName="gender">
+                                <option selected>Gender</option>
+                                <option value="Male" selected>Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                            <!-- <label for="gender">Gender </label> -->
+                            <!--<input type="text" class="form-control" formControlName="telephone" required  placeholder="sex">-->
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row address-section">
+                        <h6 style="margin-left:20px">Billing/Delivery Address</h6>
+                        <div class="col xs12 s12 l6 input-field address-input">
+                            <hr>
+                            <div class="col xs12 s12 l12 input-field">
+                                <label for="formGroupExampleInput">Address line 1 <span style="color: red">*</span></label>
+                                <input type="text" class="form-control" formControlName="addressOne" required>
+                            </div>
 
+                            <div class="col xs12 s12 l12 input-field">
+                                <label for="formGroupExampleInput2">Address line 2 <span style="color: red">*</span></label>
+                                <input type="text" class="form-control" formControlName="addressTwo" required>
+                            </div>
+
+                            <div class="col xs12 s12 l12 input-field">
+                                <label for="formGroupExampleInput">Post Code <span style="color: red">*</span></label>
+                                <input type="text" class="form-control" formControlName="postCode" pattern="^[A-Za-z]{2}\d\d?\s?\d[A-Za-z]{2}" required>
+                            </div>
+
+                        </div>
+
+                        <div class="col xs12 s12 l6 address-input">
+                            <hr>
+                            
+                            <div class="col xs12 s12 l12 input-field form-group">
+                                <label for="formGroupExampleInput2">City <span style="color: red">*</span></label>
+                                <input type="text" class="form-control" formControlName="city">
+                            </div>
+                            <div class="col xs12 s12 l12 input-field">
+                                <label for="formGroupExampleInput2">Country</label>
+                                <input type="text" class="form-control" formControlName="country" value="United Kingdom">
+                            </div>
+
+                        </div>
+
+                        <!--<div class="col col-xs-12  col-lg-6 address-input">
+                            <h6  (click)="hideMyform()"><input type="checkbox" > Add Delivery Address if different</h6>
+                            <hr>
+                            <div id="delivery-form" *ngIf="hideForm">
+                                <div class="col col-xs-6 col-lg-6 form-group">
+                                    <label for="formGroupExampleInput">Address 1</label>
+                                    <input type="text" class="form-control" formControlName="deliveryOne" placeholder="first line address">
+                                </div>
+                                <div class="col col-xs-6 col-lg-6 form-group">
+                                    <label for="formGroupExampleInput2">Address 2</label>
+                                    <input type="text" class="form-control" formControlName="deliveryTwo" placeholder="second line address">
+                                </div>
+                                <div class="col col-xs-6 col-lg-6 form-group">
+                                    <label for="formGroupExampleInput">Post Code</label>
+                                    <input type="text" class="form-control" formControlName="deliveryCode" placeholder="post code">
+                                </div>
+                                <div class="col col-xs-6 col-lg-6 form-group">
+                                    <label for="formGroupExampleInput2">City</label>
+                                    <input type="text" class="form-control" formControlName="deliveryCity" placeholder="city">
+                                </div>
+
+                                <div class="col col-xs-12 col-lg-6 form-group">
+                                    <label for="formGroupExampleInput2">Country</label>
+                                    <input type="text" class="form-control" formControlName="deliveryCountry" value="United Kingdom" placeholder="United Kingdom">
+                                </div>
+                                <br><br><br>
+                                <div class="col col-xs-12 col-lg-12 form-group">
+                                    <span>
+                                        <label for="formGroupExampleInput2">Select box if billing address is the same as delivery address</label>
+                                    </span>
+                                    <input type="checkbox" class="form-control" formControlName="deliveryTrue" value="" >
+                                </div>
+                            </div>
+                        </div>-->
+                        
+                    </div>
+                    
+                    <br><br>
+                    <button [class.btn-success]="cusForm.valid" id="pay-btn" class="btn btn-default" type="submit" value="Proceed to Payment"  >Proceed to Order</button>
+                    <span *ngIf="!cusForm.valid" style="font-size: 12px">please fill all required field <span style="color: red">*</span></span>
+                </form>
+            </div>
+            <div class="col xs12 s12 m6 l3 order-detail-container">
+                <!-- <div class="order-detail jumbotron">
+                    <h1><i class="fa fa-shopping-basket" aria-hidden="true"></i> Your Basket</h1>
+                    <table >
+                        <thead>
+                            <tr>
+                                <th colspan="3"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let cart of carts">
+                                <td><img [src]="cart.imageUrl" style="width: 30px" alt=""></td>
+                                <td><p>{{cart.qty}}x </p></td>
+                                <td><p>{{cart.name}}</p></td>
+                                <td><p>{{cart.qty * cart.price | currency:'GBP':true}}</p></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                        <hr>
+                        <h6>Total: {{sumCart | currency: 'GBP': true}}</h6>
+                </div> -->
+                <!--<input class="btn btn-default" type="submit" value="Continue to Order" onclick="Worldpay.submitTemplateForm()" />-->
+                <!--<div class="jumbotron" id="search-customer">
+                    <div class="search-box">
+                        <h3>Find Account</h3>
+                        <p>Enter your email in the box below and search for your details if you have use our service before!</p>
+                        <p *ngIf="showErr" class="alert alert-danger" role="alert">No details found</p>
+                        <p *ngIf="emptyErr" class="alert alert-danger" role="alert">Please enter a valid email!</p>
+                        <input #email class="form-control" type="text" name="email" placeholder="search with email">
+                        <button class="btn btn-primary" (click)="findCustomer(email.value)" type="button">Search</button>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+
+
+    </section>
+    <div *ngIf="spinner" class="reload-cover-white">
+            <div class="progress-loading" >
+                <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                    <div class="circle"></div>
+                    </div><div class="gap-patch">
+                    <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                    </div>
+                </div>
+                </div>
+            </div>
+    </div>
 </section>

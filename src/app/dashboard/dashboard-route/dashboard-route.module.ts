@@ -8,16 +8,17 @@ import { NewProductComponent } from '../new-product/new-product.component';
 import { UpdateProductComponent } from '../update-product/update-product.component';
 import { ContactsComponent } from '../contacts/contacts.component';
 import { CustomersComponent } from '../customers/customers.component';
-import { ItemOrderComponent } from '../order-list/item-order.component';
+import { OrderViewComponent } from '../order-list/item-order.component';
 import { NewBlog } from '../blogs/newblog/newblog.component';
 import { BlogPost } from '../blogs/newblog/blog.component';
 
 import { AuthGuard } from '../../app-auth-guard.service';
+import { TransactionComponent } from '../transaction/transaction.component';
 
 
 const dashRoutes:Routes = [
   {
-    path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard],
+    path: 'dashboard', component: DashboardComponent,
     children:[
       {path: '', component: ProductListComponent},
       {path: 'products-list', component: ProductListComponent},
@@ -26,12 +27,14 @@ const dashRoutes:Routes = [
       {path: 'update-product', component: UpdateProductComponent},
       {path: 'contacts', component: ContactsComponent},
       {path: 'customers', component: CustomersComponent},
-      {path: 'items/:id', component: ItemOrderComponent},
+      {path: 'order/:id', component: OrderViewComponent},
       {path: 'blogs', component: BlogPost},
-      {path: 'newblog', component:NewBlog}
+      {path: 'newblog', component:NewBlog},
+      {path: 'transactions', component: TransactionComponent}
     ]
   }
 ]
+// canActivate:[AuthGuard]
 
 @NgModule({
   imports: [

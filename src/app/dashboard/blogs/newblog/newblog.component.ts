@@ -21,46 +21,47 @@ export class NewBlog implements OnInit {
     returnImage =""; //"https://firebasestorage.googleapis.com/v0/b/city-roast.appspot.com/o/blogimages%2FDSCN0715-min-min.JPG?alt=media&token=1a1de55a-2c16-49dd-a5cd-b171b8c38a7f";
     progress:number;
     constructor(private blogService:BlogService, 
-                private _fb:FormBuilder, private _router:Router){}
+                private _fb:FormBuilder, private _router:Router){
+                    this.blogForm = _fb.group({
+                        title: "",
+                        blogImage: "",
+                        image: "",
+                        snippet: "",
+                        postdate: new Date().toString(),
+                        body: ""
+                    });
+                }
 
     @HostListener('change', ['$event']) onChange($event) {
-            let newFile = $event.target.files[0];
+        $event.stopPropagation();
+        let newFile = $event.target.files[0];
             this.uploadImage(newFile);
-        // console.log(this.newFile);
+        // console.log(newFile);
     }
 
     ngOnInit(){
-        this.blogForm = this._fb.group({
-            title: "",
-            blogImage: "",
-            postdate: new Date().toString(),
-            body: this._fb.array([
-                this.initParagraph(),
-            ])
-        })
+
     }
-    initParagraph(){
-        return this._fb.group({
-            header: "",
-            paragraph: ""
-        })
-    }
-    addParagraph(){
-        const control =<FormArray> this.blogForm.controls['body'];
-        control.push(this.initParagraph());
-    }
-    removeParagraph(i:number){
-        const control =<FormArray> this.blogForm.controls['body'];
-        control.removeAt(i);
-    }
-    toggleHeader(){
-        this.headers = this.headers? true : false;
-    }
+    // initParagraph(){
+    //     return this._fb.group({
+    //         header: "",
+    //         paragraph: ""
+    //     })
+    // }
+    // addParagraph(){
+    //     const control =<FormArray> this.blogForm.controls['body'];
+    //     control.push(this.initParagraph());
+    // }
+    // removeParagraph(i:number){
+    //     const control =<FormArray> this.blogForm.controls['body'];
+    //     control.removeAt(i);
+    // }
+    // toggleHeader(){
+    //     this.headers = this.headers? true : false;
+    // }
     createBlog(blog){
         // console.log(blog);
-        this.blogService.createBlog(blog).subscribe((res)=>{
-            console.log(res);
-        });
+        this.blogService.createBlog(blog);
         this._router.navigate(["/dashboard/blogs"]);
     }
 
@@ -70,19 +71,19 @@ export class NewBlog implements OnInit {
         let storageRef = firebase.storage().ref('/blogimages/' + filename);
         let uploadTask = storageRef.put(selectedFile);
         uploadTask.on('state_changed', (snapshot)=>{
-
+            console.log("Uploading file......");
         // this.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;    
-        let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100; 
-        this.progress = Math.round(progress);
-        console.log('Upload is ' + progress + '% done');
-        switch (snapshot.state) {
-            case firebase.storage.TaskState.PAUSED: // or 'paused'
-            console.log('Upload is paused');
-            break;
-            case firebase.storage.TaskState.RUNNING: // or 'running'
-            console.log('Upload is running');
-            break;
-        }
+        // let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100; 
+        // this.progress = Math.round(progress);
+        // console.log('Upload is ' + progress + '% done');
+        // switch (snapshot.state) {
+        //     case firebase.storage.TaskState.PAUSED: // or 'paused'
+        //     console.log('Upload is paused');
+        //     break;
+        //     case firebase.storage.TaskState.RUNNING: // or 'running'
+        //     console.log('Upload is running');
+        //     break;
+        // }
         }, (error)=> {
             console.log(error);
         // Handle unsuccessful uploads
@@ -93,8 +94,8 @@ export class NewBlog implements OnInit {
         this.returnImage = uploadTask.snapshot.downloadURL;
         // localStorage.setItem('downloadURL', (downloadURL) );
         this.blogForm.patchValue({
-            blogImage: uploadTask.snapshot.downloadURL
-            
+            blogImage: uploadTask.snapshot.downloadURL,
+            image: filename 
         })
         
         console.log(downloadURL);

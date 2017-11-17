@@ -8,7 +8,7 @@
 </section>
 <section class="dashboard-container">
   <div class="dashboard container">
-    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+    <div class="navbar navbar-toggleable-md navbar-light bg-faded">
           <ul class="dash-list navbar-nav mr-auto container">
               
               <li class="list-item">
@@ -20,6 +20,9 @@
               <li  class="list-item">
                 <a routerLink="/dashboard/orders-list" class="nav-link" routerLinkActive="active" >Orders</a>
               </li>
+              <li  class="list-item">
+                  <a routerLink="/dashboard/transactions" class="nav-link" routerLinkActive="active" >Transactions</a>
+                </li>
                <li  class="list-item">
                 <a routerLink="/dashboard/contacts" class="nav-link" routerLinkActive="active" >Contacts</a>
               </li>
@@ -30,9 +33,9 @@
                 <a routerLink="/dashboard/items" class="nav-link" routerLinkActive="active" >Items</a>
               </li>-->
           </ul>
-    </nav>
+        </div>
    </div>
 </section>
-<div class="out-let container">
+<div class="out-let">
   <router-outlet></router-outlet>
 </div>

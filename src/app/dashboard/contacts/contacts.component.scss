@@ -3,6 +3,23 @@ table{
         font-size: 12px;
     }
 }
+.pagination{
+    position: relative;
+    width: 300px;
+    left: 50%;
+    margin-left: -150px;
+    margin-top: 10px;
+    .ngx-pagination .current{
+        background: lightslategray !important;
+    }
+    li .current{
+        background: lightslategray !important;
+    }
+    pagination-controls{
+        width: 100%;
+       
+    }
+}
 .display-contact{
     position: fixed;
     top: 0px;

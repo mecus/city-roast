@@ -1,10 +1,10 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, AbstractControl, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router, Params, ActivatedRoute } from '@angular/router';
-
+import * as firebase from "firebase/app";
 import { User } from '../models/user.model';
 import { AuthService } from './auth-service';
-import { CartService } from '../services/cart.service';
+import { CheckOutService } from '../services/check-out.service';
 
 
 @Component({
@@ -19,7 +19,7 @@ export class PasswordResetComponent implements OnInit, AfterViewInit {
     accountEmail: string ="me@gmail.com";
     auth = firebase.auth();
     constructor(private fb:FormBuilder, private authService:AuthService, 
-    private router:Router, private cartService:CartService, private route:ActivatedRoute ) {
+    private router:Router, private cartService:CheckOutService, private route:ActivatedRoute ) {
 
         this.user = fb.group({
             password: ""
@@ -64,7 +64,7 @@ export class PasswordResetComponent implements OnInit, AfterViewInit {
     ngOnInit() {
         
       this.queryparams = this.route.snapshot.queryParams;
-      console.log(this.queryparams);
+    //   console.log(this.queryparams);
 
         // this.logUser = localStorage.getItem('currentUser');
      }

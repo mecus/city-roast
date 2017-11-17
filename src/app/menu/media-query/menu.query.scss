@@ -7,7 +7,8 @@
     position: absolute;
     top: 20px;
     right: 20px;
-    z-index: 10000;
+    z-index: 100000;
+    // background-color: red;
     i{
         font-size: 30px;
         color: #fff;
@@ -17,7 +18,7 @@
 
 
 @media only screen and (min-width:250px) and (max-width: 640px)  {
-    .navbar{
+    .navbar-main{
         .anonymous-wrapper{
             position: fixed;
             width: 100%;
@@ -64,7 +65,7 @@
         position: absolute;
         top: 18px;
         right: 55px;
-        z-index: 1000;
+        z-index: 100000;
         li{
             text-decoration: none;
             list-style: none;
@@ -74,21 +75,21 @@
     
     .side-nav-container{
         position: fixed;
-        top: 0px;
-        z-index: 1000;
+        top: 0;
+        width: 0%;
         height: 100vh;
         background-color: rgba(0, 0, 0, 0.5);
-        float: right;
-
-        .side-nav{
+        z-index: 100000;
+        .side-nav-side{
             position: absolute;
             top: 0px;
             right: 0px;
-            z-index: 10000;
+            z-index: 1000;
+            float: right;
             width: 250px;
             height: 100vh;
             background-color: #fff;
-            // float: right;
+
             // @include transition(0.5s);
             
             .aside{
@@ -196,29 +197,56 @@
             left: 0px;
             margin: 0px;
             padding: 0px;
+
             .brand-list{
                 margin: 10px;
                 padding: 0px;
                 .brand-item-text{
                     padding: 10px 5px;
+    
+                    h6{
+                        color: lightslategrey;
+                        margin: 0px;
+                        padding: 0px;
+                        font-size: 0.5em;
+                        padding-left: 10px;
+                        font-family: 'Satisfy', cursive;
+                        letter-spacing: 3px;
+                    }
+                }
+                
+                span.logo-text{
+                    font-family: 'Dosis', sans-serif;
+                    text-transform: uppercase;
+                    color: lightgrey;
+                    font-weight: 800;
+                    // font-family: 'Anton', sans-serif;
+                    letter-spacing: 1px;
+                    padding: 0px;
+                    margin: 0px;
+                    font-size: 0.8em;
+                    margin-top: 20px !important;
+    
                 }
             }
         }
         
     }
     .cartSum{
-        border: 1px solid;
-        @include border-radius(50%);
+        // border: 1px solid;
+        // @include border-radius(50%);
         padding: 5px;
+        z-index: 1000;
         // background-color: green;
         i{
-            font-size: 15px;
+            font-size: 14px;
             color: #f48024;
+            margin-right: 1px;
         }
         span{
             margin: 0px;
             padding: 0px;
-            font-size: 14px;
+            font-size: 12px;
         }
     }
 }
@@ -229,93 +257,3 @@
  }
 
 }
-
-
-
-
-
-
-
-
-// .activated {
-//     color: #fff !important;
-//     background-color: green;
-//     @include border-radius(5px);
-//     padding-left: 5px;
-//     padding-right: 5px;
-//     border: 1px solid;
-//     @include transition(0.2s);
-//     // box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-// }
-// .navbar{
-//     position: relative;
-//     background: transparent;
-//     z-index: 1000;
-//     padding: 0px !important;
-//     .right-nav{
-//         position: absolute;
-//         right: 40px;
-//         top: 10px;
-//         color: #fff !important;
-//         ul li a{
-//             color: #fff !important;
-//             opacity: .5;
-//         }
-    
-//     }
-//     .brand img{
-//         opacity: 0.8;
-//     }
-//     .brand-logo{
-//         position: absolute;
-//         top: 15px;
-//         // left: 10px;
-//         .brand-list{
-//             display: inline-flex;
-//            .brand-item-text{
-//                padding: 30px 5px;
-
-//                h6{
-//                    color: lightslategrey;
-//                    font-size: 12px;
-//                    padding-left: 10px;
-//                    font-family: 'Satisfy', cursive;
-//                    letter-spacing: 3px;
-//                }
-//            }
-//         }
-//         span.logo-text{
-//             color: lightgrey;
-//             font-family: 'Anton', sans-serif;
-//             letter-spacing: 2px;
-//             padding: 0px;
-//             margin: 0px;
-//             font-size: 20px;
-//         }
-//     }
-// }
-// .cartSum{
-//     border: 1px solid;
-//     @include border-radius(50%);
-//     padding: 5px;
-//     background-color: green;
-//     i{
-//         font-size: 15px;
-//     }
-//     span{
-//         margin: 0px;
-//         padding: 0px;
-//         font-size: 14px;
-//     }
-// }
-// .navbar-nav{
-
-//     .nav-item:nth-child(3){
-//         //background-color: red;
-//         &:hover{
-//             background-color: green;
-//             color: blue !important;
-//             opacity: 0.5;
-//         }
-//     }
-// }

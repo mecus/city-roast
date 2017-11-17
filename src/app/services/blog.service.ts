@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -12,32 +14,63 @@ import { iBlog } from '../models/blog.model';
 @Injectable()
 
 export class BlogService {
-    constructor(private _af:AngularFire, private _router:Router, private _http:Http ){}
-
-
-    createBlog(blog):Observable<iBlog[]>{
-        let blogRef = this._af.database.list("/blogpost");
-            blogRef.push(blog).then((res)=>{console.log(res)})
-            .catch(error=>console.log(error));
-        return blogRef;
+    cacheBlog$;
+    constructor(private _af:AngularFireAuth, 
+        private _router:Router, private _http:Http,
+        private db:AngularFireDatabase
+    ){
+        this.cacheBlog$ = new ReplaySubject(1);
     }
 
-    getBlog():Observable<iBlog[]>{
-        let blogRef = this._af.database.list("/blogpost");
-        return blogRef;
+
+    createBlog(blog){
+        let blogRef = this.db.list("blogs");
+            blogRef.push(blog).then((res)=>{console.log(res)});
+    }
+
+    getBlog(){
+        return this.db.list("/blogs").valueChanges();
+    }
+    getCacheBlog(){
+        if(!this.cacheBlog$.observers.length){
+           this.db.list("/blogs").snapshotChanges()
+                .map(snapshot=>{
+                    let blog = [];
+                    snapshot.forEach(doc=>{
+                        blog.push({data: doc.payload.val(), key: doc.payload.key});
+                    })
+                    return blog;
+                }).subscribe(
+                    blog => this.cacheBlog$.next(blog),
+                    err => {
+                        this.cacheBlog$.error(err);
+                        this.cacheBlog$ = new ReplaySubject(1);
+                    }
+                );
+        }
+        return this.cacheBlog$;
     }
     updateBlog(key, object){
-        let ref = firebase.database().ref();
-        let blogRef = ref.child("/blogpost/"+key);
-            blogRef.update(object).then((res)=>{
+        let blogRef = this.db.list("blogs");
+            blogRef.update(key, object);
+    }
+    deleteBlog(blog){
+        let blogRef = this.db.list("blogs");
+            blogRef.remove(blog.key).then((res)=>{
+                this.removeBlogImage(blog.data.image);
                 console.log(res);
             }).catch(error=>console.log(error));
     }
-    deleteBlog(key){
-        let blogRef = this._af.database.list("/blogpost/"+key);
-            blogRef.remove().then((res)=>{
-                console.log(res);
-            }).catch(error=>console.log(error));
+    removeBlogImage(file){
+        // var desertRef = firebase.storageRef.child('images/desert.jpg');
+        let storageRef = firebase.storage().ref('/blogimages/'+file); 
+        // Delete the file
+        storageRef.delete().then(() => {
+          // File deleted successfully
+          console.log("Image Successfully Removed");
+        }).catch(function(error) {
+          console.log(error);
+        });
     }
 
 }

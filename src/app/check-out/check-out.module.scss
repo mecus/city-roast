@@ -1,5 +1,17 @@
 @import '../../assets/stylesheets/variables';
+@import '../../assets/stylesheets/mixins';
+@import '../../assets/stylesheets/transitions';
 
+.invalid{
+    color: red !important;
+    input{
+        // color: #ffffff;
+        border-color: red;
+    }
+}
+.page-wrapper{
+    min-height: 500px;
+}
 .fp-page-head{
     background-color: $primary-color;
     width: 100%;
@@ -16,8 +28,9 @@
         
     }
     .fp-page-title{
+        width: 90%;
         position: absolute;
-        top: 100px;
+        top: 80px;
         right: 50px;
         h1{
             color: lightslategrey;
@@ -26,6 +39,9 @@
 
         }
     }
+}
+.page-wrapper{
+    margin-top: 20px;
 }
 .fp-page-content{
     max-width: 700px;
@@ -39,13 +55,42 @@
         
     }
 }
-
+.main-container-load{
+    position: relative;
+    margin-bottom: 60px;
+    .reload-cover{
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0,0,0, 0.5);
+        z-index: 100;
+        .progress-loading{
+            text-align: center;
+            margin-top: 20%;
+        }
+    }
+    .reload-cover-white{
+        @extend .reload-cover;
+        background-color: #ffffff;
+    }
+}
 .Shopping-container{
     min-height: 700px;
     // max-width: 800px;
     padding: 10px 30px 50px 30px;
-    
+    h1{
+        font-size: 1.5em;
+        text-align: center;
+    }
+    .empty-cart{
+        h5{
+            font-size: 1em;
+            text-align: center;
+        }
+    }
 }
+
 .check-out-container{
     @extend .Shopping-container;
 }
@@ -94,9 +139,9 @@ h1.head-1{
         // text-align: right;
         // display: flex;
         button{
-            margin: 0px 4px;
-            height: 30px;
-            padding: 0px 5px;
+            // margin: 0px 4px;
+            // height: 30px;
+            // padding: 0px 5px;
             background-color: lightslategrey;
             border: none;
             
@@ -110,4 +155,51 @@ h1.head-1{
 
 }
 
+.load-item{
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 100px;
+    .progress-loading{
+        text-align: center;
+    }
+}
+.anonymous-wrapper{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100vmax;
+    z-index: 10000;
+    background-color: rgba(0,0,0, 0.5);
+    
+    .anonymous{
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        width: 40%;
+        margin-left: -20% ;
+        text-align: center;
+        @include transition(0.2s);
+        .ano-content{
+            position: relative;
+            background-color: #fff;
+            opacity: 0.99;
+            width: 100%;
+            button.ano-b{background-color: slategray; color: #fff;}
+            i.fa-close{
+                position: absolute;
+                right: 10px;
+                top: 10px;
+                font-size: 20px;
+                &:hover{color: red; cursor: pointer;}
+            }
+            h2{
+                // color: black;
+            }
+            p{padding: 10px 0px;}
+            span#span{
+                    color: red;
+                }
+        }
+    }
+}
 

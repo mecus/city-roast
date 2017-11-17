@@ -3,6 +3,16 @@ table{
         font-size: 12px;
     }
 }
+.pagination{
+    position: relative;
+    width: 300px;
+    left: 50%;
+    margin-left: -150px;
+    margin-top: 10px;
+    pagination-controls{
+        width: 100%;
+    }
+}
 
 .load-item{
     margin: 0 auto;

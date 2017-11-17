@@ -2,22 +2,32 @@
 
 .page-content{
     position: relative;
-    height: 500px;
-    max-width: 60%;
+    min-height: 500px;
+    max-width: 75%;
     .jumbotron{
         margin: 50px;
-        h4{color: red;}
+
+        h4{
+            font-family: 'Dosis', sans-serif;
+            font-size: 1.4em;
+            color: red;
+        }
+        p{
+            font-size: 0.9em;
+        }
     }
 }
 
 @media only screen and (min-width:250px) and (max-width: 640px){
     .page-content{
         position: relative;
-        height: 500px;
+        min-height: 500px;
         max-width: 100%;
+        width:100%;
         .jumbotron{
             margin: 0px;
             margin-top: 20px;
+            width: 100%;
         }
     }
 }

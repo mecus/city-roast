@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, FirebaseAuthState, 
-    AuthMethods, AuthProviders, 
-    FIREBASE_PROVIDERS } from 'angularfire2';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 
 import { Router } from '@angular/router';
 import { User } from '../models/user.model';
-import { CartService } from '../services/cart.service';
+import { CheckOutService } from '../services/check-out.service';
 
 @Injectable()
 
@@ -17,17 +16,24 @@ export class AuthService {
     redirectUrl: string;
     errMsg;
     cLength;
+    currentUser;
   
 
-    constructor(private af:AngularFire, private router:Router, private cartService:CartService) { }
+    constructor(private afA:AngularFireAuth, 
+        private _router:Router, private db:AngularFireDatabase,
+        private cartService:CheckOutService) { 
+            afA.authState.subscribe(
+                user => this.currentUser = user
+            )
+        }
 
-    public storeAuthState(authState:FirebaseAuthState):FirebaseAuthState {
+    public storeAuthState(authState) {
         if(authState){
             // this.isAuthenticated = true;
             if(authState){
-            localStorage.setItem('currentUser', (authState.auth.email));
+            localStorage.setItem('currentUser', (authState.email));
             localStorage.setItem('idToken', (authState.uid));
-            localStorage.setItem('userId', (authState.auth.uid));
+            localStorage.setItem('userId', (authState.uid));
             // localStorage.setItem('anonymous',(authState.auth.isAnonymous))
             }
         }
@@ -37,61 +43,66 @@ export class AuthService {
     signUp(user:User){
         if(user){
             console.log("creating user account");
-           return this.af.auth.createUser({
-                email: user.email,
-                password: user.password
-            })
+           return this.afA.auth.createUserWithEmailAndPassword(
+                user.email,
+                user.password
+            )
         }
     }
     createAccount(uId, email){
-         let dbRef = this.af.database.object('accounts/'+uId);
-         dbRef.set({isAdmin: false, email: email})
+         let dbRef = this.db.object('accounts/'+this.currentUser["uid"]);
+         dbRef.set({isAdmin: false, active: false, email: email, createdAt: Date()})
                 .then(success=>{console.log("User Account Created successfully "+success)})
                 .catch(error=>{console.log("something went wrong "+error)});
-     }
-     getAccount(uId){
-         return this.af.database.object('accounts/'+uId); 
-     }
+    }
+    getAccount(uId?){
+        // console.log(this.currentUser["uid"]);
+        let uid = localStorage.getItem("userId");
+        if(uid){
+            return this.db.object('accounts/'+uid).valueChanges();
+        }
+        return undefined;
+    }
+    getAccountWithId(){
+       return this.db.object('accounts/'+this.currentUser["uid"]).snapshotChanges(); 
+    }
+    getAccounts(){
+        return this.db.list('accounts').snapshotChanges();
+    }
+    
+    updateAccount(update){
+        // console.log(this.currentUser["uid"]);
+        let dbRef = this.db.object('accounts/'+this.currentUser["uid"]);
+        return dbRef.update({...update, updatedAt: Date(), active: true});
 
+    }
+    deleteAccount(key){
+        let dbRef = this.db.object('accounts/'+key);
+        dbRef.remove().then(res=>{
+            console.log("Account Deleted");
+        }).catch(err=>console.log(err));
+    }
     logIn(user:User){
         if(user){
-            return this.af.auth.login({
-                email: user.email,
-                password: user.password
-            })
+            return this.afA.auth.signInWithEmailAndPassword(
+                user.email,
+                user.password
+            )
         }
     }
 
     logOut(){
-        
-        localStorage.removeItem('userId');
-        localStorage.removeItem('currentUser');
-        localStorage.removeItem('idToken');
-        if(localStorage.getItem('returnId')){
-            localStorage.removeItem('returnId');
-        }
-        return this.af.auth.logout();
-        // location.reload();
-        
-        // this.router.navigate(['/login']);
+        return this.afA.auth.signOut();
     }
 
-    // cartLength(){
-    //     this.cartService.getCart()
-    //         .subscribe(res=>{
-    //             this.cLength = res;
-    //             console.log(this.cLength);
-    //         });
-    // }
-    
     authChange(){
-        this.af.auth.subscribe((newUser)=>{
+        this.afA.authState.subscribe((newUser)=>{
             if(!localStorage.getItem('currentUser') && newUser ){
                 this.storeAuthState(newUser);
                 console.log('user saved in the storage');
             }
             if(newUser){
-                console.log(newUser.auth.getToken());
+                console.log(newUser.getToken());
                 console.log('User Currently LoggedIn');
 
                 console.log(newUser);
@@ -106,9 +117,9 @@ export class AuthService {
         let auth = firebase.auth();
         return auth.signInAnonymously();
     }
-   authUserChange(){
+   authUserState(){
        //checking for current user LoggedIn==//
-      return this.af.auth;
+      return this.afA.authState;
    }
 
    //Password Resetting Function
@@ -130,12 +141,12 @@ export class AuthService {
 
         // Prompt the user to re-provide their sign-in credentials
 
-        user.reauthenticate(credential).then(()=> {
-            // User re-authenticated.
-            console.log("Password Reset successfully")
-        }, (error)=> {
-            // An error happened.
-            console.log("Something went wrong");
-        });
+        // user.reauthenticate(credential).then(()=> {
+        //     // User re-authenticated.
+        //     console.log("Password Reset successfully")
+        // }, (error)=> {
+        //     // An error happened.
+        //     console.log("Something went wrong");
+        // });
    }
 }

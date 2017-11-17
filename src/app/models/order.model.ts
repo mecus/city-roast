@@ -35,7 +35,6 @@ export class CustomerOrder {
     city: string;
     country: string;
     amount: string;
-    orDate: Date;
 
     constructor(){
     this.customerId = "";
@@ -47,7 +46,6 @@ export class CustomerOrder {
     this.postcode = "";
     this.city = "";
     this.country = "";
-    this.amount = "";
-    this.orDate = new Date();
+    this.amount = ""
     }
 }

@@ -1,39 +1,60 @@
 <section class="container fp-page-content">
-     <!--<a routerLink="/products"><button class="btn btn-default">Go to Products</button></a>-->
-    <form *ngIf="lastId" [class.has-success]="newproduct.valid" novalidate [formGroup]="newproduct" (ngSubmit)="createProd(newproduct.value)">
+    <!--<a routerLink="/products"><button class="btn btn-default">Go to Products</button></a>-->
+    <form  [class.has-success]="newproduct.valid" novalidate [formGroup]="newproduct" (ngSubmit)="createProd(newproduct.value)">
         <div class="form-group">
             <h6>Product Id: <span>0{{lastId}}</span></h6>
+            <p *ngIf="errMsg" style="color:red">{{errMsg}}</p>
         </div>
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input  type="text" class="form-control" formControlName="name" required placeholder="product name">
-        </div>
-        <div class="form-group">
-            <div class="col col-lg-6">
-               <label for="Product Price">Old Price</label>
-                <input type="text" class="form-control" formControlName="oldprice" required pattern="[0-9]+\.?[0-9]+" placeholder="old price"> 
+        <div class="row">
+            <div class="input-field col m6 l6">
+                <label for="name">Name</label>
+                <input  type="text" class="form-control" formControlName="name" required>
             </div>
-            <div class="col col-lg-6">
-                <label for="Product Price">Now Price</label>
-                <input type="text" class="form-control" formControlName="price" required pattern="[0-9]+\.?[0-9]+" placeholder="now price">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class=" col col-lg-6">
+            <div class="input-field col l6">
                 <label for="code">Product Code</label>
-                <input type="text" class="form-control" formControlName="code" required pattern="[0-9]+" placeholder="product code">
+                <input id="code" type="text" formControlName="code" required pattern="[0-9]+">
             </div>
-            <div class=" col col-lg-6">
-                <label for="category">Product Category</label>
-                <input type="text" class="form-control" formControlName="category" required placeholder="product category">
+        </div>
+        <div class="row">
+            <div class="input-field col m6 l6">
+                <label for="old_price">Old Price</label>
+                <input id="old_price" type="text"  formControlName="oldprice" required pattern="[0-9]+\.?[0-9]+"> 
+            </div>
+            <div class="input-field col m6 l6">
+                <label for="new_price">Now Price</label>
+                <input id="new_price" type="text"  formControlName="price" required pattern="[0-9]+\.?[0-9]+">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col l6">
+                <select class="custom-select" formControlName="tag">
+                    <option value="" disabled selected>Select Tag</option>
+                    <option value="coffees">Coffees</option>
+                    <option value="machines">Machine</option>
+                    <option value="accessories">Accessories</option>
+                </select>
+            </div>
+           
+        </div>
+        <div class="row" formGroupName = "category">
+            <div class="input-field col col-lg-6">
+                <label for="category">Category Name</label>
+                <input type="text" formControlName="name" class="form-control"  required>
+   
+            </div>
+            <div class="input-field col col-lg-6">
+                <label for="category">Category Group</label>
+                <input type="text" formControlName="group" class="form-control"  required>
+
             </div>
         </div>
         <!--Add Blend, Size, and Roast-->
         <div class="row">
             <div class="form-group col-lg-4">
-                <label for="blend">Blend</label>
+                <!-- <label for="blend">Blend</label> -->
                 <!--<input type="text" class="form-control" formControlName="blend" placeholder="Blend">-->
-                <select type="text" class="form-control" formControlName="blend" placeholder="Blend">
+                <select class="custom-select" type="text"  formControlName="blend">
+                    <option value="" disabled selected>Choose Blend</option>
                     <option value="Coffee beans">Coffee Beans</option>
                     <option value="Espresso">Espresso</option>
                     <option value="Nespresso">Nespresso</option>
@@ -44,18 +65,20 @@
                 </select>
             </div>
             <div class="form-group col-lg-4">
-                <label for="size">Size</label>
+                <!-- <label for="size">Size</label> -->
                 <!--<input type="text"  class="form-control" formControlName="size" placeholder="Size">-->
-                <select type="text"  class="form-control" formControlName="size" placeholder="Size">
+                <select class="custom-select" type="text" formControlName="size">
+                    <option value="" disabled selected>Choose Size</option>
                     <option value="1kg">1Kg</option>
                     <option value="500g">500g</option>
                     <option value="250g">250g</option>
                 </select>
             </div>
             <div class="form-group col-lg-4">
-                <label for="roast">Roast</label>
+                <!-- <label for="roast">Roast</label> -->
                 <!--<input type="text" class="form-control" formControlName="roast" placeholder="Roast">-->
-                <select type="text" class="form-control" formControlName="roast" placeholder="Roast">
+                <select class="custom-select" type="text" formControlName="roast">
+                    <option value="" disabled selected>Choose Roast</option>
                     <option value="Light Roast">Light Roast</option>
                     <option value="Medium Roast">Medium Roast</option>
                     <option value="Dark Roast">Dark Roast</option>
@@ -63,12 +86,12 @@
             </div>
         </div>
         
-        <div class="form-group myinput">
+        <div class="input-field myinput">
             <label for="price">Description</label>
-            <textarea rows="5" class="form-control" formControlName="description" required placeholder="description"></textarea>
+            <textarea rows="5" class="materialize-textarea" formControlName="description" required ></textarea>
         </div>
-        <button class="btn" [disabled]="!newproduct.valid" [class.btn-success]="newproduct.valid" type="submit">Add Product</button>
-       <span><a routerLink="/dashboard/products-list">Cancel</a></span>
+        <button class="btn"  [class.btn-success]="newproduct.valid" type="submit">Add Product</button>
+        <span><a routerLink="/dashboard/products-list">Cancel</a></span>
     </form>
     <!--<div>
         <p>Validate: {{newproduct.valid | json}}</p>

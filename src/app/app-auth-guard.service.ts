@@ -3,49 +3,49 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angul
 import { AuthService } from './authentications/auth-service';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'angular-2-local-storage';
-import { AngularFire } from 'angularfire2';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-
-    constructor(private authService:AuthService, private router:Router, public af:AngularFire) { }
+    adminUser:boolean;
+    constructor(private authService:AuthService, private router:Router, public af:AngularFireAuth) {
+      
+     }
 
     canActivate(route:ActivatedRouteSnapshot, state: RouterStateSnapshot){
         console.log('AuthGuard Service implemented');
-       let url: string = state.url;
-        
-        return this.checkAdmin(url);
+        let url: string = state.url;
+        return this.checkAdmin(url); 
+  
     }
     //AuthGuard for Products // Access Admin Only
-    checkAdmin(url:string):boolean{
-        let isAdmin:boolean;
+    checkAdmin(url:string):boolean {
+        if(!localStorage.getItem('idToken')){
+            return false;
+         }
          if(localStorage.getItem('idToken')){
-           this.authService.getAccount(localStorage.getItem('idToken'))
+            this.authService.getAccount(localStorage.getItem('idToken'))
             .subscribe(adm=>{
-                    
-                    if(adm.isAdmin == true ){
+                    if(adm['isAdmin'] == true ){
                         console.log("True Admin");
-                        isAdmin = true;
-                        
+                        this.adminUser = true;
+                    }else{
+                        console.log("False Admin");
+                        this.adminUser = false;
                     }
-                
-                
             });
             this.authService.redirectUrl = url;
-            return isAdmin;
+            return this.adminUser;
         }
-        
-        this.router.navigate(['/login']);
+        this.router.navigate(['/']);
         return false;
+
     }
 
-
-
-
     checkLogin(url:string):boolean{
-        this.af.auth.subscribe((currentUser)=>{
+        this.af.authState.subscribe((currentUser)=>{
             console.log(currentUser);
-            if(currentUser.auth.email){
+            if(currentUser.email){
                 if(this.authService.isAuthenticated){
                 return true;
             }

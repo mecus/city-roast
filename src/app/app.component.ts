@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
 
 
   ngOnInit(){
-    console.log(localStorage);
+    // console.log(localStorage);
     this._router.events.subscribe((event) => {
             if (!(event instanceof NavigationEnd)) {
                 return;

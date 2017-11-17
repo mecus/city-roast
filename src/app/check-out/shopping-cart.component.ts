@@ -1,15 +1,14 @@
 import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
-import { CartService } from '../services/cart.service';
+import { CheckOutService } from '../services/check-out.service';
 import { MailService } from '../services/mail.service';
 import { Location } from '@angular/common';
 import { iCart } from '../models/cart.model';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
-
-
-import { AngularFire, FirebaseAuthState, 
-    AuthMethods, AuthProviders, 
-    FIREBASE_PROVIDERS } from 'angularfire2';
+import * as _ from 'lodash';
+import { AuthService } from '../authentications/auth-service';
+import { CartService } from '../services/cart.service';
+declare var $:any;
 
 @Component({
     selector: 'shop-cart',
@@ -19,15 +18,19 @@ import { AngularFire, FirebaseAuthState,
 export class ShoppingCartComponent implements OnInit {
     user = "kam";
     cartproduct = [];
-    sumCart;
+    sumCart = 0;
     sumOldCart;
     accepTerms:boolean = false;
     liginAlert:boolean = false;
     currentuser;
+    currentUserLogin: boolean = true;
+    carts$;
+    pageReload: boolean = false;
+    firstPageLoad: boolean = true;
    
-    constructor(private cartService:CartService, private _location:Location,
-    private af:AngularFire, private _router:Router, private _elementRef:ElementRef,
-    private _mailSender:MailService) { }
+    constructor(private _location:Location,
+    private _router:Router, private _elementRef:ElementRef,
+    private _mailSender:MailService, private authService:AuthService, private cartService:CartService) { }
 
     @HostListener('change', ['$event']) termsChange($event){
         if($event.target.checked == true){
@@ -35,100 +38,78 @@ export class ShoppingCartComponent implements OnInit {
         }else{this.accepTerms = false}
     }
     moveTopayment(){
-        this._router.navigate(["/checkout"]);
-        this.liginAlert =true;
+        if(this.currentuser){
+            this._router.navigate(["/checkout"]);
+        }else{
+            this.currentUserLogin = false;
+        }
+
+        // this.liginAlert =true;
     }
     back(){
         this._location.back();
+        // this._router.navigate(["/coffees"]);
     }
     removeItem(key){
-        this.cartService.removeItem(key);
-    }
-    clearCart(){
-        this.cartService.clear();
+        this.pageReload = true;
+        setTimeout(()=>{
+            this.cartService.removeCart(key);
+        }, 400);
+        // this.cartService.removeItem(key);
+        setTimeout(()=>{
+            this.pageReload = false;
+        }, 600);
     }
      sumCartPrice(cart){
-        let priceArr = [];
-        let oldPrice = [];
-             cart.forEach(element=>{
-            priceArr.push(element.price * element.qty);
-            oldPrice.push(element.oldprice * element.qty);
-        });
+         console.log(cart);
+        // let priceArr = [];
+        // let oldPrice = [];
+        //      cart.forEach(element=>{
+        //          console.log(element);
+        //     priceArr.push(element.price * element.qty);
+        //     oldPrice.push(element.oldprice * element.qty);
+        // });
         
-        this.sumCart = priceArr.reduce(this.sumTotal, 0);
-        this.sumOldCart = oldPrice.reduce(this.sumTotal, 0);
+        this.sumCart = _.reduce(cart, this.sumTotal, 0);
+        console.log(this.sumCart);
+        // this.sumOldCart = oldPrice.reduce(this.sumTotal, 0);
         
     }
 
     sumTotal(sum, num){
         return sum + num;
     }
+    closeWindow(){
+        this.currentUserLogin = true;
+    }
 
-
-    // paypalCheckOut(){
-    //     window['paypal'].Button.render({
-        
-    //         env: 'sandbox', // Optional: specify 'sandbox' environment
-        
-    //         client: {
-    //             sandbox:    'ARBSCUiDOABkb_xriEZ3hIfQuU_acaJF7v_gd5hg660xW-totw0wbIhdH4ZKh1XaJSn2KTx8H4FTRv4O',
-    //             // production: 'xxxxxxxxx'
-    //         },
-
-    //         payment: function() {
-            
-    //             var env    = this.props.env;
-    //             var client = this.props.client;
-            
-    //             return window['paypal'].rest.payment.create(env, client, {
-    //                 transactions: [
-    //                     {
-    //                         amount: { total: "25", currency: 'GBP' }
-        
-    //                     }
-    //                 ]
-    //             });
-    //         },
-
-    //         commit: true, // Optional: show a 'Pay Now' button in the checkout flow
-
-    //         onAuthorize: function(data, actions) {
-            
-    //             // Optional: display a confirmation page here
-            
-    //             return actions.payment.execute().then(function() {
-    //                 // Show a success page to the buyer
-    //             });
-    //         }
-
-    //     }, '#paypal-button');
-    // }
+ 
  
 
     ngOnInit() {
-        //Only allowed user if they logged in
-        if(!localStorage.getItem('currentUser')){
-            this._router.navigate(["/login"])
-            return
-        }
-        this.cartService.getCart()
-            .subscribe(cart=>{
-                this.cartproduct = cart;
-                this.sumCartPrice(cart);
-            });
-        
-        // this.sumCart = this.cartService.sumCart();
-        // console.log(this.sumCart);
-        if(localStorage.getItem('currentUser')){
-            this.user = localStorage.getItem('userId');
-            this.currentuser = localStorage.getItem('currentUser');
-        }
+        this.cartService.createDb();
+        setTimeout(()=>{
+            this.carts$ = this.cartService.retrieveCart()
+            .subscribe((data)=>{
+                this.cartproduct = data[0];
+                this.sumCart = data[1]
+                this.sumOldCart = data[2];
+                this.firstPageLoad = false;
+                // this.paypalCheckOut(data[1]);
+            })
+       }, 800);
+       
+        this.authService.authUserState().subscribe(user => {
+            if(user){
+                this.currentuser = user;
+            } 
+        });
 
         // this.paypalCheckOut();
 
         
         // this.railsOrder = this._mailSender.getorders();
-        
+
      }
   
 }

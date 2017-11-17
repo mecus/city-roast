@@ -16,8 +16,9 @@
         
     }
     .fp-page-title{
+        width: 90%;
         position: absolute;
-        top: 100px;
+        top: 80px;
         right: 50px;
         h1{
             color: lightslategrey;
@@ -88,10 +89,9 @@ h1.head-1{
 .jumbo-content{
     padding: 50px 20px;
     max-width: 600px;
-    .jumbotron{
-        padding: 50px;
+
         h1{
-            font-size: 2rem;
+            font-size: 1.5rem;
             color: lightslategrey;
             margin-bottom: 20px;
         }
@@ -100,7 +100,7 @@ h1.head-1{
             i{font-size: 32px;}
             a img{padding-bottom: 10px; }
         }
-    }
+    
 }
 @media only screen and (min-width:250px) and (max-width:640px){
   
@@ -118,6 +118,29 @@ h1.head-1{
                 padding: 10px 0px;
                 i{font-size: 20px;}
                 a img{padding-bottom: 5px; height: 28px; }
+            }
+        }
+    }
+    .fp-page-head{
+
+        img{
+            opacity: 0.2;
+            position: relative;
+            width: 100%;
+            margin-top: 0px;
+            min-height: 150px;
+            
+        }
+        .fp-page-title{
+            width: 70%;
+            position: absolute;
+            top: 80px;
+            right: 50px;
+            h1{
+                color: lightslategrey;
+                font-size: 1.5rem;
+                margin-right: 15px;
+    
             }
         }
     }

@@ -1,0 +1,45 @@
+[debug] [2017-11-16T19:09:30.709Z] ----------------------------------------------------------------------
+[debug] [2017-11-16T19:09:30.711Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve --only functions,hosting
+[debug] [2017-11-16T19:09:30.711Z] CLI Version:   3.13.1
+[debug] [2017-11-16T19:09:30.711Z] Platform:      darwin
+[debug] [2017-11-16T19:09:30.712Z] Node Version:  v8.1.3
+[debug] [2017-11-16T19:09:30.712Z] Time:          Thu Nov 16 2017 19:09:30 GMT+0000 (GMT)
+[debug] [2017-11-16T19:09:30.712Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-11-16T19:09:30.729Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2017-11-16T19:09:30.730Z] > authorizing via signed-in user
+[debug] [2017-11-16T19:09:30.731Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2017-11-16T19:09:30.732Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token { refresh_token: '1/sWUvusKc_98-H9H0snpVuZTrBZRG0abv_ET8FhZbLz4',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Thu Nov 16 2017 19:09:30 GMT+0000 (GMT)
+[debug] [2017-11-16T19:09:30.928Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-16T19:09:30.944Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/city-roast  
+ Thu Nov 16 2017 19:09:30 GMT+0000 (GMT)
+[debug] [2017-11-16T19:09:31.672Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-16T19:09:31.673Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/city-roast/tokens  
+ Thu Nov 16 2017 19:09:31 GMT+0000 (GMT)
+[debug] [2017-11-16T19:09:32.374Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/misco/Sites/web-projects/Projects/cityroast'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2017-11-16T19:09:32.760Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/city-roast  
+ Thu Nov 16 2017 19:09:32 GMT+0000 (GMT)
+[debug] [2017-11-16T19:09:32.760Z] >>> HTTP REQUEST GET https://apikeys.googleapis.com/v1/projects/city-roast/apiKeys  
+ Thu Nov 16 2017 19:09:32 GMT+0000 (GMT)
+[debug] [2017-11-16T19:09:32.761Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/city-roast  
+ Thu Nov 16 2017 19:09:32 GMT+0000 (GMT)
+[debug] [2017-11-16T19:09:33.792Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-16T19:09:33.795Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-16T19:09:33.795Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/798903411161/clients/_:getWebAppConfig  
+ Thu Nov 16 2017 19:09:33 GMT+0000 (GMT)
+[debug] [2017-11-16T19:09:33.796Z] <<< HTTP RESPONSE 200
+[debug] [2017-11-16T19:09:34.234Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: dist
+[info] ✔  hosting: Local server: http://localhost:5000
+
+[info] ✔  functions: mailers: http://localhost:5001/city-roast/us-central1/mailers
+[info] ✔  functions: server: http://localhost:5001/city-roast/us-central1/server

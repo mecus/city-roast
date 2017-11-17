@@ -1,0 +1,120 @@
+<section >
+    <div class="fp-page-head">
+        <img src="assets/coffee-beans.png"  alt="">
+        <div class="fp-page-title">
+            <h1>{{dproduct.name}}</h1>
+        </div>
+  </div>
+</section>
+<div *ngIf="positiveNum" class="alert alert-danger big-screen" role="alert">
+    please enter a valid number in the "Qty" box! to proceed.
+</div>
+<div class="user-login-msg" *ngIf="islogin">
+    <div class="alert alert-danger alert-p" role="alert">
+        <strong>Oh no!</strong> please login to add this product to your basket. <span><button routerLink="/login" class="btn btn-primary">please login here</button></span>
+    </div>
+</div>
+
+<section class="main-container content-container">
+    <div *ngIf="positiveNum" class="alert alert-danger small-screen" role="alert">
+        please enter a valid number in the "Qty" box! to proceed.
+    </div>
+    <a (click)="back()" class="btn-floating btn-small waves-effect waves-light grey darken-1"><i class="material-icons" aria-hidden="true">arrow_back</i></a>
+    <div *ngIf="!dproduct.name" class="container load-item">
+        <div class="progress-loading">
+            <div class="preloader-wrapper large active">
+                <div class="spinner-layer spinner-green-only">
+                    <div class="circle-clipper left">
+                    <div class="circle"></div>
+                    </div><div class="gap-patch">
+                    <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="dproduct.name" class="row product-disply">
+        <div class="col col-xs-12 col-sm-12 col-md-6 col-lg-6 product-img">
+            <div *ngIf="dproduct.size" class="p-size">
+                <div class="badge">
+                    <h5>{{dproduct.size}}</h5>
+                </div>
+            </div>
+            <img [src]="dproduct.imageUrl" alt="product image">
+
+            <div class="row similar-prod" *ngIf="similaProd.length > 1">
+                <p><i class="fa fa-coffee" aria-hidden="true"></i> Similar Items <i class="fa fa-arrow-down" aria-hidden="true"></i></p>
+                <div class="col col-xs-4 col-lg-4" *ngFor="let simp of similaProd">
+                    <div [class.selected]="simp.id === active" class="jumbotron">
+                       <img (click)="simpView(simp)" [src]="simp.imageUrl" alt="Sim prod">
+                        <p>{{simp.size}}</p>
+                        <p style="color:#f48024"><strong>{{simp.price | currency: 'GBP' :true}}</strong></p> 
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="col col-xs-12 col-sm-12 col-md-6 col-lg-6 product-details jumbotron">
+            <h1>{{dproduct.name}}</h1>
+
+            <h5 *ngIf="dproduct.oldprice"><span>Price: </span> <small style="text-decoration: line-through; color:red">was {{dproduct.oldprice | currency: 'GBP' :true}}</small> <small>now</small>  {{dproduct.price | currency: 'GBP' :true}}</h5>
+            <h5 *ngIf="!dproduct.oldprice"><span>Price: </span>{{dproduct.price | currency: 'GBP' :true}}</h5>
+            <div class="cart-select row">
+                <span class="col s4 qty"> <strong>Qty: </strong></span>
+                <span class="col s8 input">
+                    <input #val type="number" class="form-control s-input" name="count" value="1" pattern="[0-9]+" >
+                </span>
+                
+                
+            </div>
+
+            <div class="">
+                <div *ngIf="dproduct.size" class="pick-type">
+                    <label for="size"><strong>Size:</strong> </label>
+                    <select class="form-control custom-select" #size>
+                        <option value="500gm" selected>{{dproduct.size}}</option>
+         
+                    </select>
+          
+            
+                </div>
+                <div *ngIf="dproduct.tag == 'coffees'" class="pick-type">
+                    <span><label for="blend"> <strong>Blend: </strong> </label></span>
+                    <select class="form-control custom-select" #blend>
+                        <option *ngIf="dproduct.name.includes('Nespresso')" value="Nespresso" selected>Nespresso</option>
+                        <option value="Expresso" selected>Espresso</option>
+                        <option value="Coffee beans">Coffee Beans</option>
+                        <option value="Paper filter">Paper Filter</option>
+                        <option value="French filter">French Filter</option>
+                        <option value="Metal filter">Metal Filter</option>
+                        <option value="Turkish fine">Turkish Fine</option>
+                    </select>
+
+                </div>
+                
+                <div class="pick-type">
+
+            
+                </div>
+            </div>
+            <br>
+            <div class="big-screen">
+                 <h6>Product Descriptions:</h6>
+                <p>{{dproduct.description}}</p>
+            </div>
+            <!-- <div *ngIf="dproduct.tag == 'coffees'" class="add-to">
+                <h6> <button (click)="addtoCart( val.value, blend.value )" class="btn btn-success" type="button"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Add to Basket</button></h6>
+            </div> -->
+            <div class="add-to">
+                <h6> <button (click)="addtoCart( val.value )" class="btn btn-success" type="button"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Add to Basket</button></h6>
+            </div>
+        </div>
+    </div>
+     <div class="description-small small-screen" *ngIf="dproduct.name">
+            <h6>Product Descriptions:</h6>
+            <p>{{dproduct.description}}</p>
+        </div>
+
+</section>

@@ -1,9 +1,12 @@
-<section>
+<section class="main-container">
 
   <div>
+      <div *ngIf="customers && customers.length > 5" class="pagination">
+          <pagination-controls (pageChange)="page = $event" class="pg-pagination"></pagination-controls>
+      </div>
  
-    <table class="table table-striped">
-      <thead class="thead-inverse">
+    <table class="centered">
+      <thead >
         <tr>
           <th>Id</th>
           <th>Name</th>
@@ -14,12 +17,13 @@
           <th>Postcode</th>
           <th>City</th>
           <th>Country</th>
-          <th>Created</th>
-          <th></th>
+          <th>Date</th>
+          <th *ngIf="togg" (click)="getAll()">All</th>
+          <th *ngIf="!togg" (click)="getFew()">Few</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let customer of customers">
+        <tr *ngFor="let customer of customers | paginate: { itemsPerPage: pageSize, currentPage: page }">
           <td>{{customer.id}}</td>
           <td>{{customer.firstName+" "+customer.lastName}}</td>
           <td>{{customer.gender}}</td>
@@ -29,18 +33,29 @@
           <td>{{customer.postCode}}</td>
           <td>{{customer.city}}</td>
           <td>{{customer.country}}</td>
-          <td>{{customer.created_at | date}}</td>
-          <td><i (click)="remoteCustomer(customer.$key)" style="cursor:pointer"  class="fa fa-times remove-cart-i" aria-hidden="true"></i></td>
+          <td>{{customer.createdAt | date}}</td>
+          <td><i (click)="remoteCustomer(customer.key)" style="cursor:pointer"  class="material-icons">clear</i></td>
         </tr>
 
       </tbody>
     </table>
+    <!-- <div class="pagination">
+        <pagination-controls (pageChange)="page = $event" class="pg-pagination"></pagination-controls>
+    </div> -->
   </div>
 </section>
-<div *ngIf="customers.length < 1" class="progress container load-item">
+<div *ngIf="customers && customers.length < 1" class="container load-item">
       <div class="progress-loading" >
-          <strong>
-              <h3><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></h3>
-          </strong>
+        <div class="preloader-wrapper big active">
+          <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
       </div>
   </div>

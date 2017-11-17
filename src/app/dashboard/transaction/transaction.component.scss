@@ -1,0 +1,23 @@
+
+table{
+    td{
+        font-size: 12px !important;
+    }
+}
+.pagination{
+    position: relative;
+    width: 300px;
+    left: 50%;
+    margin-left: -150px;
+    margin-top: 10px;
+    .ngx-pagination .current{
+        background: lightslategray !important;
+    }
+    li .current{
+        background: lightslategray !important;
+    }
+    pagination-controls{
+        width: 100%;
+       
+    }
+}

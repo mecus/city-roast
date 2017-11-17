@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./contacts.component.scss']
 })
 export class ContactsComponent implements OnInit {
+  page: Number = 1;
+  pageSize = 5;
   contacts = [];
   singlecontact={};
   showMsg:boolean = false;

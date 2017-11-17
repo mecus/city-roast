@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { ProductService } from '../../services/product.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+declare var $:any;
+import { TestService } from '../../services/test.service';
 
 @Component({
   selector: 'app-update-product',
@@ -15,14 +17,15 @@ export class UpdateProductComponent implements OnInit {
     patchdata;
     updatedVal;
     constructor(private fb:FormBuilder, private productService:ProductService,
-            private router:Router, private _location:Location) { 
+            private router:Router, private _location:Location, private testService:TestService) { 
         this.updateVal = fb.group({
             name: ["", ],
             oldprice:"",
             price: ["", ],
             code: ["", ],
-            category: "",
+            category:this.category(),
             blend: "",
+            tag: "",
             size: "",
             roast: "",
             imageUrl: "",
@@ -30,14 +33,20 @@ export class UpdateProductComponent implements OnInit {
         });
   
     }
+    category(){
+        return this.fb.group({
+            name: "", group: ""
+        })
+    }
     back(){
       this.router.navigate(['/dashboard/products-list']);
         // this._location.back();
     }
 
     updateProd(product){
+        // console.log(this.patchdata.key);
         if(this.productService.rdata){
-            this.productService.updateProduct(this.patchdata.$key, product);
+            this.productService.updateProduct(this.patchdata.key, product);
         }else{
             alert("Update can't continue..Please go back to products and select again!")
         }
@@ -46,20 +55,30 @@ export class UpdateProductComponent implements OnInit {
     ngOnInit() { 
         this.patchdata = this.productService.rdata;
         if(this.productService.rdata){
-            this.updateVal.patchValue({
-                name: this.patchdata.name,
-                oldprice: this.patchdata.oldprice,
-                price: this.patchdata.price,
-                code: this.patchdata.code,
-                category: this.patchdata.category,
-                //  <!--Add Blend, Size, and Roast-->
-                blend: this.patchdata.blend,
-                size: this.patchdata.size,
-                roast: this.patchdata.roast,
-                imageUrl: this.patchdata.imageUrl,
-                description: this.patchdata.description,
-            });
+            console.log(this.patchdata);
+            setTimeout(()=>{
+                this.updateVal.patchValue({
+                    name: this.patchdata.data.name,
+                    oldprice: this.patchdata.data.oldprice,
+                    price: this.patchdata.data.price,
+                    code: this.patchdata.data.code,
+                    category: {name: this.patchdata.data.category.name, group:this.patchdata.data.category.group},
+                    //  <!--Add Blend, Size, and Roast-->
+                    tag: this.patchdata.data.tag,
+                    blend: this.patchdata.data.blend,
+                    size: this.patchdata.data.size,
+                    roast: this.patchdata.data.roast,
+                    imageUrl: this.patchdata.data.imageUrl,
+                    description: this.patchdata.data.description
+                });
+            }, 300);
+            // $(document).ready(function() {
+            //     $('select').material_select();
+            // });
         }
+        // $(document).ready(function() {
+        //     $('select').material_select();
+        // });
     }
 
 

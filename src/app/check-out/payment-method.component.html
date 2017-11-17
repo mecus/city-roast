@@ -2,16 +2,16 @@
     <div class="fp-page-head">
         <!--<img src="assets/about-us.jpg"  alt="">-->
         <div class="fp-page-title">
-        <h1>Payment Method</h1>
+            <!-- <h1>Payment Method</h1> -->
         </div>
   </div>
 </section>
-<div class="container jumbo-content">
+<div  class="main-container jumbo-content main-container-load">
     
-    <div class="container jumbotron jumbo-content" >
-    <h1>Payment Method <span *ngIf="fieldOk"><i style="color: lightseagreen" class="fa fa-check" aria-hidden="true"></i></span> </h1>
-    <div *ngFor="let sum of orders">
-        <h5 style="color: #f48024" >Due Amount:  {{sum.amount | currency:'GBP':true}}</h5>
+    <div class="" >
+    <h1>Choose how you want to pay <span *ngIf="fieldOk"><i style="color: lightseagreen" class="fa fa-check" aria-hidden="true"></i></span> </h1>
+    <div *ngIf="order && order.amount">
+        <h5 style="color: #f48024" >Due Amount:  {{order.amount | currency:'GBP':true}}</h5>
     </div>
     <p>Thank you for placing your order on our websit, as part of our security measure we will redirect you to a secured payment page to take your card details and process the payment.</p>
     <p>Chose one from the two payment method below!</p>
@@ -19,23 +19,25 @@
     <!--<button routerLink="/order" type="button">Go Back</button>-->
     
     <div class="row">
-        <div class="barclaypay col col-xs-6 col-sm-6 col-md-6 col-lg-6">
-            <div id="main-form">
+        <div style="padding: 0px; margin: 10px;" class="barclaypay col xs6 s6 m6 l6">
+            <div id="paypal-button"></div>
+            <span style="width: 5px;"></span>
+            <!-- <div id="main-form">
             </div>
             <div id="myform">
-                    <div *ngFor="let order of orders">
+                    <div *ngIf="order">
                         <input type="hidden" name="PSPID" value="epdq3027479">
                         <input type="hidden" name="ORDERID" value={{order.orderId}}>
                         <input type="hidden" name="AMOUNT" value={{order.amount*100}}>
                         <input type="hidden" name="CURRENCY" value="GBP">
                         <input type="hidden" name="LANGUAGE" value="en_US">
                         
-                        <!-- lay out information -->
+                        lay out information
                         <input type="hidden" name="TITLE" value="London City Roast">
                         <input type="hidden" name="ACCEPTURL" value="http://www.londoncityroast.com/payment-confirmation">
                         <input type="hidden" name="BACKURL" value="http://www.londoncityroast.com/payment-method">
                         <input type="hidden" name="EXCEPTIONURL" value="http://www.londoncityroast.com/exception">
-                        <!-- miscellanous -->
+                        miscellanous
                         <input type="hidden" name="HOMEURL" value="http://www.londoncityroast.com">
             
                         <input type="hidden" name="CN" value={{order.customerName}}>
@@ -54,37 +56,55 @@
                     <i class="fa fa-cc-jcb" aria-hidden="true"></i>
                     <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
                     <a><img src="https://www.merchantequip.com/image/?logos=a&height=36" alt="Merchant Equipment Store Credit Card Logos" /></a>
-                </div>
+                </div> -->
         </div>
-        <div class="worldpay col col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+        <div style="padding: 0px; margin: 0px;" class="worldpay col xs6 s6 m6 l6">
             <div id="payForm">
             </div>
-            <div id="form10" *ngFor="let order of orders">
-                <input type="hidden" name="testMode" value="0">
-                <!-- These first four elements are mandatory. -->
-                <input type="hidden" name="instId" value="1189962">
-                <input type="hidden" name="cartId" value="{{order.orderId}}">
-                <input type="hidden" name="currency" value="GBP">
-                <input type="hidden" name="amount" value="{{order.amount}}">
+            <div id="form10">
+                <div *ngIf="order">
+                    <input type="hidden" name="testMode" value="0">
+                
+                    <input type="hidden" name="instId" value="1189962">
+                    <input type="hidden" name="cartId" value="{{order.orderId}}">
+                    <input type="hidden" name="currency" value="GBP">
+                    <input type="hidden" name="amount" value="{{order.amount}}">
 
-                <!-- These elements below are optional. -->
-                <input type="hidden" name="desc" value="Coffees">
-                <input type="hidden" name="name" value="{{order.customerName}}">
-                <input type="hidden" name="address1" value="{{order.address}}">
-                <input type="hidden" name="town" value="{{order.city}}">
-                <input type="hidden" name="postcode" value="{{order.postCode}}">
-                <input type="hidden" name="country" value="{{order.country}}">
-                <input type="hidden" name="email" value="{{order.email}}">
-                <input class="btn btn-danger" type="submit" value="Worldpay">
+                    
+                    <input type="hidden" name="desc" value="Coffees">
+                    <input type="hidden" name="name" value="{{order.customerName}}">
+                    <input type="hidden" name="address1" value="{{order.address}}">
+                    <input type="hidden" name="town" value="{{order.city}}">
+                    <input type="hidden" name="postcode" value="{{order.postCode}}">
+                    <input type="hidden" name="country" value="{{order.country}}">
+                    <input type="hidden" name="email" value="{{order.email}}">
+                    <input class="btn btn-danger" type="submit" value="Debit Card">
+                </div>
             </div>
-            <div class="card-type">
+            <!-- <div class="card-type">
                 <i class="fa fa-cc-visa" aria-hidden="true"></i>
                 <i class="fa fa-cc-jcb" aria-hidden="true"></i>
                 <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
                 <a><img src="https://www.merchantequip.com/image/?logos=me&height=36" alt="Merchant Equipment Store Credit Card Logos" /></a>
 
-            </div>
+            </div> -->
         </div>
     </div>
+    </div>
+    <div *ngIf="spinner" class="reload-cover-white">
+        <div class="progress-loading" >
+            <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                <div class="circle"></div>
+                </div><div class="gap-patch">
+                <div class="circle"></div>
+                </div><div class="circle-clipper right">
+                <div class="circle"></div>
+                </div>
+            </div>
+            </div>
+        </div>
     </div>
 </div>

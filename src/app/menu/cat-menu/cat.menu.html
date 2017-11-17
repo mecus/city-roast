@@ -1,0 +1,14 @@
+<div [class.stick-menu]="sticky" id="stick" class="sub-menu">
+    <div class="list-item row container">
+        <div [class.active-bar]="coffees" class="item1 col xs4 s4 m4 l4">
+            <h1 (click)="coffee()">Coffees</h1>
+        </div>
+        <div [class.active-bar]="machine" class="item2 col xs4 s4 m4 l4">
+            <h1 (click)="coffeeMachine()">Coffee Machine</h1>
+        </div>
+        <div [class.active-bar]="accessory" class="item3 col xs4 s4 m4 l4">
+            <h1 (click)="accessories()">Accessories</h1>
+        </div> 
+    </div>
+    
+</div>

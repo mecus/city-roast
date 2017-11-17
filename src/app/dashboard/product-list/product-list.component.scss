@@ -3,6 +3,20 @@ table{
         td{font-size: 11px;}
     }
 }
+.product-list{
+    margin-bottom: 50px;
+    .pagination{
+        position: relative;
+        width: 400px;
+        left: 50%;
+        margin-left: -200px;
+        margin-top: 50px;
+        pagination-controls{
+            width: 100% !important;
+        }
+    }
+
+}
 .myinput input {
     height: 100px;
 }
@@ -39,6 +53,7 @@ span.add{
 
 
 }
+
 .load-item{
     margin: 0 auto;
     text-align: center;

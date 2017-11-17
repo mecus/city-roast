@@ -1,6 +1,14 @@
-<section class="table-content">
-  <table class="table table-striped">
-    <thead class="thead-inverse">
+<section class="table-content main-container">
+    <div *ngIf="orders && orders.length > 5" class="pagination">
+        <pagination-controls (pageChange)="page = $event" class="pg-pagination"></pagination-controls>
+    </div>
+    <div class="query-button">
+      <a id="all" (click)="getAllOrders()" class="waves-effect waves-light btn">All Orders</a>
+      <a id="pend" (click)="getPendingOrders()" class="waves-effect waves-light btn">Pending Orders</a>
+      <a id="comp" (click)="getCompletedOrders()" class="waves-effect waves-light btn">Completed Orders</a>
+    </div>
+  <table class="centered striped">
+    <thead >
       <tr>
         <th>Status</th>
         <th>Date</th>
@@ -20,30 +28,39 @@
       </tr>
     </thead>
     <tbody *ngIf="railsOrder">
-      <tr *ngFor="let order of railsOrder">
-        <td *ngIf="order.attributes.status == 'completed'" style="color:green;">{{order.attributes.status}}</td>
-        <td *ngIf="order.attributes.status == 'Pending'" style="color:red;">{{order.attributes.status}}..</td>
-        <td>{{order.attributes.created_at | date}}</td>
-        <th style="color: lightslategray; cursor:pointer" (click)="seeItems(order.attributes.itemsid)" >{{order.attributes.orderid}}</th>
-        <td>{{order.attributes.amount | currency: 'GBP':true}}</td>
-        <td>{{order.attributes.name}}</td>
-        <td>{{order.attributes.email}}</td>
-        <td>{{order.attributes.telephone}}</td>
-        <td>{{order.attributes.address}}</td>
-        <td>{{order.attributes.postcode}}</td>
-        <td>{{order.attributes.city}}</td>
-        <td>{{order.attributes.country}}</td>
-        <td><i style="cursor:pointer" (click)="removeOrder(order.id)" class="fa fa-times remove-cart-i" aria-hidden="true"></i></td>
+      <tr *ngFor="let order of orders | paginate: { itemsPerPage: pageSize, currentPage: page }">
+        <td *ngIf="order.status == 'completed'" style="color:green;">{{order.status}}</td>
+        <td *ngIf="order.status == 'pending'" style="color:red;">{{order.status}}..</td>
+        <td>{{order.createdAt | date}}</td>
+        <th style="color: lightslategray; cursor:pointer" (click)="seeOrder(order)" >{{order.orderId}}</th>
+        <td *ngIf="order.status == 'completed'" style="color:green;">{{order.amount | currency: 'GBP':true}}</td>
+        <td *ngIf="order.status == 'pending'" style="color:red;">{{order.amount | currency: 'GBP':true}}</td>
+        <td>{{order.customerName}}</td>
+        <td>{{order.email}}</td>
+        <td>{{order.telephone}}</td>
+        <td>{{order.address}}</td>
+        <td>{{order.postcode}}</td>
+        <td>{{order.city}}</td>
+        <td>{{order.country}}</td>
+        <td><i style="cursor:pointer" (click)="removeOrder(order.key)" class="fa fa-times remove-cart-i" aria-hidden="true"></i></td>
       </tr>
     </tbody>
   </table>
 </section>
 
-  <div *ngIf="railsOrder.length < 1" class="progress container load-item">
+  <div *ngIf="orders && orders.length < 1" class="container load-item">
       <div class="progress-loading" >
-          <strong>
-              <h3><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></h3>
-          </strong>
+        <div class="preloader-wrapper big active">
+          <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
       </div>
   </div>
     

@@ -3,24 +3,28 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { LocalStorageModule } from 'angular-2-local-storage';
 import { AppRoutingModule } from '../app-routing.module';
-
+import { ShareModule } from '../share-modules/share.module';
 import { AppService } from '../services/app.service';
 import { UploadService } from '../services/upload.service';
 import { ProductService } from '../services/product.service';
+import { CheckOutService } from '../services/check-out.service';
+import * as product from './product-index';
 import { CartService } from '../services/cart.service';
 
 // import { ProductformComponent } from './product-form.component';
-// import { ProductsComponent } from './product.component';
-import { ProductViewComponent } from './product-view.component';
 // import { ProductUpdateComponent } from './product-update.component';
 // import { DashboardComponent } from '../menu/dashboard/dashboard.component';
 
 
 @NgModule({
     declarations:[
-        ProductViewComponent
+        product.ProductViewComponent, product.CoffeeComponent,
+        product.CategoryComponent,
+        product.MachineComponent,
+        product.AccessoryComponent
    
         
     ],
@@ -28,13 +32,16 @@ import { ProductViewComponent } from './product-view.component';
     imports: [
         BrowserModule, HttpModule,
         FormsModule, ReactiveFormsModule,
-        AngularFireModule, LocalStorageModule,
-        AppRoutingModule
+        LocalStorageModule, ShareModule,
+        AppRoutingModule, NgxPaginationModule
     ],
     exports: [
   
     ],
-    providers:[AppService, UploadService, ProductService, CartService]
+    providers:[AppService, UploadService, 
+        ProductService, CheckOutService,
+        CartService
+    ]
 
 
 })

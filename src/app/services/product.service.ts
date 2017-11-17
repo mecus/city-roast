@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
+// import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 import * as firebase from 'firebase';
 import 'rxjs/add/operator/toPromise';
 
@@ -10,40 +13,67 @@ import { Product } from '../models/product.model';
 @Injectable()
 export class ProductService {
     rdata;
+    cachesProduct$;
    
-    constructor(private af:AngularFire, private route:ActivatedRoute, private router:Router) { }
+    constructor(private db:AngularFireDatabase, private route:ActivatedRoute, private router:Router) {
+        this.cachesProduct$ = new ReplaySubject(1);
+     }
 
 
     //==Retrieving Products from the FireBase Database==//
     getProduct():Observable<Product[]>{
-       return this.af.database.list('products');
+       return this.db.list('products').valueChanges();
 
     }
+    getProductWithId(){
+        let colls = this.db.list('products').snapshotChanges();
+        return colls.map(snapshot => {
+            let data=[];
+            snapshot.forEach(docs=>{
+                data.push({data: docs.payload.val(), key: docs.payload.key});
+            })
+            return data;
+        });
+    }
     oneProduct(id:number | string){
-        return this.af.database.list('products')
+        return this.db.list('products').valueChanges()
         .subscribe((products)=>{
-            products.find((product)=> product = product.id === +id) });
+            products.find((product)=> product = product === +id) });
             
         
+    }
+    getCacheProduct(){
+        if(!this.cachesProduct$.observers.length){
+           this.getProduct().subscribe(
+               product => this.cachesProduct$.next(product),
+               err => {
+                if(err){
+                    this.cachesProduct$.error(err);
+                    this.cachesProduct$ = new ReplaySubject(1);
+                }
+           });
+        }
+        return this.cachesProduct$;
     }
 
     //==Adding Product to the List==//
     addProduct(product:Product){
-        let db = this.af.database.list('products');
-        db.push(product).then((res)=>{
-            console.log('Product Created Successfully');
-        }).catch((err)=>{
-            console.log(err);
-        });
+        let db = this.db.list('products');
+       return db.push(product);
     }
     //==Deleting Single Product form the List==//
-    removeProduct(key){
-        let db = this.af.database.list('products/');
+    removeProduct(key, file?){
+        let db = this.db.list('products');
         db.remove(key).then(function(res){
             console.log(res);
+            if(file){
+                this.removeProductImage(file)
+            }
+            
         }).catch(function(err){
             console.log(err);
         });
+        
     }
     //==Updating Product section==//
     getUpdateVal(data){
@@ -52,7 +82,8 @@ export class ProductService {
     updateProduct(key, data){
         console.log('Updating product with key: '+key);
         console.log('............')
-        let dbRef = firebase.database().ref('products/'+key);
+        let dbRef = this.db.object('products/'+key);
+
         dbRef.update(data).then(res=>{
             console.log('product updated');
         }).catch(err=>{
@@ -60,7 +91,12 @@ export class ProductService {
         });
     }
   
-
+    removeProductImage(file){
+        let storageRef = firebase.storage().ref('/images/products/'+file);
+        storageRef.delete().then(res=>{
+            console.log("Image Deleted Successfully");
+        }).catch(err=>console.log(err));
+    }
        
 
 

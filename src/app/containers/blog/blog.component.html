@@ -1,0 +1,31 @@
+<div class="blog-container">
+    <div *ngIf="blog$" class="blog-image">
+        <img [src]="blog$.data.blogImage" alt="">
+        <div class="blogtitle">
+            <h1>{{blog$.data.title}}</h1>
+            <p>Posted: {{blog$.data.postdate | date}}</p>
+        </div>
+    </div>
+    <div class="main-container main-page">
+        <div class="row">
+            <div *ngIf="blog$" class="left-pane col xs12 s12 m8 l8">
+                <h1>{{blog$.data.title}}</h1>
+                <p>{{blog$.data.snippet}}</p>
+                <small>Posted: {{blog$.data.postdate | date}}</small>
+                <div [innerHtml]="blog$.data.body"></div>
+            </div>
+            <div class="right-pane col xs12 s12 m4 l4">
+                <ul class="collection">
+                    <li *ngFor="let blog of nextBlog$" class="collection-item avatar">
+                        <img (click)="readBlog(blog)" [src]="blog.data.blogImage" alt="" class="circle">
+                        <span (click)="readBlog(blog)" class="title">{{blog.data.title}}</span>
+                        <p>Posted: {{blog.data.postdate | date}} <br>
+
+                        </p>
+                        <!-- <a (click)="readBlog(blog)" class="secondary-content"><i class="material-icons">grade</i></a> -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

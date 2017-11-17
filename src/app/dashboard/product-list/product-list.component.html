@@ -1,15 +1,11 @@
 
-<div class="container product-list">
-    <div *ngIf="!products.length" class="progress container load-item">
-        <div class="progress-loading" >
-            <strong>
-                <h3><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i></h3>
-            </strong>
-        </div>
+<div class="product-list main-container">
+    <div style="margin-top: 10px;" class="pagination">
+        <pagination-controls (pageChange)="page = $event" class="pg-pagination"></pagination-controls>
     </div>
-    <br>
-    <table *ngIf="products.length" class="table table-striped">
-    <thead class="thead-inverse">
+
+    <table class="centered">
+    <thead>
         <tr>
         <!--<th>Id</th>-->
         <th>Code</th>
@@ -17,39 +13,63 @@
         <th>Product</th>
         <th>Price</th>
         <th>Size</th>
+        <th>Size</th>
         <th>Cat</th>
+        <th>Group</th>
         <th>Description</th>
-        <th><i class="fa fa-coffee" aria-hidden="true"></i></th>
+        <th *ngIf="products && products.length">{{products.length}}</th>
         <!--<th> <a ><button routerLink="/dashboard/new-product" class="btn btn-secondary">Add</button></a></th>-->
         <th><i style="cursor:pointer; font-size:18px;" routerLink="/dashboard/new-product" class="fa fa-plus" aria-hidden="true"></i></th>
 
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let product of products">
+        <tr *ngFor="let product of products | paginate: { itemsPerPage: pageSize, currentPage: page }">
         <!--<th scope="row">{{product.id}}</th>-->
-        <th style="font-size:14px;" scope="row">{{product.code}}</th>
+        <th style="font-size:14px;" scope="row">{{product.data.code}}</th>
         <td>
             <div class="display-image">
-                <img [src]="product.imageUrl" style="width:50px" alt="">
-                <div *ngIf="product.imageUrl && product.imageUrl" class="file-input">
+                <img [src]="product.data.imageUrl" style="width:50px" alt="">
+                <div *ngIf="product && product.data.imageUrl" class="file-input">
                     <input (change)="onChange($event)" (change)="prodKey(product)" (change)="uploadImage()" type="file" class="hidden">
                     <span class="add">image</span>
                 </div> 
             </div>
         </td>
         
-        <td (click)="seeProduct(product)"><h5 style="color: #f48024"><a  [style.font-size.px]="12" >{{product.name}} </a></h5> </td>
-        <td>{{product.price | currency: 'GBP' :true}}</td>
-        <td>{{product.size}}</td>
-        <td>{{product.category}}</td>
-        <td><p [style.font-size.px]="13">{{product.description}}</p></td>
+        <td (click)="seeProduct(product)"><h5 style="color: #f48024"><a  [style.font-size.px]="12" >{{product.data.name}} </a></h5> </td>
+        <td>{{product.data.price | currency: 'GBP' :true}}</td>
+        <td>{{product.data.size}}</td>
+        <td>{{product.data.tag}}</td>
+        <td>{{product.data.category.name}}</td>
+        <td>{{product.data.category.group}}</td>
+        <td><p [style.font-size.px]="13">{{product.data.description}}</p></td>
         <!--<td > <button class="btn btn-default" (click)="getValue(product)" type="">Edit</button></td>-->
-        <td><i style="cursor:pointer; font-size:18px;" (click)="getValue(product)" class="fa fa-pencil-square-o" aria-hidden="true"></i></td>
-        <td><i style="cursor:pointer; font-size:14px; color:#f48024" (click)="deleteProduct(product)" class="fa fa-times remove-cart-i" aria-hidden="true"></i></td>
+        <td><i style="cursor:pointer; font-size:18px;" (click)="getValue(product)" class="material-icons" aria-hidden="true">edit</i></td>
+        <td><i style="cursor:pointer; font-size:14px; color:#f48024" (click)="deleteProduct(product)" class="material-icons" aria-hidden="true">clear</i></td>
         <!--<td><button class="btn btn-danger" (click)="deleteProduct(product)" type="">Remove</button></td>-->
         </tr>
         
     </tbody>
     </table>
+    <div class="pagination">
+        <pagination-controls (pageChange)="page = $event" class="pg-pagination"></pagination-controls>
+    </div>
+    
+</div>
+
+<div *ngIf="products && products.length < 1" class="container load-item">
+    <div class="progress-loading" >
+      <div class="preloader-wrapper big active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>

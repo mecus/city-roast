@@ -2,8 +2,9 @@ import { Component, OnInit, OnChanges } from '@angular/core';
 import { AuthService } from '../authentications/auth-service';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import { CartService } from '../services/cart.service';
+import { CheckOutService } from '../services/check-out.service';
 import { Router } from '@angular/router';
+import { CartService } from '../services/cart.service';
 
 
 
@@ -18,21 +19,20 @@ export class MenuComponent implements OnInit {
     anoUser:boolean = false;
     currentuser;
     cartTotal;
-    totalItem;
-    
-
+    totalItem = 90;
     previlege: boolean=false;
     loginAlert:boolean = false;
-
     isImenu:number = 0;
     isMenuIcon:boolean = true;
     loginDraw:number = 0;
     closeWind:boolean=false;
 
-
     constructor(private authService:AuthService, private cartService:CartService, private router:Router) {
-        this.cartTotal = [];
+
      }
+    public productCategory(){
+        this.router.navigate(["products/?", {category: "coffees", dispay: "true"}]);
+    }
     openDrawer(){
         this.loginDraw = 150;
         this.closeWind = true;
@@ -70,54 +70,63 @@ export class MenuComponent implements OnInit {
     }
 
     signOut(){
-        if(this.anoUser){
-          this.cartService.clear();
-        //   this.cartService.deleteCustomerDetails(); 
-        }
+        // if(this.anoUser){
+        //   this.cartService.clear();
+        // //   this.cartService.deleteCustomerDetails(); 
+        // }
         this.authService.logOut().then((res)=>{
-            // this.router.navigate(["/"]);
-            // this.router.navigate(['/login']);
-        }).catch(error=>console.log(error));
-        location.reload();
-    }
-    // notifyLogin(){
+            localStorage.removeItem('userId');
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('idToken');
+            if(localStorage.getItem('returnId')){
+                localStorage.removeItem('returnId');
+            }
+            this.regUser = false;
+            this.anoUser = false;
+            this.previlege = false;
+            setTimeout(()=>{this.router.navigate(["/login"]);}, 500)
+        }, (error)=>{
+            console.log(error);
+        });
 
-    // }
-    logAnonymous(){
-        if(!localStorage.getItem('idToken')){
-            this.authService.logAnonymous()
-                .then(success=>{
-                //==This section runs to save the current user to the local-storage==//
-                this.loginAlert = false;
-                this.authService.authChange();
-                // this.router.navigate(['/']);
-                })
-                .catch(error=>console.log(error));
-            } 
-        }
- //Need to move the fuction to service component
-    getCartTotal(){
-        this.cartService.getCart()
-            .subscribe(cart=>{
-                cart.forEach((cart)=>{
-                this.cartTotal.push(cart.qty);
-                this.totalItem = this.cartTotal.reduce((sum, num)=>{
-                    return sum + Math.ceil(num);
-                }, 0)
-            }); 
-                 
-            });
-         
+        // this.router.navigate(["/login"]);
     }
+
+    // logAnonymous(){
+    //     if(!localStorage.getItem('idToken')){
+    //         this.authService.logAnonymous()
+    //             .then(success=>{
+    //             //==This section runs to save the current user to the local-storage==//
+    //             this.loginAlert = false;
+    //             this.authService.authChange();
+    //             // this.router.navigate(['/']);
+    //             })
+    //             .catch(error=>console.log(error));
+    //         } 
+    //     }
+ //Need to move the fuction to service component
+    // getCartTotal(){
+    //     this.cartService.getCart()
+    //         .subscribe(cart=>{
+    //             cart.forEach((cart)=>{
+    //             this.cartTotal.push(cart.qty);
+    //             this.totalItem = this.cartTotal.reduce((sum, num)=>{
+    //                 return sum + Math.ceil(num);
+    //             }, 0)
+    //         }); 
+                 
+    //         });
+         
+    // }
 
     userChange(){
-         this.authService.authUserChange().subscribe(
+         this.authService.authUserState().subscribe(
              user=>{
                  if(user != null){
-                    if(user.auth.isAnonymous){
+                    if(user.isAnonymous){
                         this.anoUser = true;
                     }else
-                    if(user.auth.email){
+                    if(user.email){
                       this.regUser = true;  
                     }
                  }
@@ -134,42 +143,74 @@ export class MenuComponent implements OnInit {
         return email = regx;
     }
 
-    ngOnInit() { 
+    ngOnInit() {
+        this.cartService.createDb();
+        setTimeout(()=>{
+            this.cartService.retrieveCart()
+            .subscribe(carts=>{
+                this.cartTotal = carts[1];
+            });
+        }, 1200);
+      
+        let domEl = document.getElementById("menu-header");
+        let brandEl = document.getElementById("brand");
+        window.addEventListener('scroll', (e)=>{
+            let yPos = window.pageYOffset;
+            if(yPos > 100){
+                domEl.style.opacity = "1";
+                domEl.style.transition = ".3s";
+                brandEl.style.backgroundColor = "#35414C";
+                brandEl.style.transition = "1.2s";
+            }else{
+                domEl.style.transition = ".3s";
+                domEl.style.opacity = "0";
+                brandEl.style.background = "transparent";
+                brandEl.style.transition = "1.2s";
+            }
+        });
         this.userChange();
        
-        this.getCartTotal();
+        // this.getCartTotal();
+        this.timer = setInterval(()=>{
+           this.userChanges();
+        }, 1500);
      
         
         // this.authService.authChange();
         // this.regUser = localStorage.getItem('currentUser');
         this.changeLogo();
-       
-        this.timer = setInterval(()=>{
-                if(localStorage.getItem('idToken')){
-                this.authService.getAccount(localStorage.getItem('idToken'))
-                .subscribe(adm=>{
-                    // console.log(adm.isAdmin);
-                        if(adm.isAdmin == true ){
-                            this.previlege = true;
-                            console.log("Admin truthy");
-                            this.clearTimer();
-                        }else{
-                            this.previlege = false;
-                        }
-                });
-                
-            }
-            
-        }, 1500);
-    
-       
-        setTimeout(()=>{
-            if(!localStorage.getItem('idToken')){
-                this.loginAlert = true;
-            }
-        }, 50000);
+
+        // setTimeout(()=>{
+        //     if(!localStorage.getItem('idToken')){
+        //         this.loginAlert = true;
+        //     }
+        // }, 50000);
 
         this.currentuser = this.stripMail(localStorage.getItem('currentUser'));
     }
 
+    userChanges(){
+        console.log("Checking user presence");
+        if(localStorage.getItem('idToken')){
+            this.authService.getAccount(localStorage.getItem('idToken'))
+            .subscribe(adm=>{
+                if(adm){
+                    // console.log(adm["isAdmin"]);
+                    if(adm["isAdmin"] == true ){
+                        this.previlege = true;
+                        // console.log("Admin truthy");
+                        this.clearTimer();
+                    }else{
+                        this.previlege = false;
+                        this.clearTimer();
+                    }
+                }else{
+                    this.clearTimer();
+                    return 0;
+                }
+            });
+            
+        }
+        return this.clearTimer();
+    }
 }

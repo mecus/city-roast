@@ -1,7 +1,7 @@
 
 .fp-page-content{
     max-width: 700px;
-    padding: 50px 0px;
+    padding: 20px 0px 50px 0px;
     p{
         text-align: center;
         padding: 20px 0px;
@@ -11,3 +11,29 @@
         
     }
 }
+// .main-title{
+//     background-color: lightslategrey;
+//     border-radius: 5px;
+//     margin: 10px 0px;
+//     label{
+//         color: #fff;
+//         padding: 5px;
+//     }
+// }
+// .blending{
+//     @extend .main-title;
+// }
+// .category-wrapper{
+//     @extend .main-title;
+   
+//     h3{
+//         font-size: 18px;
+//         padding: 10px 0px;
+//         padding-left: 10px;
+//         color: #fff;
+//     }
+
+// }
+// .myinput{
+//     @extend .main-title;
+// }

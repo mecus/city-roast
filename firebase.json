@@ -4,9 +4,24 @@
   },
   "hosting": {
     "public": "dist",
-    "rewrites": [ {
-      "source": "**",
-      "destination": "/index.html"
-    } ]
+    "ignore": [
+      "firebse.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "function": "server"
+      },
+      {
+        "source": "**",
+        "function": "mailers"
+      },
+      {
+        "source": "**",
+        "function": "sendWelcomeEmail"
+      }
+    ]
   }
 }

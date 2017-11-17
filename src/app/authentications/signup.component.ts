@@ -16,7 +16,7 @@ function passwordMather(c:AbstractControl){
     styleUrls: ['./auth.stylesheet.scss']
 })
 export class SignUpComponent implements OnInit {
-    private user: FormGroup;
+    user: FormGroup;
     errMsg;
 
     constructor(private fb:FormBuilder, private authService:AuthService, private router:Router) {
@@ -33,9 +33,9 @@ export class SignUpComponent implements OnInit {
                 console.log("Successfully Created user account");
                 this.router.navigate(['/']);
                 this.authService.authChange();
-                this.authService.authUserChange()
+                this.authService.authUserState()
                     .subscribe(signUser=>{
-                        this.authService.createAccount(signUser.uid, signUser.auth.email);
+                        this.authService.createAccount(signUser.uid, signUser.email);
                     });
                 // console.log(success);
             }).catch(err=>{

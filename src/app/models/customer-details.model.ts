@@ -11,7 +11,6 @@ export interface iCustomer {
     postCode: string;
     city: string;
     country: string;
-    created_at: Date;
 
     deliveryOne: string;
     deliveryTwo: string;
@@ -33,7 +32,7 @@ export class Customer {
     postCode: string;
     city: string;
     country: string;
-    created_at: Date;
+
 
     deliveryOne: string;
     deliveryTwo: string;
@@ -53,14 +52,13 @@ export class Customer {
         this.addressTwo = "";
         this.postCode = "";
         this.city = "";
-        this.country = "Unite Kingdom";
-        this.created_at = new Date();
+        this.country = "United Kingdom";
 
         this.deliveryOne = "";
         this.deliveryTwo = "";
         this.deliveryCode = "";
         this.deliveryCity = "";
-        this.deliveryCountry = "Unite Kingdom";
+        this.deliveryCountry = "United Kingdom";
         this.deliveryTrue = "";
     }
 }

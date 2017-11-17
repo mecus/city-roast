@@ -1,0 +1,242 @@
+<!--<app-header></app-header>-->
+<home-header></home-header>
+<section class="whole-content">
+  <div class="departments">
+    <div class="cat-1">
+        <img class=""  src="assets/pexels-dep.jpeg">
+        <div class="caption">
+          <h2 routerLink="/coffees">Coffee</h2>
+          <!-- <a href="" class="btn waves-effect white grey-text darken-text-2">See</a> -->
+        </div>
+    </div>
+    <div class="cat-2">
+        <img class=""  src="assets/pexels-dep2.jpeg">
+        <div class="caption">
+          <h2 routerLink="/coffee_machine">Coffee Machine</h2>
+          <!-- <a href="" class="btn waves-effect white grey-text darken-text-2">See</a> -->
+        </div>
+    </div>
+    <div class="cat-3">
+        <img  class=""  src="assets/pexels-dep.jpeg">
+        <div class="caption">
+          <h2 routerLink="/accessories">Accessories</h2>
+          <!-- <a routerLink="/accessories" class="btn waves-effect white grey-text darken-text-2">See</a> -->
+        </div>
+    </div>
+  </div>
+
+  <div class="container product-display">
+    <h1>Coffees</h1>
+    <a routerLink="/coffees">See more</a>
+    <div class="row">
+      <div class="col xs6 s6 m4 l3 items"  *ngFor="let item of coffees">
+          <img (click)="viewProduct(item)" class="rounded-top" [src]="item.imageUrl" alt="product photo">
+          <div class="product-caption">
+              <h1 (click)="viewProduct(item)">{{item.name}}</h1>
+              <h5 *ngIf="item.oldprice" id="oldprice"><small>was</small> {{item.oldprice | currency: 'GBP' :true}}</h5>
+              <h6>{{item.price | currency: 'GBP' :true}}</h6>
+              <!-- <a class="waves-effect waves-light btn"><i class="material-icons right">cloud</i>Order</a> -->
+          </div>
+          <div class="btn-button">
+              <a (click)="viewProduct(item)" class="waves-effect waves-light btn">buy</a>
+          </div>
+      </div>
+    </div>
+    <h1>Coffee Machines</h1>
+    <a routerLink="/coffee_machine">See more</a>
+    <div class="row">
+      <div class="col xs6 s6 m4 l3 items"  *ngFor="let item of machines">
+          <img (click)="viewProduct(item)" class="rounded-top" [src]="item.imageUrl" alt="product photo">
+          <div class="product-caption">
+              <h1 (click)="viewProduct(item)">{{item.name}}</h1>
+              <h5 *ngIf="item.oldprice" id="oldprice"><small>was</small> {{item.oldprice | currency: 'GBP' :true}}</h5>
+              <h6>{{item.price | currency: 'GBP' :true}}</h6>
+              <!-- <a class="waves-effect waves-light btn"><i class="material-icons right">cloud</i>Order</a> -->
+          </div>
+          <div class="btn-button">
+            <a (click)="viewProduct(item)" class="waves-effect waves-light btn">buy</a>
+        </div>
+      </div>
+    </div>
+    <h1>Accessories</h1>
+    <a routerLink="/accessories">See more</a>
+    <div class="row">
+      <div class="col xs6 s6 m4 l3 items"  *ngFor="let item of accessories">
+          <img (click)="viewProduct(item)" class="rounded-top" [src]="item.imageUrl" alt="product photo">
+          <div class="product-caption">
+              <h1 (click)="viewProduct(item)">{{item.name}}</h1>
+              <h5 *ngIf="item.oldprice" id="oldprice"><small>was</small> {{item.oldprice | currency: 'GBP' :true}}</h5>
+              <h6>{{item.price | currency: 'GBP' :true}}</h6>
+              <!-- <a class="waves-effect waves-light btn"><i class="material-icons right">cloud</i>Order</a> -->
+          </div>
+          <div class="btn-button">
+            <a (click)="viewProduct(item)" class="waves-effect waves-light btn">buy</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- <button class="waves-effect waves-light btn" (click)="addCar()" >Add Cart</button>
+
+<button class="waves-effect waves-light btn" (click)="getCart()" >Get Cart</button>
+ -->
+
+  <section *ngIf="subscib" class="cta-sub container">
+    <div class="cta-content">
+      <!-- <i (click)="closeSub()" class="close-sub fa fa-times-circle-o" aria-hidden="true"></i> -->
+      <h1><i class="fa fa-address-card" aria-hidden="true"></i> Subscribe</h1>
+      <h2>Fill in your email to receive our latest products and discount updates </h2>
+      <p *ngIf="subsuccess" style="color:lightgreen">Thank you for subcribing to us!</p>
+      <form novalidate [formGroup]="subForm" (ngSubmit)="subscription(subForm.value)" >
+        <input class="form-control" type="email" formControlName="subscriber" placeholder="" autofocus
+          pattern="[A-Za-z]+\.?-?[A-Za-z]+@[A-Za-z]+\.(com|co.uk|net|org|ie)" required >
+          <button  class="btn waves-effect white grey-text darken-text-2" type="submit">Subscribe</button>
+        <!-- <button [disabled]="!subForm.valid" class="btn btn-success" type="submit"><i class="fa fa-envelope-o" aria-hidden="true"></i> subsribe</button> -->
+      </form>
+    </div>
+  </section>
+
+  <section class=" about-container-cover hide">
+    
+    <div class="about-container container" >
+      <div class="about-text container">
+        <!--<i class="fa fa-handshake-o" aria-hidden="true"></i>-->
+        <h1>{{title}}</h1>
+        <p>We roast over 100 wonderful coffees from around the world, including rare and exclusive varieties such as Kopi Luwak and Blue Mountain Jamaica, and deliver them directly to your door. We roast to order, so your coffee will always arrive in the freshest condition possible, and offer a range of grind options as well as whole beans. We also offer a sumptuous range of teas, as well as our ever-popular coffee gift hampers.</p>
+        <button routerLink="/about" class="btn btn-default" type="button">more about us</button>
+      </div>
+
+      <!--Mobile image slider-->
+      <div class="mobile-slider-cover" *ngIf="isSlider">
+
+        <div class="iText">
+          <p>Slide photo</p>
+        </div>
+        <div class="slider-button">
+          <button (click)="closeSlidepix()" class="btn btn-danger" type="button">Close Windows</button>
+        </div>
+      </div>
+
+      
+
+      <div class="tagline "> 
+        <p> <i>we roast the best coffee in London</i> </p>
+        <p> <i>supply offices and shops</i> </p>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="cta hide" >
+    <div class="cta-content">
+      <h1><i class="fa fa-heart-o" aria-hidden="true"></i> Like Our Products?</h1>
+      <h2>please order below or contact us for enquiry </h2>
+      <button routerLink="/contacts" class="btn btn-success" type="button"><i class="fa fa-envelope-o" aria-hidden="true"></i> send message</button>
+    </div>
+  </section>
+
+  <!--Displaying Desktop Products-->
+  <section id="desktop-prod" class="hide">
+    <section class="front-shop container clearfix">
+
+      <h1>10% discount on all Coffees</h1>
+      <div class="shop-item-cover">
+        <div class="items">
+          <button id="all-p-btn" type="button" class="btn btn-xs btn-primary">All Products</button>
+          <div  class="shop-item rounded-top" *ngFor="let item of products">
+            <div class="item-img">
+              <div *ngIf="item.size" class="p-size">
+                <div class="badge">
+                  <h5>{{item.size}}</h5>
+                </div>
+              </div>
+              <img (click)="viewProduct(item)" class="rounded-top" [src]="item.imageUrl" style="width: 150px" alt="product photo">
+            </div>
+            <div class="item-title">
+              <h2>{{item.name}}</h2>
+              <h5>{{item.blend}}</h5>
+              <h5 *ngIf="item.oldprice" id="oldprice"><small>was</small> {{item.oldprice | currency: 'GBP' :true}}</h5>
+              <h6>{{item.price | currency: 'GBP' :true}}</h6>
+            </div>
+            <p>
+              <a><button (click)="viewProduct(item)" class="btn btn-default" type=""><i class="fa fa-cart-plus" aria-hidden="true"></i> Order Now</button></a>
+            </p>
+          </div> 
+        </div> 
+      </div>
+    </section>
+  </section>
+
+  <!--Displaying Mobile Products-->
+  <!-- <section id="mobile-prod">
+    <section class="front-shop clearfix" >
+      <img class="img-bg" src="assets/cityroast.png" alt="">
+      <div class="shop-item-cover">
+        <div class="items">
+          <button id="all-p-btn" type="button" class="btn btn-xs btn-primary">All Products</button>
+          <div  class="shop-item rounded-top" *ngFor="let item of mProducts">
+            <div class="item-img">
+              <div *ngIf="item.size" class="p-size">
+                <div class="badge">
+                  <h5>{{item.size}}</h5>
+                </div>
+              </div>
+              <img (click)="viewProduct(item)" class="rounded-top" [src]="item.imageUrl" style="width: 150px" alt="product photo">
+            </div>
+            <div class="item-title">
+              <h2>{{item.name}}</h2>
+              <h5>{{item.blend}}</h5>
+              <h5 *ngIf="item.oldprice" id="oldprice"><small>was</small> {{item.oldprice | currency: 'GBP' :true}}</h5>
+              <h6>{{item.price | currency: 'GBP' :true}}</h6>
+            </div>
+            <p>
+              <a><button (click)="viewProduct(item)" class="btn btn-default" type=""><i class="fa fa-cart-plus" aria-hidden="true"></i> Order Now</button></a>
+            </p>
+          </div> 
+        </div> 
+      </div>
+    </section>
+  </section> -->
+
+  <!--<div class="alert alert-danger added-item" *ngIf="isLogin">
+          <strong>OOps!! Please login to add items to your basket</strong>
+          <span><button routerLink="/login" class="btn btn-danger">login here</button></span>
+    </div>-->
+  <!--<div class="alert alert-success added-item" *ngIf="itemAdd">
+          <strong>Well done! you just added product to your basket</strong>
+          <span><button routerLink="/cart" class="btn btn-success">View your basket</button></span>
+    </div>-->
+  <!-- <div [class.hide]="isHide" class="img-container">
+    <div class="img-display">
+      <div class="close1">
+        <i (click)="closeImage()" class="fa fa-times" aria-hidden="true"></i>
+      </div>
+      <div class="main-image">
+        <img class="rounded" src="{{displayImg}}" style="width:700px"  alt="">
+      </div>
+      <div class="close2">
+        <i (click)="closeImage()" class="fa fa-times" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div> -->
+
+  <section class="blog-wrapper">
+    <div class="container blog-content">
+      <h1>Latest News</h1>
+      <div class="row">
+        <div *ngFor="let blog of blogs" class="col col-xs-12 col-sm-4 col-md-4 col-lg-4">
+          <div class="blog">
+              <div class="blogimage">
+                <img (click)="readPost(blog)" [src]="blog.data.blogImage" alt="">
+              </div>
+              
+              <div class="blogheader">
+                <h6 (click)="readPost(blog)" *ngIf="blog.data.title"><strong>{{blog.data.title}}</strong></h6>
+                <p *ngIf="blog.data.postdate">Posted: {{blog.data.postdate | date}}</p>
+              </div>
+            </div>
+        </div>        
+      </div>
+    </div>
+  </section>
+</section>

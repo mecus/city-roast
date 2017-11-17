@@ -80,3 +80,20 @@
     opacity: 0;
     width: 100px;
 }
+.pagination{
+    position: relative;
+    min-width: 300px;
+    left: 50%;
+    margin-left: -150px;
+    margin-top: 10px;
+    .ngx-pagination .current{
+        background: lightslategray !important;
+    }
+    li .current{
+        background: lightslategray !important;
+    }
+    pagination-controls{
+        width: 100%;
+       
+    }
+}

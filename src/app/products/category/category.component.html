@@ -1,0 +1,43 @@
+<section class="cf-page-container">
+  <div class="cf-page-head">
+    <!--<img src="assets/beans-coffee-cup.jpeg"  alt="coffee-beans">-->
+    <div class="cf-page-title">
+      <h1>Cate<strong style="color:#f48024">gories</strong></h1>
+    </div>
+  </div>
+</section>
+<cat-menu></cat-menu>
+<section class="coffees container">
+    <div class="row content-wrapper">
+      <div class="col col l8">
+          <div class="col xs6 s6 m6 l4 coffee" *ngFor="let product of products$">
+            <div class="coffee-wrapper">
+              <div class="coffee-img">
+                <!--<div class="p-size">
+                  <div *ngIf="product.size" class="badge">
+                    <h5 >{{product.size}}</h5>
+                  </div>
+                </div>-->
+                <img (click)="viewProduct(product)" [src]="product.imageUrl" alt="product image">
+                </div>
+                <div class="coffee-title">
+                  <h1>{{product.name}}</h1>
+                  <h6>{{product.blend}}</h6>
+                  <h5 *ngIf="product.oldprice" id="oldprice"><small>was</small> {{product.oldprice | currency: 'GBP' :true}}</h5>
+                  <h6 style="color:red"><small>now</small> {{product.price | currency: 'GBP' :true}}</h6>
+                  <!--<h6>{{product.roast}}</h6>-->
+                  <a><button (click)="viewProduct(product)" class="btn btn-default" type=""><i class="fa fa-cart-plus" aria-hidden="true"></i> Add</button></a>
+                </div>
+                <div class="coffee-description">
+                  
+                </div>
+            </div>
+              
+            </div>
+          </div>
+          <div class="col xs12 l4">
+            <side-cart></side-cart>
+          </div>
+            
+      </div>
+</section>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-error',
@@ -8,7 +9,9 @@ import { Router } from '@angular/router';
 })
 export class ErrorComponent implements OnInit {
 
-  constructor(private router:Router) { }
+  constructor(private router:Router, private meta:Meta, private title:Title) { 
+    title.setTitle('Payment Termination');
+  }
 
 
   reTry(){

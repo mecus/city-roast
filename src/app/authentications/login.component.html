@@ -38,22 +38,22 @@
     </div>
     
         <form novalidate [class.has-success]="user.valid" [formGroup]="user" (ngSubmit)="loginUser(user.value)">
-            <div class="form-group">
+            <div class="input-field">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" formControlName="email" required placeholder="Email">
+                <input type="email" formControlName="email">
             </div>
-            <div class="form-group">
+            <div class="input-field">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" formControlName="password" required placeholder="password">
+                <input type="password" formControlName="password" required >
             </div>
             <div class="alert alert-danger" role="alert" *ngIf="errMsg">
                 <strong>{{errMsg.message}}</strong>
             </div>
             <!--<span>Reset>></span>-->
-            <a style="color: red" class="btn " (click)="showPasswordPage()">Forgotton Password</a>
+            <a style="color: red" (click)="showPasswordPage()">Forgotton Password</a>
 
             <div class="container but-ton">
-                <button type="submit" [disabled]="!user.valid" class="btn btn-primary">Login</button>
+                <button type="submit" [disabled]="!user.valid" class="waves-effect waves-light btn">Login</button>
                 or <span > <a routerLink="/signup"> Sign up </a> here</span>
             </div>
         </form>
@@ -67,7 +67,7 @@
             <i style="text-align:center; font-size: 28px;" class="fa fa-recycle" aria-hidden="true"></i>
             <p style="text-align:center">Please enter your email.</p>
             <input #link type="email" class="form-control" name="password_reset" required placeholder="email@example.com"> <br>
-            <button class="btn btn-block  btn-primary" (click)="sendLink(link.value)" type="link">Reset Password</button>
+            <button class="btn-block waves-effect waves-light btn" (click)="sendLink(link.value)" type="link">Reset Password</button>
             <br>
             <button (click)="closePasswordPage()" type="button" class="btn btn-danger">close</button>
             

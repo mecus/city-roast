@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
-
+import * as _ from 'lodash';
 import { ProductService } from '../../services/product.service';
 import { AppService } from '../../services/app.service';
-import { CartService } from '../../services/cart.service';
+import { CheckOutService } from '../../services/check-out.service';
 import { iOrder } from '../../models/order.model';
+import { OrderService } from '../../services/order.service';
 
 @Component({
   selector: 'app-order-list',
@@ -15,24 +15,28 @@ import { iOrder } from '../../models/order.model';
   styleUrls: ['./order-list.component.scss']
 })
 export class OrderListComponent implements OnInit {
-
+  page: Number = 1;
+  pageSize = 10;
   spin:boolean = false;
   railsOrder:iOrder[] = [];
+  orders;
+  queryOrder;
 
-  constructor(private cartService:CartService, private router:Router) { }
+  constructor(private orderService:OrderService, private router:Router) { }
 
-  seeItems(id){
+  seeOrder(order){
     // this.sinOrder = order;
-    this.router.navigate(["/dashboard/items/"+id])
+    console.log(order);
+    this.router.navigate(["/dashboard/order/?", {key: order.key}]);
   }
   removeOrder(id){
     let D = confirm("Are you sure you want to permanently delete this Order?");
     if(D==true){
-      this.cartService.deleteFinalOrder(id)
-      .subscribe((res)=>{
-        this.refreshOrder();
-        console.log(res)
-      });
+      // this.cartService.deleteFinalOrder(id)
+      // .subscribe((res)=>{
+      //   this.refreshOrder();
+      //   console.log(res)
+      // });
       
       // this.router.navigate(["/dashboard/orders-list"]);
     }else{
@@ -42,22 +46,35 @@ export class OrderListComponent implements OnInit {
     
     
   }
+ 
+  getCompletedOrders(){
+    this.orders = _.filter(this.queryOrder, {"status": "completed"});
+  }
+  getPendingOrders(){
+    this.orders = _.filter(this.queryOrder, {"status": "pending"});
+  }
   refreshOrder(){
     this.spin = true;
-    this.getOrder();
     setTimeout(()=>{this.spin = false;},1000);
     
   }
-  getOrder(){
-    this.cartService.getFinalOrder().subscribe((order)=>{
-      this.railsOrder = order;
+
+  ngOnInit() {
+    this.getAllOrders();
+  }
+  getAllOrders(){
+    this.orderService.getOrdersWithId()
+    .map(snapshot=>{
+      let orders = [];
+      snapshot.forEach(doc=>{
+        let data = doc.payload.val();
+        let key = doc.key;
+        orders.push({...data, key });
+      })
+      return orders;
+    }).subscribe(orders=>{
+      this.orders = _.reverse(orders);
+      this.queryOrder = orders;
     });
   }
-  ngOnInit() {
-    // this.cartService.getOrder().subscribe((orders)=>{
-    //   this.orders = orders
-    // })
-   this.getOrder();
-  }
-
 }

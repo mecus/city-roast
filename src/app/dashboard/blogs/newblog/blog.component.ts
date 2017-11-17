@@ -6,23 +6,26 @@ import { iBlog } from '../../../models/blog.model';
 
 @Component({
     selector: 'post-blog',
-    templateUrl: './blog.component.html'
+    templateUrl: './blog.component.html',
+    styleUrls: ['blog.component.scss']
 
 })
 export class BlogPost implements OnInit {
-    private blogs;
+    pageSize = 5;
+    page:Number = 1;
+    blogs;
 
     constructor(private blogService:BlogService){}
 
     ngOnInit(){
-        this.blogService.getBlog().subscribe((blogs)=>{
+        this.blogService.getCacheBlog().subscribe((blogs)=>{
             this.blogs = blogs;
         });
     }
-    removeBlog(key){
+    removeBlog(blog){
         let R = confirm("Are you sure");
         if(R==true){
-            this.blogService.deleteBlog(key);
+            this.blogService.deleteBlog(blog);
         }
         
     }

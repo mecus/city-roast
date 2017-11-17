@@ -1,4 +1,4 @@
-import { AngularFireModule, AuthMethods, AuthProviders, FIREBASE_PROVIDERS } from 'angularfire2';
+// import { AngularFireModule, AuthMethods, AuthProviders, FIREBASE_PROVIDERS } from 'angularfire2';
 import { FIREBASEAPI } from './shared/secret';
 // declare let firebase: any;
   // Initialize Firebase
@@ -10,7 +10,7 @@ import { FIREBASEAPI } from './shared/secret';
     messagingSenderId: "798903411161"
   };
   
-  export const authConfig = {
-    provider: AuthProviders.Password,
-    method: AuthMethods.Password
-  };
+  // export const authConfig = {
+  //   provider: AuthProviders.Password,
+  //   method: AuthMethods.Password
+  // };

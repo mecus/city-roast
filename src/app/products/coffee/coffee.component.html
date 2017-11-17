@@ -1,0 +1,96 @@
+<section class="cf-page-container">
+  <div class="cf-page-head">
+    <img src="assets/beans-coffee-cup.jpeg"  alt="coffee-beans">
+    <div class="cf-page-title">
+      <!-- <h1>Coff<strong style="color:#f48024">ees</strong></h1> -->
+    </div>
+  </div>
+</section>
+
+<!-- <section class="cf-page-container">
+  <div class="cf-page-head">
+    <img src="assets/beans-coffee-cup.jpeg"  alt="coffee-beans">
+    <div class="cf-page-title">
+      <h1>Our Coffee</h1>
+    </div>
+  </div>
+</section> -->
+
+<section id="cover-page" class="hide-on-mobile">
+  <section class="container cf-page-content">
+    <div class="coffee-text">
+      <h1>Our Great Coffee</h1>
+      <p style="margin:0px; padding:0px; opacity:0.4;">toggle switch to hide/show text</p>
+      <a (click)="toggleInfo()" type="">
+        <i *ngIf="!togInfo" class="fa fa-toggle-off" aria-hidden="true"></i>
+        <i *ngIf="togInfo" class="fa fa-toggle-on" aria-hidden="true"></i>
+        <!--<i *ngIf="togInfo" class="fa fa-caret-square-o-down" aria-hidden="true"></i>-->
+        <!--<i *ngIf="!togInfo" class="fa fa-caret-square-o-up" aria-hidden="true"></i>-->
+      </a>
+      <div class="togInfo" [@coffeState]="togtxt">
+        <h6>At London City Roast, we are very particular about our coffee. We know what it takes to build a loyal customer base, and how providing a great-tasting coffee improves your bottom line.</h6>
+        <p> We source our coffees from all over the world, and roast them at our 
+            London Headquarters, to guarantee freshness and great taste. With over 
+            5 years of roasting and blending experience, we pride ourselves on 
+            bringing you some of the finest coffees available.
+          Working with our experienced roaster on a daily basis, we ensure our 
+          coffees are rarely older than a few days, by the time they reach our 
+          customers across the country.
+         </p>
+      </div>
+       
+    </div>
+      <section class="coffees">
+        <div class="row content-wrapper">
+            <div class="col xs6 s6 m4 l3 coffee" *ngFor="let product of coffees$">
+              <div class="coffee-wrapper">
+                <div class="coffee-img">
+                  <div class="p-size">
+                    <div *ngIf="product.size" class="badge">
+                      <h5 >{{product.size}}</h5>
+                    </div>
+                  </div>
+                  <img (click)="viewProduct(product)" [src]="product.imageUrl" alt="product image">
+                  </div>
+                  <div class="coffee-title">
+                    <h1>{{product.name}}</h1>
+                    <h6>{{product.blend}}</h6>
+                    <h5 *ngIf="product.oldprice" id="oldprice"><small>was</small> {{product.oldprice | currency: 'GBP' :true}}</h5>
+                    <h6 style="color:red"><small>now</small> {{product.price | currency: 'GBP' :true}}</h6>
+
+                  </div>
+                  <div class="button">
+                      <a><button (click)="viewProduct(product)" class="btn btn-default" type=""><i class="fa fa-cart-plus" aria-hidden="true"></i> Add</button></a>
+                  </div>
+
+              </div>
+                
+              </div>
+               
+          </div>
+    </section>
+  </section>
+</section>
+<div class="mobile-container hide-on-desktop">
+  <h1>Coffees</h1>
+  <div class="mobile-product" *ngFor="let product of coffees$">
+    <div class="prod-image">
+        <img (click)="viewProduct(product)" [src]="product.imageUrl" alt="product image">
+    </div>
+    <div class="prod-detail">
+      <h2 (click)="viewProduct(product)">{{product.name}}</h2>
+      <h6>({{product.size}})</h6>
+      <h5 *ngIf="product.oldprice" id="oldprice"><small>was</small> {{product.oldprice | currency: 'GBP' :true}}</h5>
+      <h6 style="color:red"><small>now</small> {{product.price | currency: 'GBP' :true}}</h6>
+    </div>
+    <div class="prod-button">
+        <!-- <a class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">add</i></a> -->
+        <!-- <a class="waves-effect waves-light btn" type=""></a> -->
+        <!-- <i (click)="viewProduct(product)" class="material-icons">add</i> -->
+    </div>
+  </div>
+    
+</div>
+<div class="main-container no-product"  *ngIf="coffees$ && coffees$.length < 1">
+    <p>There is no product in this category</p>
+</div>
