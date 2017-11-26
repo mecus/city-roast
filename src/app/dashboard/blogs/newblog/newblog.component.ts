@@ -19,7 +19,7 @@ export class NewBlog implements OnInit {
     blogForm:FormGroup;
     headers:boolean = false;
     returnImage =""; //"https://firebasestorage.googleapis.com/v0/b/city-roast.appspot.com/o/blogimages%2FDSCN0715-min-min.JPG?alt=media&token=1a1de55a-2c16-49dd-a5cd-b171b8c38a7f";
-    progress:number;
+    progress:number =0;
     constructor(private blogService:BlogService, 
                 private _fb:FormBuilder, private _router:Router){
                     this.blogForm = _fb.group({
@@ -72,18 +72,17 @@ export class NewBlog implements OnInit {
         let uploadTask = storageRef.put(selectedFile);
         uploadTask.on('state_changed', (snapshot)=>{
             console.log("Uploading file......");
-        // this.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;    
-        // let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100; 
-        // this.progress = Math.round(progress);
-        // console.log('Upload is ' + progress + '% done');
-        // switch (snapshot.state) {
-        //     case firebase.storage.TaskState.PAUSED: // or 'paused'
-        //     console.log('Upload is paused');
-        //     break;
-        //     case firebase.storage.TaskState.RUNNING: // or 'running'
-        //     console.log('Upload is running');
-        //     break;
-        // }
+            this.progress = (snapshot["bytesTransferred"] / snapshot["totalBytes"]) * 100;
+            console.log('Upload is ' + this.progress + '% done');
+            switch (snapshot["state"]) {
+                case firebase.storage.TaskState.PAUSED: // or 'paused'
+                console.log('Upload is paused');
+                break;
+                case firebase.storage.TaskState.RUNNING: // or 'running'
+                console.log('Upload is running');
+                break;
+            }
+            
         }, (error)=> {
             console.log(error);
         // Handle unsuccessful uploads

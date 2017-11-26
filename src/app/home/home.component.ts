@@ -10,6 +10,7 @@ import { Observable } from 'rxjs/Observable';
 import { animate, state, trigger, transition, style } from '@angular/animations';
 import * as _ from 'lodash';
 import { Meta, Title } from '@angular/platform-browser';
+import { MailService } from '../services/mail.service';
 
 declare var jquery: any;
 declare var $:any;
@@ -43,7 +44,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   itemAdd:boolean = false;
   isLogin:boolean =false;
   isSlider:boolean = false;
-
+  subAlert;
   state = "small";
   subForm:FormGroup;
   subscib:boolean = true;
@@ -53,7 +54,8 @@ export class HomeComponent implements OnInit, OnDestroy {
               private router:Router, private appService:AppService,
               private cartService:CheckOutService, private _fb:FormBuilder,
               private blogService:BlogService,
-              private meta:Meta, private title:Title
+              private meta:Meta, public title:Title,
+              private mailService: MailService
               ) { 
                 title.setTitle(`Welcome to London City Roast`);
                 meta.addTags([
@@ -63,9 +65,18 @@ export class HomeComponent implements OnInit, OnDestroy {
                     including rare and exclusive varieties `
                   }
                 ])
+                this.subForm = this._fb.group({
+                  subscriber: [""]
+                });
                 
               }
-  
+  sendMail(){
+    // this.router.navigate(["/welcome?",{'email': 'austin@miscotech.co.uk'}]);
+    // this.mailService.sendWelcomeMail('austin@miscotech.co.uk')
+    // .subscribe(res=>{
+    //   console.log(res);
+    // });
+  }
   readPost(blog){
     this.router.navigate(["/blog/?", {key: blog.key, title: blog.data.title}])
   }
@@ -93,11 +104,17 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   subscription(subscribe){
     // console.log(subscribe);
-    this.appService.subscription(subscribe);
-    this.subForm = this._fb.group({
-        subscriber: ""
-      });
-    
+    if(this.subForm.status == "INVALID"){
+      this.subsuccess = false;
+      this.subAlert = "Please check and enter a valid email";
+    }else{
+      this.appService.subscription(subscribe);
+      this.subAlert = "";
+      this.subsuccess = true;
+      this.subForm = this._fb.group({
+          subscriber: ""
+        });
+    }
   }
   private closeSub(){
     this.subscib = false;
@@ -112,10 +129,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       $('.materialboxed').materialbox();
       this.slideInterval;
     });
-
-    this.subForm = this._fb.group({
-      subscriber: [""]
-    });
     // Get products for the three sections
     this.productService.getCacheProduct().subscribe((product)=>{
       this.coffees = _.take((_.filter(product, {"tag": "coffees"})), 4);
@@ -124,7 +137,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
       
       this.blogService.getCacheBlog().subscribe((blogs)=>{
-        this.blogs = blogs;
+        this.blogs = _.reverse(_.take(blogs, 3));
       })
   }
   ngOnDestroy(){

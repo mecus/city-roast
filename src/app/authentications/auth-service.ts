@@ -9,10 +9,14 @@ import { Router } from '@angular/router';
 import { User } from '../models/user.model';
 import { CheckOutService } from '../services/check-out.service';
 
+interface iUser{
+    email:string,
+    isAdmin: boolean;
+}
 @Injectable()
 
 export class AuthService {
-    isAuthenticated: boolean = false;
+    public isAuthenticated: boolean = false;
     redirectUrl: string;
     errMsg;
     cLength;
@@ -25,7 +29,20 @@ export class AuthService {
             afA.authState.subscribe(
                 user => this.currentUser = user
             )
+            this.getAdminUser();
         }
+    getAdminUser(){
+        let uid = localStorage.getItem("userId");
+        if(uid){
+            this.db.object('accounts/'+uid).valueChanges()
+            .subscribe((user :iUser)=>{
+                if(user){
+                    this.isAuthenticated = user.isAdmin;
+                }
+            });
+        }
+        return this.isAuthenticated;
+    }
 
     public storeAuthState(authState) {
         if(authState){
@@ -51,7 +68,7 @@ export class AuthService {
     }
     createAccount(uId, email){
          let dbRef = this.db.object('accounts/'+this.currentUser["uid"]);
-         dbRef.set({isAdmin: false, active: false, email: email, createdAt: Date()})
+         dbRef.set({isAdmin: false, active: false, status: 'on', lastLogin: Date.now(), email: email, createdAt: Date()})
                 .then(success=>{console.log("User Account Created successfully "+success)})
                 .catch(error=>{console.log("something went wrong "+error)});
     }
@@ -72,6 +89,11 @@ export class AuthService {
     
     updateAccount(update){
         // console.log(this.currentUser["uid"]);
+        if(update.uid){
+            let dbRef = this.db.object('accounts/'+update.uid);
+            return dbRef.update({...update, status: update.status}); 
+
+        }
         let dbRef = this.db.object('accounts/'+this.currentUser["uid"]);
         return dbRef.update({...update, updatedAt: Date(), active: true});
 
@@ -92,6 +114,8 @@ export class AuthService {
     }
 
     logOut(){
+        // let dbRef = this.db.object('accounts/'+localStorage.getItem('idToken'));
+        // dbRef.update({status: 'off'});
         return this.afA.auth.signOut();
     }
 
@@ -100,17 +124,19 @@ export class AuthService {
             if(!localStorage.getItem('currentUser') && newUser ){
                 this.storeAuthState(newUser);
                 console.log('user saved in the storage');
+                this.getAdminUser();
             }
             if(newUser){
                 console.log(newUser.getToken());
                 console.log('User Currently LoggedIn');
-
+                this.getAdminUser();
                 console.log(newUser);
             }else{
                 console.log('No User LoggedIn');
+                this.getAdminUser();
             }
         });
-       
+        
     }
     
     logAnonymous(){
@@ -149,4 +175,96 @@ export class AuthService {
         //     console.log("Something went wrong");
         // });
    }
+    signInWithFacebook(){
+        let provider = new firebase.auth.FacebookAuthProvider();
+        provider.setCustomParameters({
+            'display': 'popup'
+        });
+        firebase.auth().signInWithPopup(provider).then((result)=> {
+            // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+            let token = result.credential.accessToken;
+            // The signed-in user info.
+            let user = result.user;
+            localStorage.setItem('currentUser', (user.email));
+            localStorage.setItem('idToken', (user.uid));
+            localStorage.setItem('userId', (user.uid));
+            localStorage.setItem('displayName', user.displayName);
+            // console.log(user);
+            // console.log(token);
+            let db = firebase.database().ref('accounts/'+user.uid);
+            db.once('value').then((account)=>{
+                let acc = account.val();
+                let dbRef = this.db.object('accounts/'+user.uid);
+                if(!acc){
+                    // this.createAccount(user.uid, user.email);     
+                    dbRef.set({isAdmin: false, active: false, status: 'on', lastLogin: Date.now(), email: user.email, createdAt: Date()})
+                           .then(success=>{console.log("User Account Created successfully "+success)})
+                           .catch(error=>{console.log("something went wrong "+error)});
+                           return;
+                }else{
+                    dbRef.update({status: 'on', lastLogin: Date.now()}).then(res=>console.log(res)).catch(err=>console.log(err));
+                    console.log("Account Already Exist: ", account['email']);
+                }
+            })
+            setTimeout(() => {
+                this._router.navigate(["/"]);
+            }, 500);
+            // ...
+        }).catch((error)=> {
+            // Handle Errors here.
+            let errorCode = error.code;
+            let errorMessage = error.message;
+            console.log(errorMessage);
+            // The email of the user's account used.
+            let email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            let credential = error.credential;
+            // ...
+        });
+    }
+    signInWithGoogle(){
+        let provider = new firebase.auth.GoogleAuthProvider();
+        provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+
+        firebase.auth().signInWithPopup(provider).then((result)=> {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            var token = result.credential.accessToken;
+            // The signed-in user info.
+            var user = result.user;
+            console.log(user);
+            localStorage.setItem('currentUser', (user.email));
+            localStorage.setItem('idToken', (user.uid));
+            localStorage.setItem('userId', (user.uid));
+            localStorage.setItem('displayName', user.displayName);
+            // ...
+            let db = firebase.database().ref('accounts/'+user.uid);
+            db.once('value').then((account)=>{
+                let acc = account.val();
+                let dbRef = this.db.object('accounts/'+user.uid);
+                if(!acc){
+                    // this.createAccount(user.uid, user.email);     
+                    dbRef.set({isAdmin: false, active: false, status: 'on', lastLogin: Date.now(), email: user.email, createdAt: Date()})
+                           .then(success=>{console.log("User Account Created successfully "+success)})
+                           .catch(error=>{console.log("something went wrong "+error)});
+                           return;
+                }else{
+                    dbRef.update({status: 'on', lastLogin: Date.now()}).then(res=>console.log(res)).catch(err=>console.log(err));
+                    console.log("Account Already Exist: ", account['email']);
+                }
+            })
+            setTimeout(() => {
+                this._router.navigate(["/"]);
+            }, 500);
+          }).catch((error)=> {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // The email of the user's account used.
+            var email = error.email;
+            // The firebase.auth.AuthCredential type that was used.
+            var credential = error.credential;
+            // ...
+          });
+
+    }
 }

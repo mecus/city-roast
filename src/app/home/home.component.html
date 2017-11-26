@@ -3,21 +3,21 @@
 <section class="whole-content">
   <div class="departments">
     <div class="cat-1">
-        <img class=""  src="assets/pexels-dep.jpeg">
+        <img class=""  src="assets/coffee-pix.jpeg">
         <div class="caption">
           <h2 routerLink="/coffees">Coffee</h2>
           <!-- <a href="" class="btn waves-effect white grey-text darken-text-2">See</a> -->
         </div>
     </div>
     <div class="cat-2">
-        <img class=""  src="assets/pexels-dep2.jpeg">
+        <img class=""  src="assets/coffee-machine-pix.jpg">
         <div class="caption">
           <h2 routerLink="/coffee_machine">Coffee Machine</h2>
           <!-- <a href="" class="btn waves-effect white grey-text darken-text-2">See</a> -->
         </div>
     </div>
     <div class="cat-3">
-        <img  class=""  src="assets/pexels-dep.jpeg">
+        <img  class=""  src="assets/coffee-accessory.jpg">
         <div class="caption">
           <h2 routerLink="/accessories">Accessories</h2>
           <!-- <a routerLink="/accessories" class="btn waves-effect white grey-text darken-text-2">See</a> -->
@@ -26,6 +26,7 @@
   </div>
 
   <div class="container product-display">
+    <!-- <button class="btn" (click)="sendMail()">Send Mail</button> -->
     <h1>Coffees</h1>
     <a routerLink="/coffees">See more</a>
     <div class="row">
@@ -81,14 +82,15 @@
 <button class="waves-effect waves-light btn" (click)="getCart()" >Get Cart</button>
  -->
 
-  <section *ngIf="subscib" class="cta-sub container">
-    <div class="cta-content">
+  <section *ngIf="subscib" class="cta-sub">
+    <div class="cta-content container">
       <!-- <i (click)="closeSub()" class="close-sub fa fa-times-circle-o" aria-hidden="true"></i> -->
       <h1><i class="fa fa-address-card" aria-hidden="true"></i> Subscribe</h1>
       <h2>Fill in your email to receive our latest products and discount updates </h2>
       <p *ngIf="subsuccess" style="color:lightgreen">Thank you for subcribing to us!</p>
+      <small [style.color]="'red'" *ngIf="subAlert">{{subAlert}}</small>
       <form novalidate [formGroup]="subForm" (ngSubmit)="subscription(subForm.value)" >
-        <input class="form-control" type="email" formControlName="subscriber" placeholder="" autofocus
+        <input class="form-control" type="email" formControlName="subscriber" placeholder=""
           pattern="[A-Za-z]+\.?-?[A-Za-z]+@[A-Za-z]+\.(com|co.uk|net|org|ie)" required >
           <button  class="btn waves-effect white grey-text darken-text-2" type="submit">Subscribe</button>
         <!-- <button [disabled]="!subForm.valid" class="btn btn-success" type="submit"><i class="fa fa-envelope-o" aria-hidden="true"></i> subsribe</button> -->

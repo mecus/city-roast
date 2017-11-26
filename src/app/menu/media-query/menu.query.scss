@@ -60,7 +60,7 @@
         // box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
     
-    .right-nav, .login-out{display: none;}
+    // .right-nav, .login-out{display: none;}
     .side-cart{
         position: absolute;
         top: 18px;
@@ -256,4 +256,7 @@
      display: none;
  }
 
+}
+@media only screen and (max-width: 375px){
+    .right-nav, .login-out{display: none;}
 }

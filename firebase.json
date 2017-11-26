@@ -10,17 +10,13 @@
       "**/node_modules/**"
     ],
     "rewrites": [
+      // {
+      //   "source": "**",
+      //   "destination": "/index.html"
+      // },
       {
         "source": "**",
         "function": "server"
-      },
-      {
-        "source": "**",
-        "function": "mailers"
-      },
-      {
-        "source": "**",
-        "function": "sendWelcomeEmail"
       }
     ]
   }

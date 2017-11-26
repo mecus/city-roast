@@ -15,9 +15,11 @@ import { AuthService } from '../../authentications/auth-service';
 })
 export class CustomersComponent implements OnInit {
   page: Number = 1;
-  pageSize = 5;
+  pageSize = 10;
   customers;
   allCustomers;
+  onlineCustomer;
+  currentTime = Date.now();
 
   constructor(private cartService:CheckOutService, private authService: AuthService) { }
   remoteCustomer(key){
@@ -27,6 +29,9 @@ export class CustomersComponent implements OnInit {
       this.authService.deleteAccount(key);
     }
     
+  }
+  getOnlineUser(){
+    this.customers = this.onlineCustomer;
   }
   togg = true;
   getAll(){
@@ -57,6 +62,7 @@ export class CustomersComponent implements OnInit {
       
     }).subscribe(account=>{
       this.customers = _.filter(account, {"active": true});
+      this.onlineCustomer = _.filter(account, {"status": "on"});
       this.allCustomers = account;
     })
   }

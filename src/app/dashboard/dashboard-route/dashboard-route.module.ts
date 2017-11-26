@@ -18,7 +18,7 @@ import { TransactionComponent } from '../transaction/transaction.component';
 
 const dashRoutes:Routes = [
   {
-    path: 'dashboard', component: DashboardComponent,
+    path: 'dashboard', component: DashboardComponent, canActivate:[AuthGuard],
     children:[
       {path: '', component: ProductListComponent},
       {path: 'products-list', component: ProductListComponent},

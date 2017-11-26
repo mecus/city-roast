@@ -48,6 +48,12 @@ export class LoginComponent implements OnInit {
             this.successPassword = true;
          }
      }
+     facebookLogin(){
+         this.authService.signInWithFacebook();
+     }
+     googleLogin(){
+         this.authService.signInWithGoogle();
+     }
 
      loginUser(user:User){
 
@@ -57,6 +63,14 @@ export class LoginComponent implements OnInit {
             .then(success=>{
                 console.log('Authentication Allowed');
                 // this.isAuthenticated = true;
+                let update ={
+                    uid: success.uid,
+                    status: 'on',
+                    lastLogin: Date.now()
+                }
+                this.authService.updateAccount(update)
+                .then(res=>console.log("Account Updated Ofter Login"))
+                .catch(err=>console.log(err));
                 this.authService.authChange();
                 this._location.back();
                 // this.router.navigate(['/']);      

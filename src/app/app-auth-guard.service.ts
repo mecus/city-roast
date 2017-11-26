@@ -21,6 +21,7 @@ export class AuthGuard implements CanActivate {
     //AuthGuard for Products // Access Admin Only
     checkAdmin(url:string):boolean {
         if(!localStorage.getItem('idToken')){
+            this.router.navigate(['/login']);
             return false;
          }
          if(localStorage.getItem('idToken')){
@@ -37,6 +38,7 @@ export class AuthGuard implements CanActivate {
             this.authService.redirectUrl = url;
             return this.adminUser;
         }
+        this.authService.redirectUrl = url;
         this.router.navigate(['/']);
         return false;
 

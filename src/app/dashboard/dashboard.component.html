@@ -2,7 +2,7 @@
   <div class="db-page-head">
     <!--<img src="assets/Coffee-Producers.jpeg"  alt="">-->
     <div class="db-page-title">
-      <h1>Admin<span style="color: #f48024">DashBoard</span></h1>
+      <h1 (click)="showDashBoard()">Admin<span style="color: #f48024">DashBoard</span><i class="material-icons">expand_more</i></h1>
     </div>
   </div>
 </section>
@@ -36,6 +36,55 @@
         </div>
    </div>
 </section>
+
 <div class="out-let">
+    <div *ngIf="dashBoard" class="dash-board">
+      <div class="head">
+          <h1>Product Line</h1>
+          <i (click)="showDashBoard()" class="material-icons">close</i>
+      </div>
+        
+        <table class="bordered">
+            <thead>
+              <tr>
+                  <th>Product Name</th>
+                  <th>EAN No.</th>
+                  <th>SKU</th>
+                  <th></th>
+              </tr>
+            </thead>
+    
+            <tbody>
+              <tr *ngFor="let line of prodLine | async">
+                <td>{{line.productName}}</td>
+                <td>{{line.eanNo}}</td>
+                <td>{{line.sku}}</td>
+                <td><i class="material-icons">delete</i></td>
+              </tr>
+            </tbody>
+          </table>
+          <small *ngIf="errMsg">{{errMsg}}</small>
+          <form novalidate [formGroup]="lineForm" (ngSubmit)="postLineProduct(lineForm.value)">
+              <div class="row">
+                <div class="input-field col s3">
+                  <input id="first_name" formControlName="productName" type="text" class="validate">
+                  <label for="first_name">Product Name</label>
+                </div>
+                <div class="input-field col s3">
+                  <input id="last_name" formControlName="eanNo" type="text" class="validate">
+                  <label for="last_name">EAN No.</label>
+                </div>
+                <div class="input-field col s3">
+                    <input id="last_name" formControlName="sku" type="text" class="validate">
+                    <label for="last_name">SKU</label>
+                  </div>
+                  <div class="input-field col s3">
+                   <button class="btn" type="submit">Add Product Line</button>
+                  </div>
+              </div>
+          </form>
+
+          <a class="btn" (click)="numberGenerator()">Gen no.</a><span>{{randNumber}}</span>
+    </div>
   <router-outlet></router-outlet>
 </div>

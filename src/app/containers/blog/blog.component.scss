@@ -63,10 +63,19 @@
             }
         }
         .right-pane{
-            span{}
+            span{
+                
+            }
             p{
                 font-size: 0.8em !important; 
                 color: lightslategrey;
+            }
+            .collection{
+                .collection-item:hover{
+                    // background-color: lightgray;
+                    cursor: pointer;
+                    color: red;
+                }
             }
         }
     }

@@ -318,7 +318,9 @@
                 // width: 100%;
                 background-color: #000000;
                 h2{
-                    margin-top: 25%;
+                    margin: 0px !important;
+                    padding: 0px !important;
+                    margin-top: 25% !important;
                 }
                 .carousel-item{
                     // height: 300px;
@@ -326,6 +328,11 @@
                         height: 300px;
                         // width: 100%;
                     }
+                    p{
+                        padding: 0px 20px !important;
+                        margin: 0px !important;
+                    }
+        
                 }
             }
         }
@@ -337,6 +344,7 @@
         background-color: rgba(0,0,0, 0.5);
         height: 300px;
         z-index: 100;
+
     }
     .departments{
         .cat-1, .cat-2, .cat-3 {

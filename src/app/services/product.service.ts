@@ -97,7 +97,13 @@ export class ProductService {
             console.log("Image Deleted Successfully");
         }).catch(err=>console.log(err));
     }
-       
-
-
+    
+    // Product Line Section
+    postProductLine(line){
+        let dbRef = this.db.list('productline');
+        return dbRef.push(line);
+    }
+    getProductLine(){
+        return this.db.list('productline').valueChanges();
+    }
 }

@@ -19,15 +19,18 @@
     display: -webkit-flex;
     border-top: 10px solid $primary-color;
     border-bottom: 10px solid $primary-color;
-    img{
-        width: 100%;
-    }
+    margin: 0 auto;
+
     .cat-2{
         border-right: 10px solid $primary-color;
         border-left: 10px solid $primary-color;
     }
     .cat-1, .cat-2, .cat-3 {
         position: relative;
+        img{
+            width: 100%;
+            margin: 0 auto;
+        }
         .caption{
             position: absolute;
             top: 0;
@@ -136,6 +139,9 @@
     }
     .items:nth-child(1), .items:nth-child(2), .items:nth-child(3){
         border-right: 0px;
+    }
+    .items:last-child{
+        border-right: 1px solid lightgray;
     }
 
 }
@@ -535,13 +541,19 @@ h1{
                 overflow: hidden;
                 background-color: #000000;
                 h2{
-                    margin-top: 20%;
+                    margin: 0px;
+                    padding: 0px;
+                    margin-top: 25%;
                 }
                 .carousel-item{
                     // height: 500px;
                     img{
                         height: 600px;
                         // width: 100%;
+                    }
+                    p{
+                        padding: 0px;
+                        margin: 0px;
                     }
                 }
             }
@@ -645,6 +657,9 @@ h1{
         .items:nth-child(1), .items:nth-child(2){
             border-bottom: 0px;
         }
+        .items:last-child{
+            border-right: 1px solid lightgray;
+        }
     
     }
     .cta-sub{
@@ -688,4 +703,48 @@ h1{
             }
         }
     }
+  }
+  @media only screen and (min-width: 1400px) {
+    .home-header{
+            position: relative;
+            margin:0px;
+            padding:0px;
+            .header-content{
+                position: relative;
+                z-index: 1;
+                .carousel{
+                    height: 800px;
+                    // height: 100vh;
+                    // width: 100%;
+                    overflow: hidden;
+                    background-color: #000000;
+                    h2{
+                        margin: 0px;
+                        padding: 0px;
+                        margin-top: 20%;
+                    }
+                    .carousel-item{
+                        // height: 500px;
+                        img{
+                            height: 800px;
+                            // width: 100%;
+                        }
+                        p{
+                            padding: 0px;
+                            margin: 0px;
+                        }
+                    }
+                }
+        }
+    }
+    .header-cover{
+        position: absolute;
+        top: 0;
+        width: 100%;
+        background-color: rgba(0,0,0, 0.5);
+        height: 800px;
+        // height: 100vh;
+        z-index: 100;
+    }
+      
   }

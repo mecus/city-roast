@@ -1,4 +1,4 @@
-<section class="main-container">
+<section class="">
 
   <div>
       <div *ngIf="customers && customers.length > 5" class="pagination">
@@ -8,7 +8,8 @@
     <table class="centered">
       <thead >
         <tr>
-          <th>Id</th>
+          <th (click)="getOnlineUser()" *ngIf="onlineCustomer && onlineCustomer.length">Online({{onlineCustomer.length}})</th>
+          <th>Last Login</th>
           <th>Name</th>
           <th>Sex</th>
           <th>Email</th>
@@ -24,7 +25,10 @@
       </thead>
       <tbody>
         <tr *ngFor="let customer of customers | paginate: { itemsPerPage: pageSize, currentPage: page }">
-          <td>{{customer.id}}</td>
+          <td [style.color]="'green'" *ngIf="customer.status == 'on'">Online</td>
+          <td [style.color]="'red'" *ngIf="customer.status == 'off'">Offline</td>
+          <td [style.color]="'lightgrey'" *ngIf="!customer.status">null</td>
+          <td>{{(customer.lastLogin | date: 'dd/MM/yyyy')}} {{(customer.lastLogin | date: 'shortTime')}}</td>
           <td>{{customer.firstName+" "+customer.lastName}}</td>
           <td>{{customer.gender}}</td>
           <td>{{customer.email}}</td>

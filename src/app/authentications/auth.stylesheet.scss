@@ -29,6 +29,7 @@
         margin: 0 auto;
         text-align: center;
         min-height: 500px;
+
         h5{
             text-align: center;
             
@@ -56,6 +57,33 @@
                 opacity: 0.8;
                 color: lightslategray;
             }
+            .social-login{
+                    
+                #facebook{
+                    width: 100%;
+                    color: #ffffff; 
+                    margin-bottom: 10px;
+                    background-color: #2e4683 !important;
+                    i{
+                        font-size: 20px !important;
+                        color: #ffffff;
+                        margin-right: 10px;
+                    }
+                }
+                #google{
+                    width: 100%;
+                    background-color: #d64e35 !important;
+                    color: #ffffff;
+                    margin-bottom: 10px;
+                    i{
+                        font-size: 20px !important;
+                        color: #ffffff;
+                        margin-right: 10px;
+                    }
+                }
+                
+            
+            }
         }
     }
 
@@ -82,7 +110,7 @@
             }
             .lp-page-title{
                 position: absolute;
-                top: 110px;
+                top: 90px;
                 right: 10px;
                 h1{
                     color: lightslategray;

@@ -70,55 +70,39 @@ export class MenuComponent implements OnInit {
     }
 
     signOut(){
-        // if(this.anoUser){
-        //   this.cartService.clear();
-        // //   this.cartService.deleteCustomerDetails(); 
-        // }
         this.authService.logOut().then((res)=>{
+            let update ={
+                uid: localStorage.getItem('idToken'),
+                status: 'off'
+            }
+            this.authService.updateAccount(update)
+            .then(res=>{
+                console.log("Account Updated After SignOff")
+                localStorage.removeItem('idToken');
+            })
+            .catch(err=>console.log(err));
             localStorage.removeItem('userId');
             localStorage.removeItem('currentUser');
-            localStorage.removeItem('idToken');
             if(localStorage.getItem('returnId')){
                 localStorage.removeItem('returnId');
+            }
+            if(localStorage.getItem('displayName')){
+                localStorage.removeItem('displayName');
             }
             this.regUser = false;
             this.anoUser = false;
             this.previlege = false;
-            setTimeout(()=>{this.router.navigate(["/login"]);}, 500)
+            
         }, (error)=>{
             console.log(error);
         });
 
+        setTimeout(()=>{
+            
+            this.router.navigate(["/login"]);
+        }, 1000)
         // this.router.navigate(["/login"]);
     }
-
-    // logAnonymous(){
-    //     if(!localStorage.getItem('idToken')){
-    //         this.authService.logAnonymous()
-    //             .then(success=>{
-    //             //==This section runs to save the current user to the local-storage==//
-    //             this.loginAlert = false;
-    //             this.authService.authChange();
-    //             // this.router.navigate(['/']);
-    //             })
-    //             .catch(error=>console.log(error));
-    //         } 
-    //     }
- //Need to move the fuction to service component
-    // getCartTotal(){
-    //     this.cartService.getCart()
-    //         .subscribe(cart=>{
-    //             cart.forEach((cart)=>{
-    //             this.cartTotal.push(cart.qty);
-    //             this.totalItem = this.cartTotal.reduce((sum, num)=>{
-    //                 return sum + Math.ceil(num);
-    //             }, 0)
-    //         }); 
-                 
-    //         });
-         
-    // }
-
     userChange(){
          this.authService.authUserState().subscribe(
              user=>{
@@ -127,7 +111,7 @@ export class MenuComponent implements OnInit {
                         this.anoUser = true;
                     }else
                     if(user.email){
-                      this.regUser = true;  
+                      this.regUser = true;
                     }
                  }
              }
@@ -142,8 +126,16 @@ export class MenuComponent implements OnInit {
         let regx = /[A-Za-z]+\.?-?[A-Za-z]/
         return email = regx;
     }
+    reloadMenu(){
+        this.previlege = this.authService.isAuthenticated;
+    }
 
     ngOnInit() {
+        this.authService.getAdminUser();
+        setTimeout(()=>{
+            this.previlege = this.authService.isAuthenticated;
+            console.log(this.previlege);
+        }, 2000);  
         this.cartService.createDb();
         setTimeout(()=>{
             this.cartService.retrieveCart()
@@ -171,46 +163,40 @@ export class MenuComponent implements OnInit {
         this.userChange();
        
         // this.getCartTotal();
-        this.timer = setInterval(()=>{
-           this.userChanges();
-        }, 1500);
+        // this.timer = setInterval(()=>{
+        //    this.userChanges();
+        // }, 1500);
      
         
         // this.authService.authChange();
         // this.regUser = localStorage.getItem('currentUser');
         this.changeLogo();
 
-        // setTimeout(()=>{
-        //     if(!localStorage.getItem('idToken')){
-        //         this.loginAlert = true;
-        //     }
-        // }, 50000);
-
         this.currentuser = this.stripMail(localStorage.getItem('currentUser'));
     }
 
-    userChanges(){
-        console.log("Checking user presence");
-        if(localStorage.getItem('idToken')){
-            this.authService.getAccount(localStorage.getItem('idToken'))
-            .subscribe(adm=>{
-                if(adm){
-                    // console.log(adm["isAdmin"]);
-                    if(adm["isAdmin"] == true ){
-                        this.previlege = true;
-                        // console.log("Admin truthy");
-                        this.clearTimer();
-                    }else{
-                        this.previlege = false;
-                        this.clearTimer();
-                    }
-                }else{
-                    this.clearTimer();
-                    return 0;
-                }
-            });
+    // userChanges(){
+    //     console.log("Checking user presence");
+    //     if(localStorage.getItem('idToken')){
+    //         this.authService.getAccount(localStorage.getItem('idToken'))
+    //         .subscribe(adm=>{
+    //             if(adm){
+    //                 // console.log(adm["isAdmin"]);
+    //                 if(adm["isAdmin"] == true ){
+    //                     this.previlege = true;
+    //                     // console.log("Admin truthy");
+    //                     this.clearTimer();
+    //                 }else{
+    //                     this.previlege = false;
+    //                     this.clearTimer();
+    //                 }
+    //             }else{
+    //                 this.clearTimer();
+    //                 return 0;
+    //             }
+    //         });
             
-        }
-        return this.clearTimer();
-    }
+    //     }
+    //     return this.clearTimer();
+    // }
 }

@@ -1,9 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+// import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
 import { firebaseConfig } from './firebase-config';
 import { AngularFireModule } from 'angularfire2';
@@ -45,7 +46,7 @@ const Components = [
 const Modules = [
   BrowserModule,BrowserAnimationsModule,MaterializeModule,
   FormsModule, ReactiveFormsModule,MenuModule, PagesModule,
-  HttpModule, RouterModule,AuthModule,AppRoutingModule,
+  HttpClientModule, RouterModule,AuthModule,AppRoutingModule,
   ProductModule, CheckOutModule, RedirectModule,
   AngularFireAuthModule,AngularFireDatabaseModule,
   AngularFireModule.initializeApp(firebaseConfig),

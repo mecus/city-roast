@@ -3,14 +3,17 @@
         <form novalidate [formGroup]="blogForm" (ngSubmit)="createBlog(blogForm.value)">
             <div class="">
                 
-                <div class="imageup jumbotron">
-                    <!-- <div *ngIf="!progress" class="progress">
+                <div class="imageup jumbotron" >
+                    <!-- <div *ngIf="!progress" class="up-progress">
                         <i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i>
                         <div class="progress-bar"  style="width: 25%;" ><h3 style="color:lightslategrey; opacity:0.5">BLOG IMAGE</h3></div>
                     </div> -->
-                    <div *ngIf="progress" class="progress">
-                        <i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i>
-                        <div class="progress-bar"  style="width: 25%;" >{{progress}}% done..</div>
+                    <div *ngIf="progress" class="progress up-progress">
+                        <div class="determinate" [style.width.%]="progress" ></div>
+                    </div>
+                    <div *ngIf="progress" class="up-progress">
+                        <!-- <i class="fa fa-circle-o-notch fa-spin" aria-hidden="true"></i> -->
+                        <div class="progress-bar"  style="width: 25%;" >{{progress}}%</div>
                     </div>
                     <img [src]="returnImage"  alt="">
                     

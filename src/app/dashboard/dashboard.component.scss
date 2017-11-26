@@ -26,6 +26,10 @@
             h1{
                 color: lightslategrey;
                 font-size: 1.5rem;
+                &:hover{
+                    cursor: pointer;
+                    opacity: .8;
+                }
             }
         }
     }
@@ -61,5 +65,65 @@
     }
 }
 .out-let{
-    min-height: 500px;
+    height: 100%;
+    min-height: 600px;
+    width: 90%;
+    margin: 0 auto;
+    .dash-board{
+        min-height: 300px;
+        // background-color: lightgrey;
+        padding: 0px 20px !important;
+        margin-bottom: 50px;
+        a{
+            color: #ffffff;
+            margin-right: 50px;
+        }
+        .head{
+            display: flex;
+            flex-basis: 1;
+            padding-top: 10px;
+            i{
+                flex: 1;
+                position: relative;
+                top: 0;
+                right: 10px;
+                text-align: right;
+                color: red;
+            }
+            h1{
+                flex: 5;
+                margin: 0px;
+                padding: 0px;
+                font-family: 'Dosis', sans-serif; 
+                font-size: 1.8em;
+                color: slategray;
+                text-decoration: underline;
+                margin-right: 50px;
+            }
+            
+        }
+        span{margin-right: 50px;}
+        small{
+            color: red;
+        }
+        table{
+            padding: 20px !important;
+            td{
+                font-size: 12px !important;
+                i{
+                    font-size: 14px !important;
+                    &:hover{
+                        cursor: pointer;
+                        color: red;
+                    }
+                }
+            }
+            
+        }
+        form{
+            a{
+                color: #ffffff !important;
+            }
+        }
+    }
 }

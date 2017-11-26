@@ -1,12 +1,5 @@
 webpackJsonp(["styles"],{
 
-/***/ "../../../../../src/favicon.png":
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,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"
-
-/***/ }),
-
 /***/ "../../../../../src/styles.scss":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -57,7 +50,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Anton|Caveat:400,700|Courgette|Lobster|Pacifico|Satisfy);", ""]);
 
 // module
-exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\nbody {\n  padding: 0px;\n  margin: 0px; }\n  body ul li {\n    list-style: none;\n    padding: 0px;\n    margin: 0px; }\n\na {\n  color: red; }\n\n* {\n  box-sizing: border-box; }\n\n.content-body {\n  overflow: hidden; }\n\n.main-container {\n  margin: 0px;\n  padding: 0px;\n  width: 90%;\n  margin: 0 auto; }\n\n.loading {\n  position: absolute;\n  background-color: rgba(0, 0, 0, 0.5);\n  background: transparent;\n  width: 100%;\n  height: 100vh;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  text-align: center;\n  margin: 0 auto; }\n  .loading .text-loading {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    width: 500px;\n    margin-left: -250px; }\n    .loading .text-loading h5 {\n      color: grey;\n      text-align: center;\n      font-family: 'Caveat', cursive; }\n", ""]);
+exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\nbody {\n  padding: 0px;\n  margin: 0px; }\n  body ul li {\n    list-style: none;\n    padding: 0px;\n    margin: 0px; }\n\na {\n  color: red; }\n\n* {\n  box-sizing: border-box; }\n\n.content-body {\n  overflow: hidden; }\n\n.main-container {\n  margin: 0px;\n  padding: 0px;\n  width: 90%;\n  margin: 0 auto; }\n\n.loading {\n  position: absolute;\n  background-color: rgba(0, 0, 0, 0.5);\n  background: transparent;\n  width: 100%;\n  height: 100vh;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  text-align: center;\n  margin: 0 auto; }\n  .loading .text-loading {\n    position: absolute;\n    top: 30%;\n    left: 50%;\n    width: 500px;\n    margin-left: -250px; }\n    .loading .text-loading h5 {\n      color: grey;\n      text-align: center;\n      font-family: 'Caveat', cursive; }\n\n@media only screen and (min-width: 1400px) {\n  .main-container {\n    margin: 0px;\n    padding: 0px;\n    width: 75%;\n    margin: 0 auto; } }\n\n@media only screen and (min-width: 250px) and (max-width: 640px) {\n  .hide-on-mobile {\n    display: none; } }\n\n@media only screen and (min-width: 640px) {\n  .hide-on-desktop {\n    display: none; } }\n\n@media only screen and (max-width: 1200px) {\n  .hide-menu {\n    display: none; } }\n", ""]);
 
 // exports
 
@@ -501,7 +494,6 @@ function updateLink(linkElement, obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__("../../../../../src/styles.scss");
-__webpack_require__("../../../../../src/favicon.png");
 module.exports = __webpack_require__("../../../../materialize-css/dist/css/materialize.css");
 
 
